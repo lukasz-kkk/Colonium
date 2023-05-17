@@ -11,8 +11,8 @@ public class Launcher {
         config.useVsync(true);
         config.setTitle("Colonium");
 
-        config.setWindowedMode(1280, 720);
-
+        //config.setWindowedMode(1920, 1080);
+    config.setMaximized(true);
         config.setInitialBackgroundColor(new Color(0.5f, 0.5f, 0.6f, 0));
 
         new Lwjgl3Application(new Boot(), config);

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -29,7 +30,7 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0,0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        this.map = new Map(5, this, batch);
+        this.map = new Map(16, this, batch);
     }
 
     public void update(){
@@ -39,6 +40,7 @@ public class GameScreen extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
+        map.update();
     }
 
     @Override
