@@ -4,8 +4,13 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
+import java.io.IOException;
+
 public class Launcher {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, InterruptedException {
+        //Connection
+        Client client = new Client();
+        client.start();
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setIdleFPS(60);
         config.useVsync(true);
