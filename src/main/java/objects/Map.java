@@ -3,16 +3,15 @@ package objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import core.Boot;
 import core.GameScreen;
+import core.UserInput;
 
 public class Map {
     private final Texture texture;
     GameScreen gameScreen;
     SpriteBatch batch;
 
-    int numberOfProvinces;
+    public static int numberOfProvinces;
     private Province[] provinces;
     int[][] coordinates = {{355,293}, {700,160}, {1067,219}, {1395,323}, {330,505}, {573,487}, {757,357}, {1111,455}, {471,675}, {673,761}, {888,611}, {837,787}, {1005,903}, {1073,767}, {1279,901}, {1365,666}};
 
@@ -33,7 +32,7 @@ public class Map {
         }
 
     }
-
+    UserInput user = new UserInput();
     public void provincesRender(){
 
         batch.draw(texture,0,0);
@@ -45,5 +44,6 @@ public class Map {
         for(int i = 0; i < numberOfProvinces; i++){
             provinces[i].update();
         }
+        user.sneding_troops(provinces);
     }
 }
