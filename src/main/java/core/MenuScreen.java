@@ -16,6 +16,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL20;
 
 public class MenuScreen extends ScreenAdapter {
+
+    Client client = Launcher.getClient();
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final World world;
@@ -32,6 +34,8 @@ public class MenuScreen extends ScreenAdapter {
 
     private final int BUTTON_WIDTH = 600;
     private final int BUTTON_HEIGHT = 100;
+
+    private String message;
 
     public MenuScreen(OrthographicCamera camera){
         this.camera = camera;
@@ -87,6 +91,7 @@ public class MenuScreen extends ScreenAdapter {
             // start game
             if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
                 Boot.INSTANCE.setScreen(new GameScreen(camera));
+
         }
 
         if(Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f

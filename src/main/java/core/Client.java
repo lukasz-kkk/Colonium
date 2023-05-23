@@ -11,7 +11,12 @@ public class Client extends Thread {
     private OutputStream output;
     private InputStream input;
     private BufferedReader reader;
-    private String message = "Aczi to chuj";
+
+    public static void setMessage(String message) {
+        Client.message = message;
+    }
+
+    public static String message;
     private String messageDisc = "disconunu";
     private String response;
 
@@ -53,13 +58,16 @@ public class Client extends Thread {
             throw new RuntimeException(e);
         }
     }
-    private void sendMessage() {
+    public void sendMessage() {
         try {
             Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
             while (true) {
                 System.out.println("Sending request to Socket Server");
-                writer.write(message);
-                writer.flush();
+                if (message != null) {
+                    writer.write(message);
+                    Client.message = null;
+                    writer.flush();
+                }
                 Thread.sleep(1000);
             }
         } catch (IOException | InterruptedException e) {
