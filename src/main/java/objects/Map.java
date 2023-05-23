@@ -44,6 +44,6 @@ public class Map {
         for(int i = 0; i < numberOfProvinces; i++){
             provinces[i].update();
         }
-        user.sneding_troops(provinces);
+       user.sneding_troops(provinces);
     }
 }

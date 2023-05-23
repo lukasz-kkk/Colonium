@@ -10,12 +10,17 @@ public class UserInput
     int j=0;
     int check=0;
     int check2=0;
+    int mistakeX = (Province.WIDTH);
+    int mistakeY = (Province.HEIGHT);
+
+    public int[] send_move()
+    {
+        return new int[]{i,j};
+    }
     public void sneding_troops(Province[] provinces)
     {
         float endX=0;
         float endY=0;
-        int mistakeX = (Province.WIDTH);
-        int mistakeY = (Province.HEIGHT);
         float provinceX=0,provinceY=0;
         float startprovinceX=0,startprovinceY=0;
         if(Gdx.input.isTouched())
@@ -61,6 +66,7 @@ public class UserInput
         {
             provinces[j].setValue(provinces[j].getValue()+provinces[i].getValue());
             provinces[i].setValue(0);
+            send_move();
             check2=0;
             i=0;
             j=0;
@@ -72,6 +78,5 @@ public class UserInput
             check2=0;
             check=0;
         }
-
     }
 }
