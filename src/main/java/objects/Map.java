@@ -63,7 +63,7 @@ public class Map {
             provinces[i].render(batch);
         }
         if(user.isProvinceSelected()){
-            arrow.activate((int)user.getStartprovinceX(), (int)user.getStartprovinceY(), Gdx.input.getX(), 1020 - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
+            arrow.activate((int)user.getStartprovinceX(), (int)user.getStartprovinceY(), Gdx.input.getX(), Boot.INSTANCE.getScreenHeight() - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
             provinces[user.getFirst_provinceID()].render(batch);
         }
 
@@ -119,7 +119,6 @@ public class Map {
         provinces[22].owner = 4;
     }
 
-
     public void polygonRendererInit() {
         polyBatch = new PolygonSpriteBatch();
         Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -156,13 +155,21 @@ public class Map {
             JSONObject province = (JSONObject) iterator.next();
             JSONArray coords = (JSONArray) province.get("coords");
             JSONArray blobCoords = (JSONArray) province.get("blobCoords");
-            System.out.println(blobCoords);
             float[] coordsArray = new float[coords.size()];
             int[] blobCoordsArray = new int[blobCoords.size()];
-            for (int i = 0; i < coords.size(); i++)
+            for (int i = 0; i < coords.size(); i++){
                 coordsArray[i] = Float.parseFloat(coords.get(i).toString());
-            for (int i = 0; i < blobCoords.size(); i++)
+                if(i % 2 == 1) {
+                    coordsArray[i] -= (1018 - Boot.INSTANCE.getScreenHeight()) * 0.55;
+                }
+            }
+
+            for (int i = 0; i < blobCoords.size(); i++) {
                 blobCoordsArray[i] = Integer.parseInt(blobCoords.get(i).toString());
+                if(i % 2 == 1) {
+                    blobCoordsArray[i] -= (1018 - Boot.INSTANCE.getScreenHeight()) * 0.55;
+                }
+            }
             vertices[ind] = coordsArray;
             blobCoordinates[ind] = blobCoordsArray;
             ind++;
