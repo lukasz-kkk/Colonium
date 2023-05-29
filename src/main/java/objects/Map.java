@@ -43,7 +43,7 @@ public class Map {
             System.out.println(e);
         }
         this.texture = new Texture("white.png");
-        this.backgroundTexture = new Texture("prov1_borders.png");
+        this.backgroundTexture = new Texture("maps/prov1_borders.png");
 
         provincesInit();
         polygonRendererInit();
@@ -141,9 +141,9 @@ public class Map {
 
 
     private void jsonRead() throws Exception{
-        Object obj = new JSONParser().parse(new FileReader("src/main/resources/map_1.json"));
+        Object obj = new JSONParser().parse(new FileReader("src/main/resources/maps/map_1.json"));
         JSONObject jsonObject = (JSONObject) obj;
-        pngPath = (String) jsonObject.get("prov1_borders.png");
+        pngPath = (String) jsonObject.get("maps/prov1_borders.png");
         JSONArray provinces = (JSONArray) jsonObject.get("provinces");
         Iterator<?> iterator = provinces.iterator();
 

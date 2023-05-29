@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL20;
 
 public class MenuScreen extends ScreenAdapter {
@@ -40,12 +39,12 @@ public class MenuScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        this.buttonIdleTexture = new Texture("button_idle.png");
-        this.buttonTouchTexture = new Texture("button_touch.png");
-        this.backgroundTexture = new Texture("menu_background.png");
-        this.logoTexture = new Texture("logo.png");
+        this.buttonIdleTexture = new Texture("UI_elements/button_idle.png");
+        this.buttonTouchTexture = new Texture("UI_elements/button_touch.png");
+        this.backgroundTexture = new Texture("UI_elements/menu_background.png");
+        this.logoTexture = new Texture("UI_elements/logo.png");
         //font
-        font = new BitmapFont(Gdx.files.internal("font20.fnt"), Gdx.files.internal("font20.png"), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
     }
 
