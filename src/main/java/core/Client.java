@@ -1,5 +1,8 @@
 package core;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +16,9 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
-    private String response;
+    private String response = null;
+
+    static JSONObject jsonResponse = null;
 
     public void run() {
         try {
@@ -47,9 +52,13 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             String response;
             while ((response = reader.readLine()) != null) {
-                System.out.println("Response from server: " + response);
+                //System.out.println("Response from server: \n" + response);
+                jsonResponse = MessageUtility.reciveJSON(response);
+                if(!response.isEmpty()){
+                    System.out.println("Response from server JSON: \n" + jsonResponse);
+                }
             }
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
