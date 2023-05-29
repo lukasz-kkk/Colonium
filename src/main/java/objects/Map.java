@@ -73,7 +73,8 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].update();
         }
-       user.sneding_troops(provinces);
+       user.sending_troops(provinces);
+       user.messageReciver(provinces);
     }
 
 
