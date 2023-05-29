@@ -13,7 +13,6 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
-    //private String messageDisc = "disconunu";
     private String response;
 
     public void run() {
@@ -60,8 +59,9 @@ public class Client extends Thread {
             while (true) {
                 System.out.println("Sending request to Socket Server");
                 if (message != null) {
+                    System.out.println(message);
                     writer.write(message);
-                    //Client.message = null;
+                    Client.message = null;
                     writer.flush();
                 }
                 Thread.sleep(3000);

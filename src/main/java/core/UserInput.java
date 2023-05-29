@@ -14,9 +14,9 @@ public class UserInput
     int first_province_selected =0;
     int second_province_selected =0;
     float startprovinceX=0,startprovinceY=0;
-    public int[] send_move()
+    public void send_move(int src, int dst)
     {
-        return new int[]{first_provinceID, second_provinceID};
+        Client.message = MessageUtility.createAttackJSON(src, dst);
     }
     public void sneding_troops(Province[] provinces)
     {
@@ -68,7 +68,7 @@ public class UserInput
         {
             provinces[second_provinceID].setValue(provinces[second_provinceID].getValue()+provinces[first_provinceID].getValue());
             provinces[first_provinceID].setValue(0);
-            send_move();
+            send_move(first_provinceID, second_provinceID);
             second_province_selected =0;
             first_temp =-1;
             second_temp =-2;

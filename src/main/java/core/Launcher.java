@@ -17,7 +17,6 @@ public class Launcher {
         //Connection
         client = new Client();
         client.start();
-        client.message = MessageUtility.createMoveJSON(1, 23);
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 16);
         config.setIdleFPS(60);
