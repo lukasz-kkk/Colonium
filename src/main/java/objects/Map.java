@@ -133,7 +133,7 @@ public class Map {
 
 
     private void jsonRead() throws Exception{
-        Object obj = new JSONParser().parse(new FileReader("map_1.json"));
+        Object obj = new JSONParser().parse(new FileReader("src/main/resources/map_1.json"));
         JSONObject jsonObject = (JSONObject) obj;
         pngPath = (String) jsonObject.get("prov1_borders.png");
         JSONArray provinces = (JSONArray) jsonObject.get("provinces");
