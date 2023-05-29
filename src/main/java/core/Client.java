@@ -57,8 +57,10 @@ public class Client extends Thread {
                 if(!response.isEmpty()){
                     System.out.println("Response from server JSON: \n" + jsonResponse);
                 }
+                Thread.sleep(5000);
+                jsonResponse = null;
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
