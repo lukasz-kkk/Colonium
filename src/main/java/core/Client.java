@@ -12,12 +12,8 @@ public class Client extends Thread {
     private InputStream input;
     private BufferedReader reader;
 
-    public static void setMessage(String message) {
-        Client.message = message;
-    }
-
     public static String message;
-    private String messageDisc = "disconunu";
+    //private String messageDisc = "disconunu";
     private String response;
 
     public void run() {
@@ -65,10 +61,10 @@ public class Client extends Thread {
                 System.out.println("Sending request to Socket Server");
                 if (message != null) {
                     writer.write(message);
-                    Client.message = null;
+                    //Client.message = null;
                     writer.flush();
                 }
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
