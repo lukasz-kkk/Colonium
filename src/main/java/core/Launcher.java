@@ -19,12 +19,13 @@ public class Launcher {
         client.start();
         client.message = MessageUtility.createMoveJSON(1, 23);
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 16);
         config.setIdleFPS(60);
         config.useVsync(true);
         config.setTitle("Colonium");
 
-        //config.setWindowedMode(1920, 1080);
-    config.setMaximized(true);
+        config.setMaximized(true);
+
         config.setInitialBackgroundColor(new Color(0.5f, 0.5f, 0.6f, 0));
         new Lwjgl3Application(new Boot(), config);
     }
