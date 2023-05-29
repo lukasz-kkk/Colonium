@@ -33,11 +33,11 @@ public class MenuScreen extends ScreenAdapter {
     private final int BUTTON_WIDTH = 600;
     private final int BUTTON_HEIGHT = 100;
 
-    public MenuScreen(OrthographicCamera camera){
+    public MenuScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2,Boot.INSTANCE.getScreenHeight() / 2, 0));
+        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2, Boot.INSTANCE.getScreenHeight() / 2, 0));
         this.batch = new SpriteBatch();
-        this.world = new World(new Vector2(0,0), false);
+        this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         this.buttonIdleTexture = new Texture("button_idle.png");
@@ -45,15 +45,15 @@ public class MenuScreen extends ScreenAdapter {
         this.backgroundTexture = new Texture("menu_background.png");
         this.logoTexture = new Texture("logo.png");
         //font
-        font = new BitmapFont(Gdx.files.internal("font20.fnt"),Gdx.files.internal("font20.png"),false);
+        font = new BitmapFont(Gdx.files.internal("font20.fnt"), Gdx.files.internal("font20.png"), false);
         font.getData().setScale(1f);
     }
 
-    public void update(){
+    public void update() {
         buttonStartTexture = buttonIdleTexture;
         buttonQuitTexture = buttonIdleTexture;
 
-        world.step(1/60f, 6, 2);
+        world.step(1 / 60f, 6, 2);
         batch.setProjectionMatrix(camera.combined);
 
         mouseHandle();
@@ -61,7 +61,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     @Override
-    public void render(float delta){
+    public void render(float delta) {
         update();
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.6f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -73,35 +73,37 @@ public class MenuScreen extends ScreenAdapter {
 
         batch.end();
     }
-    public void buttonsRender(){
-        batch.draw(buttonStartTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f,Boot.INSTANCE.getScreenHeight() / 2f, BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(buttonQuitTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f,Boot.INSTANCE.getScreenHeight() / 2f - 150, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+    public void buttonsRender() {
+        batch.draw(buttonStartTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f, Boot.INSTANCE.getScreenHeight() / 2f, BUTTON_WIDTH, BUTTON_HEIGHT);
+        batch.draw(buttonQuitTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f, Boot.INSTANCE.getScreenHeight() / 2f - 150, BUTTON_WIDTH, BUTTON_HEIGHT);
         font.draw(batch, "Start game", Boot.INSTANCE.getScreenWidth() / 2f - 110, Boot.INSTANCE.getScreenHeight() / 2f + 70);
         font.draw(batch, "Quit game", Boot.INSTANCE.getScreenWidth() / 2f - 90, Boot.INSTANCE.getScreenHeight() / 2f - 80);
     }
 
-    public void mouseHandle(){
-        if(Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
-                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT  && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f){
+    public void mouseHandle() {
+        if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
+                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f) {
             buttonStartTexture = buttonTouchTexture;
             // start game
-            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
                 Boot.INSTANCE.setScreen(new GameScreen(camera));
         }
 
-        if(Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
-                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT + 150 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f + 150){
+        if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
+                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT + 150 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f + 150) {
             buttonQuitTexture = buttonTouchTexture;
             // quit game
-            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
                 Gdx.app.exit();
         }
     }
-    public void backgroundRender(){
+
+    public void backgroundRender() {
         batch.draw(backgroundTexture, 0, 0, Boot.INSTANCE.getScreenWidth(), Boot.INSTANCE.getScreenHeight());
 
         // logo
-        batch.draw(logoTexture, Boot.INSTANCE.getScreenWidth() / 2f - 350,Boot.INSTANCE.getScreenHeight() / 2f + 300);
+        batch.draw(logoTexture, Boot.INSTANCE.getScreenWidth() / 2f - 350, Boot.INSTANCE.getScreenHeight() / 2f + 300);
     }
 
 }
