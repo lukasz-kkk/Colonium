@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.ShortArray;
 import core.Boot;
 import core.GameScreen;
+import core.UserInput;
 
 import java.awt.*;
 
@@ -22,7 +23,7 @@ public class Map {
     PolygonSpriteBatch polyBatch;
     private final Texture backgroundTexture;
     private Texture pixTexture;
-    int numberOfProvinces;
+    public static int numberOfProvinces;
     private Province[] provinces;
     int[][] coordinates = {{330, 302}, {443, 355}, {564, 381}, {753, 355}, {954, 438}, {987, 328}, {1122, 336}, {1210, 258}, {1397, 337}, {395, 578}, {551, 559}, {721, 479}, {871, 502}, {1082, 425}, {1222, 417}, {1347, 443}, {414, 671}, {529, 785}, {671, 684}, {803, 652}, {947, 616}, {1077, 556}, {1170, 664}, {1285, 586}, {788, 797}, {964, 840}, {1023, 746}};
 
@@ -46,6 +47,7 @@ public class Map {
         }
     }
 
+    UserInput user = new UserInput();
     public void provincesRender() {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].render(batch);
@@ -56,6 +58,7 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].update();
         }
+       user.sneding_troops(provinces);
     }
 
 

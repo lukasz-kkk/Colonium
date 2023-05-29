@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import core.Boot;
 import core.GameScreen;
 
+import static java.lang.Math.abs;
+
 public class Province {
     private Body body;
     public int ID;
@@ -21,11 +23,19 @@ public class Province {
     private Texture texture;
     public static int RADIUS = 20;
     private BitmapFont font;
-    private int value = 0;
+    private int value=0;
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
     private int counter = 0;
     private final int timeout = MathUtils.random(60, 160);
     private final int unitsCap = MathUtils.random(30, 60);
     ShapeRenderer shapeRenderer;
+
 
     public Province(float xPosition, float yPosition, int ID, GameScreen gameScreen) {
         this.xPosition = xPosition;
@@ -38,6 +48,16 @@ public class Province {
         font.setColor(Color.BLACK);
         font.getData().setScale(.4f);
         shapeRenderer = new ShapeRenderer();
+    }
+
+    public float getXposition()
+    {
+        return xPosition;
+    }
+
+    public float getYposition()
+    {
+        return yPosition;
     }
 
     public void render(SpriteBatch batch) {
@@ -68,9 +88,9 @@ public class Province {
         if (owner == 4)
             shapeRenderer.setColor(new Color(Color.YELLOW));
     }
-
-    public void update() {
-        if (counter % timeout == 0 && value != unitsCap) value++;
+  
+    public void update(){
+        if (counter%timeout==0&&value<=unitsCap)value++;
         counter++;
     }
 }
