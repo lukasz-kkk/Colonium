@@ -13,6 +13,7 @@ public class UserInput
     int second_temp=-2;
     int first_province_selected =0;
     int second_province_selected =0;
+    float startprovinceX=0,startprovinceY=0;
     public int[] send_move()
     {
         return new int[]{first_provinceID, second_provinceID};
@@ -22,7 +23,6 @@ public class UserInput
         float endX=0;
         float endY=0;
         float provinceX=0,provinceY=0;
-        float startprovinceX=0,startprovinceY=0;
         if(Gdx.input.isTouched())
         {
             if(first_province_selected ==0)
@@ -80,5 +80,20 @@ public class UserInput
             second_province_selected =0;
             first_province_selected =0;
         }
+    }
+    public boolean isProvinceSelected(){
+        return first_province_selected == 1;
+    }
+
+    public float getStartprovinceX() {
+        return startprovinceX;
+    }
+
+    public float getStartprovinceY() {
+        return startprovinceY;
+    }
+
+    public int getFirst_provinceID() {
+        return first_provinceID;
     }
 }

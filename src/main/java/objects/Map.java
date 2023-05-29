@@ -1,5 +1,6 @@
 package objects;
 
+import UI.Arrow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -30,6 +31,7 @@ public class Map {
     String pngPath;
     float[][] vertices;
     int[][] blobCoordinates;
+    Arrow arrow = new Arrow();
 
     public Map(int numberOfProvinces, GameScreen gameScreen, SpriteBatch batch) {
         Map.numberOfProvinces = numberOfProvinces;
@@ -60,6 +62,11 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].render(batch);
         }
+        if(user.isProvinceSelected()){
+            arrow.activate((int)user.getStartprovinceX(), (int)user.getStartprovinceY(), Gdx.input.getX(), 1020 - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
+            provinces[user.getFirst_provinceID()].render(batch);
+        }
+
     }
 
     public void update() {
@@ -80,6 +87,7 @@ public class Map {
         batch.begin();
         batch.draw(backgroundTexture, 0, 0, Boot.INSTANCE.getScreenWidth(), Boot.INSTANCE.getScreenHeight());
         batch.end();
+
     }
 
     public void polygonRender(int polygonID) {
