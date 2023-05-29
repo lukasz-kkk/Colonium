@@ -20,7 +20,7 @@ public class Province {
     public int owner; // PLAYER_ID 0 - neutral
     private final float xPosition, yPosition;
     private GameScreen gameScreen;
-    private Texture texture;
+
     public static int RADIUS = 20;
     private BitmapFont font;
     private int value=0;
@@ -44,7 +44,6 @@ public class Province {
         this.ID = ID;
         this.owner = 0;
         font = new BitmapFont(Gdx.files.internal("font20.fnt"), Gdx.files.internal("font20.png"), false);
-        this.texture = new Texture("test_blob.png");
         font.setColor(Color.BLACK);
         font.getData().setScale(.4f);
         shapeRenderer = new ShapeRenderer();
