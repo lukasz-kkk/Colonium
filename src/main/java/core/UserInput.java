@@ -3,19 +3,19 @@ package core;
 import com.badlogic.gdx.Gdx;
 import objects.Map;
 import objects.Province;
+import java.lang.Math;
 
 public class UserInput
 {
-    int i=0;
-    int j=0;
-    int check=0;
-    int check2=0;
-    int mistakeX = (Province.WIDTH);
-    int mistakeY = (Province.HEIGHT);
-
+    int first_provinceID =0;
+    int second_provinceID =0;
+    int first_temp=-1;
+    int second_temp=-2;
+    int first_province_selected =0;
+    int second_province_selected =0;
     public int[] send_move()
     {
-        return new int[]{i,j};
+        return new int[]{first_provinceID, second_provinceID};
     }
     public void sneding_troops(Province[] provinces)
     {
@@ -25,58 +25,60 @@ public class UserInput
         float startprovinceX=0,startprovinceY=0;
         if(Gdx.input.isTouched())
         {
-            if(check==0)
+            if(first_province_selected ==0)
             {
                 float startX = Gdx.input.getX();
                 float startY = Gdx.graphics.getHeight() - Gdx.input.getY();
-                for(;i<Map.numberOfProvinces;i++)
+                for(first_provinceID=0; first_provinceID <Map.numberOfProvinces; first_provinceID++)
                 {
-                    startprovinceX = provinces[i].getXposition();
-                    startprovinceY = provinces[i].getYposition();
+                    startprovinceX = provinces[first_provinceID].getXposition();
+                    startprovinceY = provinces[first_provinceID].getYposition();
 
-                    if((startX>=(startprovinceX-mistakeX) && startX<=(startprovinceX+mistakeX)) && (startY>=(startprovinceY-mistakeY) && startY<=(startprovinceY+mistakeY)))
+                    if(Math.sqrt(Math.pow(startX-(startprovinceX),2)+Math.pow((startY-startprovinceY),2))<=20)
                     {
-                        check=1;
+                        first_temp=first_provinceID;
+                        first_province_selected =1;
                         break;
                     }
                 }
-                if(check!=1) i=0;
+                if(first_province_selected !=1) first_temp =-1;
             }
         }
-        else if(check==1 && !Gdx.input.isTouched())
+        else if(first_province_selected ==1 && !Gdx.input.isTouched())
         {
             endX = Gdx.input.getX();
             endY =Gdx.graphics.getHeight() - Gdx.input.getY();
-            for(;j<Map.numberOfProvinces;j++)
+            for(second_provinceID=0; second_provinceID <Map.numberOfProvinces; second_provinceID++)
             {
-                provinceX = provinces[j].getXposition();
-                provinceY = provinces[j].getYposition();
+                provinceX = provinces[second_provinceID].getXposition();
+                provinceY = provinces[second_provinceID].getYposition();
 
-                if((endX>=(provinceX-mistakeX) && endX<=(provinceX+mistakeX)) && (endY>=(provinceY-mistakeY) && endY<=(provinceY+mistakeY)))
+                if(Math.sqrt(Math.pow(endX-(provinceX),2)+Math.pow((endY-provinceY),2))<=20)
                 {
-                    check2=1;
+                    second_temp = second_provinceID;
+                    second_province_selected =1;
                     break;
                 }
             }
-            if(check2!=1) j=0;
-            check=0;
+            if(second_province_selected !=1) second_temp =-2;
+            first_province_selected =0;
         }
 
-        if(check2==1 && i != j)
+        if(second_province_selected ==1 && first_temp != second_temp)
         {
-            provinces[j].setValue(provinces[j].getValue()+provinces[i].getValue());
-            provinces[i].setValue(0);
+            provinces[second_provinceID].setValue(provinces[second_provinceID].getValue()+provinces[first_provinceID].getValue());
+            provinces[first_provinceID].setValue(0);
             send_move();
-            check2=0;
-            i=0;
-            j=0;
+            second_province_selected =0;
+            first_temp =-1;
+            second_temp =-2;
         }
-        else if(i==j)
+        else if(first_temp == second_temp)
         {
-            i=0;
-            j=0;
-            check2=0;
-            check=0;
+            first_temp =-1;
+            second_temp =-2;
+            second_province_selected =0;
+            first_province_selected =0;
         }
     }
 }
