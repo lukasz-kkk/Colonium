@@ -1,5 +1,6 @@
 package Utils;
 
+import com.badlogic.gdx.utils.Timer;
 import objects.Map;
 import objects.Province;
 import objects.Unit;
@@ -34,12 +35,26 @@ public class UnitHandler {
         }
     }
 
-    public void sendUnits(int source, int destination) {
+    public void sendUnit(int source, int destination) {
         Unit toAdd = new Unit((int)Map.provinces[source].getXposition(),(int) Map.provinces[source].getYposition(),
                 (int)Map.provinces[destination].getXposition(),(int) Map.provinces[destination].getYposition());
         toAdd.setColor(Map.provinces[source].owner);
         unitList.add(toAdd);
         numberOfUnits++;
+    }
+
+    public void sendUnits(int source, int destination){
+        Timer.schedule(new Timer.Task() {
+            int counter = 0;
+            @Override
+            public void run() {
+                sendUnit(source, destination);
+                counter++;
+                if (counter >= 3) {
+                    this.cancel();
+                }
+            }
+        }, 0, 0.1f);
     }
 
 }
