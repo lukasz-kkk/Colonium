@@ -35,7 +35,7 @@ public class Arrow {
     float[] vertices = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     public Arrow() {
-        this.texture = new Texture("white.png");
+        this.texture = new Texture("white_transparency.png");
         polygonRendererInit();
     }
 

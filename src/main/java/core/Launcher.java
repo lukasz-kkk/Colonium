@@ -15,8 +15,8 @@ public class Launcher {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         //Connection
-        client = new Client();
-        client.start();
+        //client = new Client();
+       // client.start();
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 16);
         config.setIdleFPS(60);

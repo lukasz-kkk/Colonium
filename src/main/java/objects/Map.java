@@ -26,7 +26,7 @@ public class Map {
     PolygonSpriteBatch polyBatch;
     private final Texture backgroundTexture;
     public static int numberOfProvinces;
-    private Province[] provinces;
+    public static Province[] provinces;
 
     String pngPath;
     float[][] vertices;

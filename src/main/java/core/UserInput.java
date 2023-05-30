@@ -17,6 +17,7 @@ public class UserInput
     public void send_move(int src, int dst)
     {
         Client.message = MessageUtility.createAttackJSON(src, dst);
+        GameScreen.unitHandler.sendUnits(src, dst);
     }
     public void sneding_troops(Province[] provinces)
     {
