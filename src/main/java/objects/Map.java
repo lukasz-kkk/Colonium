@@ -26,7 +26,7 @@ public class Map {
     PolygonSpriteBatch polyBatch;
     private final Texture backgroundTexture;
     public static int numberOfProvinces;
-    private Province[] provinces;
+    public static Province[] provinces;
 
     String pngPath;
     float[][] vertices;
@@ -55,6 +55,7 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i] = new Province(blobCoordinates[i][0] + 50, Gdx.graphics.getHeight() - blobCoordinates[i][1] + 50, i, gameScreen);
         }
+
     }
 
     UserInput user = new UserInput();
@@ -74,7 +75,7 @@ public class Map {
             provinces[i].update();
         }
        user.sending_troops(provinces);
-       user.messageReciver(provinces);
+//       user.messageReciver(provinces);
     }
 
 

@@ -18,22 +18,22 @@ public class UserInput
     {
         Client.message = MessageUtility.createAttackJSON(src, dst);
     }
-    public void messageReciver(Province[] provinces)
-    {
-        if (Client.jsonResponse!=null)
-        {
-            String type = Client.jsonResponse.get("type").toString();
-            if(type.equals("attack"))
-            {
-                String srcs = Client.jsonResponse.get("src").toString();
-                int src = Integer.parseInt(srcs);
-                srcs = Client.jsonResponse.get("dsc").toString();
-                int dsc = Integer.parseInt(srcs);
-                provinces[dsc].setValue(provinces[dsc].getValue()+provinces[src].getValue());
-                provinces[src].setValue(0);
-            }
-        }
-    }
+//    public void messageReciver(Province[] provinces)
+//    {
+//        if (Client.jsonResponse!=null)
+//        {
+//            String type = Client.jsonResponse.get("type").toString();
+//            if(type.equals("attack"))
+//            {
+//                String srcs = Client.jsonResponse.get("src").toString();
+//                int src = Integer.parseInt(srcs);
+//                srcs = Client.jsonResponse.get("dsc").toString();
+//                int dsc = Integer.parseInt(srcs);
+//                provinces[dsc].setValue(provinces[dsc].getValue()+provinces[src].getValue());
+//                provinces[src].setValue(0);
+//            }
+//        }
+//    }
     public void sending_troops(Province[] provinces)
     {
         float endX=0;

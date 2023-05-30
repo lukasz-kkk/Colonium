@@ -57,8 +57,8 @@ public class Client extends Thread {
                 if(!response.isEmpty()){
                     System.out.println("Response from server JSON: \n" + jsonResponse);
                 }
-                Thread.sleep(30000);
-//                jsonResponse = null;
+                Thread.sleep(100);
+                jsonResponse = null;
             }
         } catch (IOException | ParseException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -68,14 +68,14 @@ public class Client extends Thread {
         try {
             Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
             while (true) {
-                System.out.println("Sending request to Socket Server");
+                //System.out.println("Sending request to Socket Server");
                 if (message != null) {
                     System.out.println(message);
                     writer.write(message);
                     Client.message = null;
                     writer.flush();
                 }
-                Thread.sleep(3000);
+                Thread.sleep(100);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
