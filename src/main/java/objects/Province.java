@@ -2,14 +2,11 @@ package objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
-import core.Boot;
 import core.GameScreen;
 
 import static java.lang.Math.abs;
@@ -43,9 +40,9 @@ public class Province {
         this.gameScreen = gameScreen;
         this.ID = ID;
         this.owner = 0;
-        font = new BitmapFont(Gdx.files.internal("font20.fnt"), Gdx.files.internal("font20.png"), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"), Gdx.files.internal("fonts/font10.png"), false);
         font.setColor(Color.BLACK);
-        font.getData().setScale(.4f);
+        font.getData().setScale(1);
         shapeRenderer = new ShapeRenderer();
     }
 
@@ -70,8 +67,11 @@ public class Province {
 
         shapeRenderer.end();
 
+        int numOfDigits = (int) Math.floor(Math.log10(value)) + 1;
+        if(value == 0) numOfDigits = 1;
+        int fontOffset = 1 + numOfDigits * 5;
         batch.begin();
-        font.draw(batch, String.valueOf(value), xPosition - 5, yPosition + 5);
+        font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 7);
         batch.end();
     }
 

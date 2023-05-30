@@ -1,5 +1,6 @@
 package core;
 
+import Utils.UnitHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -22,6 +23,7 @@ public class GameScreen extends ScreenAdapter {
 
     // game objects
     private Map map;
+    public static UnitHandler unitHandler;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -31,6 +33,7 @@ public class GameScreen extends ScreenAdapter {
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         this.map = new Map(27, this, batch);
+        this.unitHandler = new UnitHandler();
     }
 
     public void update() {
@@ -41,6 +44,7 @@ public class GameScreen extends ScreenAdapter {
             Gdx.app.exit();
         }
         map.update();
+        unitHandler.update();
     }
 
     @Override
@@ -51,7 +55,8 @@ public class GameScreen extends ScreenAdapter {
 
         map.render();
 
-        map.provincesRender();
+        unitHandler.render();
 
+        map.provincesRender();
     }
 }
