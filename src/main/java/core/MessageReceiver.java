@@ -14,17 +14,22 @@ public class MessageReceiver extends Thread {
             if (Client.jsonResponse != null)
             {
                 String type = Client.jsonResponse.get("type").toString();
-                //System.out.println("kurwa" +type+'\n');
                 if (type.equals("attack"))
                 {
                     String srcs = Client.jsonResponse.get("src").toString();
                     int src = Integer.parseInt(srcs);
                     //System.out.println(srcs+'\n');
                     srcs = Client.jsonResponse.get("dst").toString();
-                    int dsc = Integer.parseInt(srcs);
+                    int dst = Integer.parseInt(srcs);
                     //System.out.println(srcs+'\n');
-                    provinces[dsc].setValue(provinces[dsc].getValue() + provinces[src].getValue());
-                    provinces[src].setValue(0);
+//                    provinces[dst].setValue(provinces[dst].getValue() + provinces[src].getValue());
+//                    provinces[src].setValue(0);
+                    GameScreen.unitHandler.sendUnits(src, dst);
+                    Client.jsonResponse = null;
+                }
+                else if(type.equals("map")){
+                    System.out.println(Client.jsonResponse);
+                    MessageUtility.jsonMapMessageDecoder(Client.jsonResponse);
                     Client.jsonResponse = null;
                 }
             }

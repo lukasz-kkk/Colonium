@@ -39,7 +39,7 @@ public class Province {
         this.yPosition = yPosition;
         this.gameScreen = gameScreen;
         this.ID = ID;
-        this.owner = 0;
+        //this.owner = 0;
         font = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"), Gdx.files.internal("fonts/font10.png"), false);
         font.setColor(Color.BLACK);
         font.getData().setScale(1);
@@ -89,7 +89,7 @@ public class Province {
     }
   
     public void update(){
-        if (counter%timeout==0&&value<=unitsCap)value++;
-        counter++;
+//        if (counter%timeout==0&&value<=unitsCap)value++;
+//        counter++;
     }
 }

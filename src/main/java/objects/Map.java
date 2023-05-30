@@ -47,7 +47,7 @@ public class Map {
 
         provincesInit();
         polygonRendererInit();
-        testInitValues();
+        //testInitValues();
     }
 
     private void provincesInit() {

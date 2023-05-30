@@ -16,6 +16,7 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
+    private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
 
     static JSONObject jsonResponse = null;
@@ -28,12 +29,15 @@ public class Client extends Thread {
 
             Thread senderThread = new Thread(this::sendMessage);
             Thread receiverThread = new Thread(this::receiveMessage);
+            Thread sendMapUpdateRequestThread = new Thread(this::sendMapRequest);
 
             senderThread.start();
             receiverThread.start();
+            sendMapUpdateRequestThread.start();
 
             senderThread.join();
             receiverThread.join();
+            sendMapUpdateRequestThread.join();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
@@ -55,7 +59,7 @@ public class Client extends Thread {
                 //System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
                 if(!response.isEmpty()){
-                    System.out.println("Response from server JSON: \n" + jsonResponse);
+                    //System.out.println("Response from server JSON: \n" + jsonResponse);
                 }
                 Thread.sleep(100);
                 jsonResponse = null;
@@ -75,6 +79,18 @@ public class Client extends Thread {
                     Client.message = null;
                     writer.flush();
                 }
+                Thread.sleep(100);
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void sendMapRequest(){
+        try{
+            Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
+            while(true){
+                writer.write(mapRequest);
+                writer.flush();
                 Thread.sleep(100);
             }
         } catch (IOException | InterruptedException e) {
