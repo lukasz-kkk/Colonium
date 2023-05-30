@@ -55,6 +55,7 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i] = new Province(blobCoordinates[i][0] + 50, Gdx.graphics.getHeight() - blobCoordinates[i][1] + 50, i, gameScreen);
         }
+
     }
 
     UserInput user = new UserInput();
@@ -73,7 +74,8 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].update();
         }
-       user.sneding_troops(provinces);
+       user.sending_troops(provinces);
+//       user.messageReciver(provinces);
     }
 
 
