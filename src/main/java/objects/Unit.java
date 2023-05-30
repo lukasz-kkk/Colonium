@@ -3,6 +3,7 @@ package objects;
 import Utils.AnimationAccessor;
 import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -43,10 +44,22 @@ public class Unit {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        shapeRenderer.setColor(1, 1, 1, 1); // BLACK
         shapeRenderer.circle(Xpos, Ypos, RADIUS);
 
         shapeRenderer.end();
+    }
+
+    public void setColor(int owner){
+        if (owner == 0)
+            shapeRenderer.setColor(new Color(Color.WHITE));
+        if (owner == 1)
+            shapeRenderer.setColor(new Color(Color.BLUE));
+        if (owner == 2)
+            shapeRenderer.setColor(new Color(Color.RED));
+        if (owner == 3)
+            shapeRenderer.setColor(new Color(Color.GREEN));
+        if (owner == 4)
+            shapeRenderer.setColor(new Color(Color.YELLOW));
     }
 
     public void dispose() {

@@ -28,13 +28,17 @@ public class UnitHandler {
                 toDelete = unit;
             }
         }
-        if(toDelete != null)
+        if(toDelete != null) {
+            toDelete.dispose();
             unitList.remove(toDelete);
+        }
     }
 
     public void sendUnits(int source, int destination) {
-        unitList.add(new Unit((int)Map.provinces[source].getXposition(),(int) Map.provinces[source].getYposition(),
-                (int)Map.provinces[destination].getXposition(),(int) Map.provinces[destination].getYposition()));
+        Unit toAdd = new Unit((int)Map.provinces[source].getXposition(),(int) Map.provinces[source].getYposition(),
+                (int)Map.provinces[destination].getXposition(),(int) Map.provinces[destination].getYposition());
+        toAdd.setColor(Map.provinces[source].owner);
+        unitList.add(toAdd);
         numberOfUnits++;
     }
 
