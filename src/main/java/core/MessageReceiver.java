@@ -24,7 +24,9 @@ public class MessageReceiver extends Thread {
                     //System.out.println(srcs+'\n');
 //                    provinces[dst].setValue(provinces[dst].getValue() + provinces[src].getValue());
 //                    provinces[src].setValue(0);
-                    GameScreen.unitHandler.sendUnits(src, dst);
+                    if(GameScreen.unitHandler != null){
+                        GameScreen.unitHandler.sendUnits(src, dst);
+                    }
                     Client.jsonResponse = null;
                 }
                 else if(type.equals("map")){

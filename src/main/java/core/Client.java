@@ -28,8 +28,11 @@ public class Client extends Thread {
             input = socket.getInputStream();
 
             Thread senderThread = new Thread(this::sendMessage);
+            senderThread.setName("Sender");
             Thread receiverThread = new Thread(this::receiveMessage);
+            receiverThread.setName("Reciver");
             Thread sendMapUpdateRequestThread = new Thread(this::sendMapRequest);
+            sendMapUpdateRequestThread.setName("Updater");
 
             senderThread.start();
             receiverThread.start();
@@ -56,6 +59,11 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             String response;
             while ((response = reader.readLine()) != null) {
+                if(response.charAt(0) == 'J'){
+                    System.out.println("Error Here");
+                    System.out.println(response);
+                    return;
+                }
                 //System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
                 if(!response.isEmpty()){
@@ -91,7 +99,7 @@ public class Client extends Thread {
             while(true){
                 writer.write(mapRequest);
                 writer.flush();
-                Thread.sleep(100);
+                Thread.sleep(250);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
