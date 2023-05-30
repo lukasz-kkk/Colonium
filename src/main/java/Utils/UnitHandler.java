@@ -54,7 +54,7 @@ public class UnitHandler {
                     this.cancel();
                 }
             }
-        }, 0, 0.1f);
+        }, 0, 0.3f);
     }
 
 }

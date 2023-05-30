@@ -10,7 +10,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class Unit {
     ShapeRenderer shapeRenderer;
-    private final TweenManager tweenManager;
+    private TweenManager tweenManager;
 
     int ID;
 
@@ -64,7 +64,9 @@ public class Unit {
 
     public void dispose() {
         shapeRenderer.dispose();
+        tweenManager.killTarget(this);
         shapeRenderer = null;
+        tweenManager = null;
     }
 
     public float getX() {
