@@ -1,5 +1,6 @@
 package core;
 
+import UI.UpgradeMenu;
 import Utils.UnitHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -24,6 +25,7 @@ public class GameScreen extends ScreenAdapter {
     // game objects
     private Map map;
     public static UnitHandler unitHandler;
+    private UpgradeMenu upgradeMenu;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -34,6 +36,7 @@ public class GameScreen extends ScreenAdapter {
 
         this.map = new Map(27, this, batch);
         this.unitHandler = new UnitHandler();
+        this.upgradeMenu = new UpgradeMenu();
     }
 
     public void update() {
@@ -43,8 +46,10 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
+
         map.update();
         unitHandler.update();
+        upgradeMenu.update();
     }
 
     @Override
@@ -58,5 +63,7 @@ public class GameScreen extends ScreenAdapter {
         unitHandler.render();
 
         map.provincesRender();
+
+        upgradeMenu.show();
     }
 }
