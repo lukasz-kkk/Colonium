@@ -9,21 +9,23 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 public class Unit {
-    ShapeRenderer shapeRenderer;
     private TweenManager tweenManager;
-
+    ShapeRenderer shapeRenderer;
     int ID;
-
+    int owner;
     float Xpos, Ypos;
     final float targetX;
     final float targetY;
     float SPEED = 1f;
     public static int RADIUS = 5;
 
-    public Unit(int sourceX, int sourceY, int destinationX, int destinationY) {
+    public Unit(int owner, int sourceX, int sourceY, int destinationX, int destinationY, ShapeRenderer shapeRenderer) {
+        this.shapeRenderer = shapeRenderer;
+        this.owner = owner;
+
         Xpos = sourceX;
         Ypos = sourceY;
-        shapeRenderer = new ShapeRenderer();
+
         tweenManager = new TweenManager();
 
         targetX = destinationX;
@@ -41,31 +43,25 @@ public class Unit {
 
     public void render() {
         tweenManager.update(1f);
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
+        setColor();
         shapeRenderer.circle(Xpos, Ypos, RADIUS);
-
-        shapeRenderer.end();
     }
 
-    public void setColor(int owner){
+    public void setColor(){
         if (owner == 0)
-            shapeRenderer.setColor(new Color(Color.WHITE));
+            shapeRenderer.setColor(Color.WHITE);
         if (owner == 1)
-            shapeRenderer.setColor(new Color(Color.BLUE));
+            shapeRenderer.setColor(Color.BLUE);
         if (owner == 2)
-            shapeRenderer.setColor(new Color(Color.RED));
+            shapeRenderer.setColor(Color.RED);
         if (owner == 3)
-            shapeRenderer.setColor(new Color(Color.GREEN));
+            shapeRenderer.setColor(Color.GREEN);
         if (owner == 4)
-            shapeRenderer.setColor(new Color(Color.YELLOW));
+            shapeRenderer.setColor(Color.YELLOW);
     }
 
     public void dispose() {
-        shapeRenderer.dispose();
         tweenManager.killTarget(this);
-        shapeRenderer = null;
         tweenManager = null;
     }
 

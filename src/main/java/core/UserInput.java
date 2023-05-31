@@ -16,6 +16,7 @@ public class UserInput
     float startprovinceX=0,startprovinceY=0;
     public void send_move(int src, int dst)
     {
+        //GameScreen.unitHandler.sendUnits(src, dst);
         Client.message = MessageUtility.createAttackJSON(src, dst);
     }
 //    public void messageReciver(Province[] provinces)

@@ -34,16 +34,16 @@ public class Province {
     ShapeRenderer shapeRenderer;
 
 
-    public Province(float xPosition, float yPosition, int ID, GameScreen gameScreen) {
+    public Province(float xPosition, float yPosition, int ID, GameScreen gameScreen, ShapeRenderer shapeRenderer) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.gameScreen = gameScreen;
+        this.shapeRenderer = shapeRenderer;
         this.ID = ID;
         //this.owner = 0;
         font = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"), Gdx.files.internal("fonts/font10.png"), false);
         font.setColor(Color.BLACK);
         font.getData().setScale(1);
-        shapeRenderer = new ShapeRenderer();
     }
 
     public float getXposition()
@@ -77,15 +77,15 @@ public class Province {
 
     public void setColor() {
         if (owner == 0)
-            shapeRenderer.setColor(new Color(Color.GRAY));
+            shapeRenderer.setColor(Color.GRAY);
         if (owner == 1)
-            shapeRenderer.setColor(new Color(Color.BLUE));
+            shapeRenderer.setColor(Color.BLUE);
         if (owner == 2)
-            shapeRenderer.setColor(new Color(Color.RED));
+            shapeRenderer.setColor(Color.RED);
         if (owner == 3)
-            shapeRenderer.setColor(new Color(Color.GREEN));
+            shapeRenderer.setColor(Color.GREEN);
         if (owner == 4)
-            shapeRenderer.setColor(new Color(Color.YELLOW));
+            shapeRenderer.setColor(Color.YELLOW);
     }
   
     public void update(){
