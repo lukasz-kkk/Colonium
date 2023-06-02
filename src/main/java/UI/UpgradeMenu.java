@@ -24,7 +24,7 @@ public class UpgradeMenu {
         if (show == 0) return;
         batch.begin();
 
-        batch.draw(menuTexture, targetProvince.getXposition() - 3, targetProvince.getYposition() - 8, 268, 264);
+        batch.draw(menuTexture, targetProvince.getXposition() - 6, targetProvince.getYposition() - 6, 299, 242);
 
         batch.end();
     }
