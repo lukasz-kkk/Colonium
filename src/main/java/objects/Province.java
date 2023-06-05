@@ -40,6 +40,7 @@ public class Province {
         this.gameScreen = gameScreen;
         this.shapeRenderer = shapeRenderer;
         this.ID = ID;
+        this.value = 20;
         //this.owner = 0;
         font = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"), Gdx.files.internal("fonts/font10.png"), false);
         font.setColor(Color.BLACK);
