@@ -12,6 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import core.Client;
+import core.Launcher;
+import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
 
@@ -58,15 +61,24 @@ public class LobbyScreen extends ScreenAdapter {
         font.getData().setScale(1f);
     }
 
-    private void createLobby(){
+    private void createLobby() throws InterruptedException {
         System.out.println("createLobby()");
+        Client.message = MessageUtility.setNameJSON(username);
+        Client.clientName = username;
+        Thread.sleep(100);
+        Client.message = MessageUtility.createLobbyJSON("LOBBY");
+        Boot.INSTANCE.setScreen(new GameScreen(camera));
     }
 
-    private void joinLobby(){
+    private void joinLobby() throws InterruptedException {
         System.out.println("joinLobby()");
+        Client.message = MessageUtility.setNameJSON(username);
+        Thread.sleep(100);
+        Client.message = MessageUtility.joinLobbyJSON("LOBBY");
+        Boot.INSTANCE.setScreen(new GameScreen(camera));
     }
 
-    public void update() {
+    public void update() throws InterruptedException {
         buttonCreateLobbyTexture = buttonIdleTexture;
         buttonJoinLobbyTexture = buttonIdleTexture;
         buttonDirectPlayTexture = buttonIdleTexture;
@@ -79,7 +91,11 @@ public class LobbyScreen extends ScreenAdapter {
     }
     @Override
     public void render(float delta) {
-        update();
+        try {
+            update();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.6f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -129,7 +145,7 @@ public class LobbyScreen extends ScreenAdapter {
         font.draw(batch, "<", Boot.INSTANCE.getScreenWidth() / 2f - 850, Boot.INSTANCE.getScreenHeight() / 2f + 420);
     }
 
-    public void mouseHandle() {
+    public void mouseHandle() throws InterruptedException {
         if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
                 && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f) {
             buttonCreateLobbyTexture = buttonTouchTexture;

@@ -21,6 +21,8 @@ public class Client extends Thread {
 
     static JSONObject jsonResponse = null;
 
+    public static String clientName;
+
     public void run() {
         try {
             socket = new Socket(SERVER_IP, PORT);
@@ -63,7 +65,7 @@ public class Client extends Thread {
                 //System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
                 if(!response.isEmpty()){
-                    //System.out.println("Response from server JSON: \n" + jsonResponse);
+                    System.out.println("Response from server JSON: \n" + jsonResponse);
                 }
                 Thread.sleep(100);
                 jsonResponse = null;
@@ -78,7 +80,7 @@ public class Client extends Thread {
             while (true) {
                 //System.out.println("Sending request to Socket Server");
                 if (message != null) {
-                    System.out.println(message);
+                    //System.out.println(message);
                     writer.write(message);
                     Client.message = null;
                     writer.flush();

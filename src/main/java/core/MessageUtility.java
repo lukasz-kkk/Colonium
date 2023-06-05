@@ -7,13 +7,42 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class MessageUtility {
-    public static String createMoveJSON(int src, int dst) {
+    public static String setNameJSON(String userName){
         JSONObject obj = new JSONObject();
 
-        obj.put("type", "move");
-        obj.put("src", src);
-        obj.put("dst", dst);
+        obj.put("type", "set_name");
+        obj.put("value", userName);
 
+        return obj.toJSONString();
+    }
+    public static String createLobbyJSON(String name){
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "create_lobby");
+        obj.put("lobby_name", name);
+
+        return obj.toString();
+    }
+    public static String joinLobbyJSON(String name){
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "join_lobby");
+        obj.put("lobby_name", name);
+
+        return obj.toString();
+    }
+    public static String leaveLobbyJSON(){
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "leave_lobby");
+
+        return obj.toString();
+    }
+    public static String resetMapJSON(String name){
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "reset_map");
+        obj.put("lobby_name", name);
 
         return obj.toString();
     }
