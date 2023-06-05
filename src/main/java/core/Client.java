@@ -31,16 +31,12 @@ public class Client extends Thread {
             senderThread.setName("Sender");
             Thread receiverThread = new Thread(this::receiveMessage);
             receiverThread.setName("Reciver");
-            Thread sendMapUpdateRequestThread = new Thread(this::sendMapRequest);
-            sendMapUpdateRequestThread.setName("Updater");
 
             senderThread.start();
             receiverThread.start();
-            sendMapUpdateRequestThread.start();
 
             senderThread.join();
             receiverThread.join();
-            sendMapUpdateRequestThread.join();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {

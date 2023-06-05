@@ -8,7 +8,6 @@ public class MessageReceiver extends Thread {
     {
         while(true)
         {
-            //System.out.println(Client.jsonResponse);
             if (Client.jsonResponse != null)
             {
                 String type = Client.jsonResponse.get("type").toString();
@@ -16,12 +15,8 @@ public class MessageReceiver extends Thread {
                 {
                     String srcs = Client.jsonResponse.get("src").toString();
                     int src = Integer.parseInt(srcs);
-                    //System.out.println(srcs+'\n');
                     srcs = Client.jsonResponse.get("dst").toString();
                     int dst = Integer.parseInt(srcs);
-                    //System.out.println(srcs+'\n');
-//                    provinces[dst].setValue(provinces[dst].getValue() + provinces[src].getValue());
-//                    provinces[src].setValue(0);
                     if(GameScreen.unitHandler != null){
                         GameScreen.unitHandler.sendUnits(src, dst);
                     }
