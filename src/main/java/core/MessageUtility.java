@@ -6,6 +6,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MessageUtility {
     public static String setNameJSON(String userName){
         JSONObject obj = new JSONObject();
@@ -60,6 +63,11 @@ public class MessageUtility {
         obj.put("type", "map");
         return obj.toString();
     }
+    public static String createLobbiesRequest(){
+        JSONObject obj = new JSONObject();
+        obj.put("type", "list_lobbies");
+        return obj.toString();
+    }
 
     public static JSONObject reciveJSON(String recived) throws ParseException {
         JSONParser parser = new JSONParser();
@@ -85,6 +93,30 @@ public class MessageUtility {
             Map.provinces[(int)id].setValue((int)army);
 
         }
+    }
+
+    public static List<String> jsonDecodeLobbies(String json) {
+        List<String> lobbyInfoList = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject jsonObject = (JSONObject) parser.parse(json);
+            JSONArray lobbiesArray = (JSONArray) jsonObject.get("lobbies");
+
+            for (Object lobby : lobbiesArray) {
+                JSONObject lobbyObject = (JSONObject) lobby;
+                String lobbyName = (String) lobbyObject.get("name");
+                JSONArray playersArray = (JSONArray) lobbyObject.get("players");
+                int playerCount = playersArray.size();
+
+                String lobbyInfo = lobbyName + " - " + playerCount + " players";
+                lobbyInfoList.add(lobbyInfo);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return lobbyInfoList;
     }
 
 

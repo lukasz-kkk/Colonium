@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class Client extends Thread {
     private final static int PORT = 2137;
@@ -62,11 +63,14 @@ public class Client extends Thread {
                     System.out.println(response);
                     return;
                 }
-                //System.out.println("Response from server: \n" + response);
+//                System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
-                if(!response.isEmpty()){
-                    System.out.println("Response from server JSON: \n" + jsonResponse);
-                }
+//                if(jsonResponse.get("type").equals("lobbies")){
+//                    List<String> lobbyInfoList = MessageUtility.jsonDecodeLobbies(response);
+//                    for (String lobbyInfo : lobbyInfoList) {
+//                        System.out.println(lobbyInfo);
+//                    }
+//                }
                 Thread.sleep(100);
                 jsonResponse = null;
             }

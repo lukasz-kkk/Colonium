@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -66,7 +67,7 @@ public class LobbyScreen extends ScreenAdapter {
         Client.message = MessageUtility.setNameJSON(username);
         Client.clientName = username;
         Thread.sleep(100);
-        Client.message = MessageUtility.createLobbyJSON("LOBBY");
+        Client.message = MessageUtility.createLobbyJSON("LOBBYTEST1");
         Boot.INSTANCE.setScreen(new GameScreen(camera));
     }
 
@@ -74,7 +75,8 @@ public class LobbyScreen extends ScreenAdapter {
         System.out.println("joinLobby()");
         Client.message = MessageUtility.setNameJSON(username);
         Thread.sleep(100);
-        Client.message = MessageUtility.joinLobbyJSON("LOBBY");
+        Client.message = MessageUtility.joinLobbyJSON("LOBBYTEST1");
+        //Client.message = MessageUtility.createLobbiesRequest();
         Boot.INSTANCE.setScreen(new GameScreen(camera));
     }
 
