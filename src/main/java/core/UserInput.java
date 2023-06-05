@@ -16,9 +16,26 @@ public class UserInput
     float startprovinceX=0,startprovinceY=0;
     public void send_move(int src, int dst)
     {
+        //GameScreen.unitHandler.sendUnits(src, dst);
         Client.message = MessageUtility.createAttackJSON(src, dst);
     }
-    public void sneding_troops(Province[] provinces)
+//    public void messageReciver(Province[] provinces)
+//    {
+//        if (Client.jsonResponse!=null)
+//        {
+//            String type = Client.jsonResponse.get("type").toString();
+//            if(type.equals("attack"))
+//            {
+//                String srcs = Client.jsonResponse.get("src").toString();
+//                int src = Integer.parseInt(srcs);
+//                srcs = Client.jsonResponse.get("dsc").toString();
+//                int dsc = Integer.parseInt(srcs);
+//                provinces[dsc].setValue(provinces[dsc].getValue()+provinces[src].getValue());
+//                provinces[src].setValue(0);
+//            }
+//        }
+//    }
+    public void sending_troops(Province[] provinces)
     {
         float endX=0;
         float endY=0;
@@ -66,8 +83,6 @@ public class UserInput
 
         if(second_province_selected ==1 && first_temp != second_temp)
         {
-            provinces[second_provinceID].setValue(provinces[second_provinceID].getValue()+provinces[first_provinceID].getValue());
-            provinces[first_provinceID].setValue(0);
             send_move(first_provinceID, second_provinceID);
             second_province_selected =0;
             first_temp =-1;

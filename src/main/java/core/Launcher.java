@@ -17,9 +17,12 @@ public class Launcher {
         //Connection
         client = new Client();
         client.start();
+        MessageReceiver reciver = new MessageReceiver();
+        reciver.start();
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 16);
         config.setIdleFPS(60);
+        config.setForegroundFPS(60);
         config.useVsync(true);
         config.setTitle("Colonium");
 

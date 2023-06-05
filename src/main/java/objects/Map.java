@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.ShortArray;
 import core.Boot;
@@ -24,9 +25,11 @@ public class Map {
     SpriteBatch batch;
     PolygonSprite[] polySprite;
     PolygonSpriteBatch polyBatch;
+    ShapeRenderer shapeRenderer;
+
     private final Texture backgroundTexture;
     public static int numberOfProvinces;
-    private Province[] provinces;
+    public static Province[] provinces;
 
     String pngPath;
     float[][] vertices;
@@ -44,17 +47,19 @@ public class Map {
         }
         this.texture = new Texture("white.png");
         this.backgroundTexture = new Texture("maps/prov1_borders.png");
+        shapeRenderer = new ShapeRenderer();
 
         provincesInit();
         polygonRendererInit();
-        testInitValues();
+        //testInitValues();
     }
 
     private void provincesInit() {
         provinces = new Province[numberOfProvinces];
         for (int i = 0; i < numberOfProvinces; i++) {
-            provinces[i] = new Province(blobCoordinates[i][0] + 50, Gdx.graphics.getHeight() - blobCoordinates[i][1] + 50, i, gameScreen);
+            provinces[i] = new Province(blobCoordinates[i][0] + 50, Gdx.graphics.getHeight() - blobCoordinates[i][1] + 50, i, gameScreen, shapeRenderer);
         }
+
     }
 
     UserInput user = new UserInput();
@@ -73,7 +78,8 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].update();
         }
-       user.sneding_troops(provinces);
+       user.sending_troops(provinces);
+//       user.messageReciver(provinces);
     }
 
 
@@ -92,15 +98,15 @@ public class Map {
 
     public void polygonRender(int polygonID) {
         if (provinces[polygonID].owner == 0)
-            polySprite[polygonID].setColor(new Color(0x8e8e8eff)); // GRAY
+            polySprite[polygonID].setColor(Color.GRAY); // GRAY
         if (provinces[polygonID].owner == 1)
-            polySprite[polygonID].setColor(new Color(Color.SKY)); // BLUE
+            polySprite[polygonID].setColor(Color.SKY); // BLUE
         if (provinces[polygonID].owner == 2)
-            polySprite[polygonID].setColor(new Color(Color.SALMON)); // RED
+            polySprite[polygonID].setColor(Color.SALMON); // RED
         if (provinces[polygonID].owner == 3)
-            polySprite[polygonID].setColor(new Color(Color.OLIVE)); // GREEN
+            polySprite[polygonID].setColor(Color.OLIVE); // GREEN
         if (provinces[polygonID].owner == 4)
-            polySprite[polygonID].setColor(new Color(Color.GOLD)); // YELLOW
+            polySprite[polygonID].setColor(Color.GOLD); // YELLOW
 
         polySprite[polygonID].draw(polyBatch);
     }

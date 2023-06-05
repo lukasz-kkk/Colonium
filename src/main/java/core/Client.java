@@ -16,6 +16,7 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
+    private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
 
     static JSONObject jsonResponse = null;
@@ -27,13 +28,19 @@ public class Client extends Thread {
             input = socket.getInputStream();
 
             Thread senderThread = new Thread(this::sendMessage);
+            senderThread.setName("Sender");
             Thread receiverThread = new Thread(this::receiveMessage);
+            receiverThread.setName("Reciver");
+            Thread sendMapUpdateRequestThread = new Thread(this::sendMapRequest);
+            sendMapUpdateRequestThread.setName("Updater");
 
             senderThread.start();
             receiverThread.start();
+            sendMapUpdateRequestThread.start();
 
             senderThread.join();
             receiverThread.join();
+            sendMapUpdateRequestThread.join();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         } finally {
@@ -52,12 +59,17 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             String response;
             while ((response = reader.readLine()) != null) {
+                if(response.charAt(0) == 'J'){
+                    System.out.println("Error Here");
+                    System.out.println(response);
+                    return;
+                }
                 //System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
                 if(!response.isEmpty()){
-                    System.out.println("Response from server JSON: \n" + jsonResponse);
+                    //System.out.println("Response from server JSON: \n" + jsonResponse);
                 }
-                Thread.sleep(5000);
+                Thread.sleep(100);
                 jsonResponse = null;
             }
         } catch (IOException | ParseException | InterruptedException e) {
@@ -68,14 +80,26 @@ public class Client extends Thread {
         try {
             Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
             while (true) {
-                System.out.println("Sending request to Socket Server");
+                //System.out.println("Sending request to Socket Server");
                 if (message != null) {
                     System.out.println(message);
                     writer.write(message);
                     Client.message = null;
                     writer.flush();
                 }
-                Thread.sleep(3000);
+                Thread.sleep(100);
+            }
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void sendMapRequest(){
+        try{
+            Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
+            while(true){
+                writer.write(mapRequest);
+                writer.flush();
+                Thread.sleep(250);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
