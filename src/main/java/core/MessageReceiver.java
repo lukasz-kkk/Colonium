@@ -1,8 +1,6 @@
 package core;
 
-import objects.Province;
-
-import static objects.Map.provinces;
+import Screens.GameScreen;
 
 public class MessageReceiver extends Thread {
     @Override

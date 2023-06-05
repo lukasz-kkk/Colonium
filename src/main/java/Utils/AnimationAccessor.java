@@ -1,7 +1,6 @@
 package Utils;
 
 import aurelienribon.tweenengine.TweenAccessor;
-import core.GameScreen;
 import objects.Unit;
 
 public class AnimationAccessor implements TweenAccessor<Unit> {

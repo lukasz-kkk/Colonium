@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.ShortArray;
 import core.Boot;
-import core.GameScreen;
+import Screens.GameScreen;
 import core.UserInput;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
