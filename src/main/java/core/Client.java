@@ -20,6 +20,7 @@ public class Client extends Thread {
     private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
     public static List<String> lobbies;
+    public static List<String> players;
     public static String currentLobby;
 
     public static int getLobbiesInfo = 0;
@@ -70,8 +71,9 @@ public class Client extends Thread {
                 //System.out.println(response);
 //                System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
-                if(getLobbiesInfo == 1) {
+                if(getLobbiesInfo == 1 && jsonResponse.get("type").equals("lobbies")) {
                     lobbies = MessageUtility.jsonDecodeLobbies(jsonResponse.toString());
+                    players = MessageUtility.jsonDecodePlayers(jsonResponse.toString());
                     getLobbiesInfo = 0;
                 }
                 //System.out.println(jsonResponse);

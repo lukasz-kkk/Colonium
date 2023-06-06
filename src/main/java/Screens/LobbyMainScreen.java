@@ -74,8 +74,14 @@ public class LobbyMainScreen extends ScreenAdapter {
         Thread.sleep(100);
         LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
+        Thread.sleep(100);
         Client.currentLobby = lobbyName;
-        Boot.INSTANCE.setScreen(new GameScreen(camera));
+        Boot.INSTANCE.setScreen(Boot.lobby);
+
+        refreshLobbiesList();
+
+        Thread.sleep(300);
+        System.out.println(Client.players);
     }
 
     public void update() throws InterruptedException {

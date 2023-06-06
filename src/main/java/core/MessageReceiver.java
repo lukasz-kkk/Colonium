@@ -23,7 +23,7 @@ public class MessageReceiver extends Thread {
                     Client.jsonResponse = null;
                 }
                 else if(type.equals("map")){
-                    System.out.println(Client.jsonResponse);
+                    //System.out.println(Client.jsonResponse);
                     MessageUtility.jsonMapMessageDecoder(Client.jsonResponse);
                     Client.jsonResponse = null;
                 }

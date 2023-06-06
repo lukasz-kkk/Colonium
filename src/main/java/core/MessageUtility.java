@@ -119,7 +119,6 @@ public class MessageUtility {
         return lobbyInfoList;
     }
 
-
     public static List<String> jsonDecodePlayers(String json) {
         List<String> playersInfoList = new ArrayList<>();
 

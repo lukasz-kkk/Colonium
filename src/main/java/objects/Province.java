@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import Screens.GameScreen;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +21,8 @@ public class Province {
     public int owner; // PLAYER_ID 0 - neutral
     private final float xPosition, yPosition;
     private GameScreen gameScreen;
+
+
 
     public static int RADIUS = 20;
     private BitmapFont font;
@@ -56,9 +57,7 @@ public class Province {
             Color.GOLD,
             Color.SALMON
     };
-
     List<Color> basicColors = new ArrayList<>(List.of(colors));
-
 
     public Province(float xPosition, float yPosition, int ID, GameScreen gameScreen, ShapeRenderer shapeRenderer) {
         this.xPosition = xPosition;
