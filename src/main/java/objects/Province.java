@@ -1,5 +1,7 @@
 package objects;
 
+import Screens.LobbyCreate;
+import Screens.LobbyUsername;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -73,6 +75,8 @@ public class Province {
         int fontOffset = 1 + numOfDigits * 5;
         batch.begin();
         font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 7);
+        font.draw(batch, "Lobby name: " + LobbyCreate.lobbyName, 10, 1000);
+        font.draw(batch, "User name: " + LobbyUsername.username, 10, 900);
         batch.end();
     }
 

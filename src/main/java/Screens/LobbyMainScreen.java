@@ -66,11 +66,13 @@ public class LobbyMainScreen extends ScreenAdapter {
     }
 
     private void joinLobby() throws InterruptedException {
+        if(lobbySelected == -1) return;
         int select = 4 - lobbySelected;
         int spaceIndex = Client.lobbies.get(select).indexOf(" ");
         String lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
         Client.message = MessageUtility.setNameJSON(username);
         Thread.sleep(100);
+        LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
         Boot.INSTANCE.setScreen(new GameScreen(camera));
     }

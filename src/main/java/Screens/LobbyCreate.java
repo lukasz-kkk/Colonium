@@ -26,7 +26,7 @@ public class LobbyCreate extends ScreenAdapter {
     private final Texture logoTexture;
     private final Texture blackTexture;
 
-    String lobbyName;
+    public static String lobbyName;
 
     Button buttonContinue;
     Button buttonReturn;
