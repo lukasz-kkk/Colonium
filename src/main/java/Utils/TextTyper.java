@@ -18,13 +18,17 @@ public class TextTyper {
             if (keyPressed != -1) {
                 if (keyPressed == 67) {
                     if (text.length() > 0)
-                        text = text.substring(0, text.length() - 1); // Backspace
-                } else {
-                    text += (char) (keyPressed + 36);
+                        newText = newText.substring(0, text.length() - 1); // Backspace
+                }
+                else if(keyPressed == Input.Keys.SPACE){
+                    newText += " ";
+                }
+                else if((keyPressed >= 29 && keyPressed <= 54) || (keyPressed >= 7 && keyPressed <= 9)) {
+                    System.out.println(keyPressed);
+                    newText += Input.Keys.toString(keyPressed);
                 }
             }
         }
-        newText = text;
         return newText;
     }
 }
