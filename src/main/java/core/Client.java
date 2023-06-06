@@ -19,6 +19,9 @@ public class Client extends Thread {
     public static String message;
     private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
+    public static List<String> lobbies;
+
+    public static int getLobbiesInfo = 0;
 
     static JSONObject jsonResponse = null;
 
@@ -63,8 +66,14 @@ public class Client extends Thread {
                     System.out.println(response);
                     return;
                 }
+                //System.out.println(response);
 //                System.out.println("Response from server: \n" + response);
                 jsonResponse = MessageUtility.reciveJSON(response);
+                if(getLobbiesInfo == 1) {
+                    lobbies = MessageUtility.jsonDecodeLobbies(jsonResponse.toString());
+                    getLobbiesInfo = 0;
+                }
+                //System.out.println(jsonResponse);
 //                if(jsonResponse.get("type").equals("lobbies")){
 //                    List<String> lobbyInfoList = MessageUtility.jsonDecodeLobbies(response);
 //                    for (String lobbyInfo : lobbyInfoList) {

@@ -1,6 +1,8 @@
 package core;
 
-import Screens.LobbyScreen;
+import Screens.LobbyCreate;
+import Screens.LobbyMainScreen;
+import Screens.LobbyUsername;
 import Screens.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +15,9 @@ public class Boot extends Game {
     private OrthographicCamera orthographicCamera;
 
     public static MenuScreen menuScreen;
-    public static LobbyScreen lobbyScreen;
+    public static LobbyMainScreen lobbyMainScreen;
+    public static LobbyUsername lobbyUsername;
+    public static LobbyCreate lobbyCreate;
     public Boot() {
         INSTANCE = this;
     }
@@ -26,7 +30,9 @@ public class Boot extends Game {
         this.orthographicCamera.setToOrtho(false, screenWidth, screenHeight);
 
         menuScreen = new MenuScreen(orthographicCamera);
-        lobbyScreen = new LobbyScreen(orthographicCamera);
+        lobbyMainScreen = new LobbyMainScreen(orthographicCamera);
+        lobbyUsername = new LobbyUsername(orthographicCamera);
+        lobbyCreate = new LobbyCreate(orthographicCamera);
 
         //setScreen(new GameScreen(orthographicCamera));
         setScreen(new MenuScreen(orthographicCamera));
