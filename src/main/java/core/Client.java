@@ -20,6 +20,7 @@ public class Client extends Thread {
     private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
     public static List<String> lobbies;
+    public static String currentLobby;
 
     public static int getLobbiesInfo = 0;
 

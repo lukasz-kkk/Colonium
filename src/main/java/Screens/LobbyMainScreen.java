@@ -74,6 +74,7 @@ public class LobbyMainScreen extends ScreenAdapter {
         Thread.sleep(100);
         LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
+        Client.currentLobby = lobbyName;
         Boot.INSTANCE.setScreen(new GameScreen(camera));
     }
 

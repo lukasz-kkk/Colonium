@@ -120,4 +120,28 @@ public class MessageUtility {
     }
 
 
+    public static List<String> jsonDecodePlayers(String json) {
+        List<String> playersInfoList = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject jsonObject = (JSONObject) parser.parse(json);
+            JSONArray lobbiesArray = (JSONArray) jsonObject.get("lobbies");
+
+            for (Object lobby : lobbiesArray) {
+                JSONObject lobbyObject = (JSONObject) lobby;
+                String lobbyName = (String) lobbyObject.get("name");
+                if(lobbyName.equals(Client.currentLobby)){
+                    JSONArray playersArray = (JSONArray) lobbyObject.get("players");
+                    for(Object player : playersArray){
+                        playersInfoList.add(player.toString());
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return playersInfoList;
+    }
+
 }

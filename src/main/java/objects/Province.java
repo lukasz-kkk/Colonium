@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import Screens.GameScreen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Math.abs;
 
 public class Province {
@@ -34,6 +37,27 @@ public class Province {
     private final int timeout = MathUtils.random(60, 160);
     private final int unitsCap = MathUtils.random(30, 60);
     ShapeRenderer shapeRenderer;
+
+    Color[] colors = {
+            Color.RED,
+            Color.GREEN,
+            Color.BLUE,
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.PURPLE,
+            Color.PINK,
+            Color.BLACK,
+            Color.WHITE,
+            Color.BROWN,
+            Color.GRAY,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.LIME,
+            Color.GOLD,
+            Color.SALMON
+    };
+
+    List<Color> basicColors = new ArrayList<>(List.of(colors));
 
 
     public Province(float xPosition, float yPosition, int ID, GameScreen gameScreen, ShapeRenderer shapeRenderer) {
