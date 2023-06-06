@@ -23,8 +23,7 @@ public class TextTyper {
                 else if(keyPressed == Input.Keys.SPACE){
                     newText += " ";
                 }
-                else if((keyPressed >= 29 && keyPressed <= 54) || (keyPressed >= 7 && keyPressed <= 9)) {
-                    System.out.println(keyPressed);
+                else if((keyPressed >= 29 && keyPressed <= 54) || (keyPressed >= 7 && keyPressed <= 16)) {
                     newText += Input.Keys.toString(keyPressed);
                 }
             }
