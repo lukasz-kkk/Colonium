@@ -38,6 +38,7 @@ public class MenuScreen extends ScreenAdapter {
     private final int BUTTON_WIDTH = 600;
     private final int BUTTON_HEIGHT = 100;
 
+    SoundManager sm = new SoundManager();
 
     public MenuScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -95,7 +96,6 @@ public class MenuScreen extends ScreenAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
                 Boot.INSTANCE.setScreen(Boot.lobbyScreen);
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
             }
 
@@ -108,7 +108,6 @@ public class MenuScreen extends ScreenAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
                 Gdx.app.exit();
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
             }
 

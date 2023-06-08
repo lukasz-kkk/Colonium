@@ -35,6 +35,7 @@ public class LobbyScreen extends ScreenAdapter {
     private final int BUTTON_WIDTH = 600;
     private final int BUTTON_HEIGHT = 100;
 
+    SoundManager sm = new SoundManager();
     String username;
 
     public LobbyScreen(OrthographicCamera camera) {
@@ -136,7 +137,6 @@ public class LobbyScreen extends ScreenAdapter {
             buttonCreateLobbyTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
                 createLobby();
             }
@@ -148,7 +148,6 @@ public class LobbyScreen extends ScreenAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
                 joinLobby();
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
             }
 
@@ -159,7 +158,6 @@ public class LobbyScreen extends ScreenAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
                 Boot.INSTANCE.setScreen(new GameScreen(camera));
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
             }
 
@@ -170,7 +168,6 @@ public class LobbyScreen extends ScreenAdapter {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
             {
                 Boot.INSTANCE.setScreen(Boot.menuScreen);
-                SoundManager sm = new SoundManager();
                 sm.clickplayer();
             }
         }
