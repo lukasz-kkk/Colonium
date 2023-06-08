@@ -59,6 +59,12 @@ public class LobbyUsername extends ScreenAdapter {
     private void userContinue() {
         Boot.lobbyMainScreen.setUsername(username);
         Client.getLobbiesInfo = 1;
+        Client.message = MessageUtility.setNameJSON(username);
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Client.message = MessageUtility.createLobbiesRequest();
         Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
     }

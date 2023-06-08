@@ -72,12 +72,12 @@ public class LobbyMainScreen extends ScreenAdapter {
         int select = 4 - lobbySelected;
         int spaceIndex = Client.lobbies.get(select).indexOf(" ");
         lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
-        Client.message = MessageUtility.setNameJSON(username);
-        Thread.sleep(200);
         LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
         Thread.sleep(200);
         Client.currentLobby = lobbyName;
+
+        refreshLobbiesList();
         Boot.INSTANCE.setScreen(Boot.lobby);
     }
 
@@ -87,8 +87,8 @@ public class LobbyMainScreen extends ScreenAdapter {
         buttonJoin.update();
         buttonRefresh.update();
 
-        if (tick++ >= 300)
-            refreshLobbiesList();
+        //if (tick++ >= 300)
+        //    refreshLobbiesList();
 
         batch.setProjectionMatrix(camera.combined);
 
