@@ -18,6 +18,7 @@ import core.Client;
 import core.Launcher;
 import org.lwjgl.opengl.GL20;
 
+
 public class MenuScreen extends ScreenAdapter {
 
     Client client = Launcher.getClient();

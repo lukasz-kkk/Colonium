@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static Utils.Definitions.*;
+
 public class Client extends Thread {
     private final static int PORT = 2137;
     private final static String SERVER_IP = "20.117.176.229";
@@ -17,17 +19,18 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
-    private String mapRequest = MessageUtility.createMapUpdateRequest();
     private String response = null;
     public static List<String> lobbies;
     public static List<String> players;
-    public static String currentLobby;
+    public static String currentLobby = null;
 
     public static int getLobbiesInfo = 0;
 
     static JSONObject jsonResponse = null;
 
     public static String clientName;
+
+    MessageReceiver messageReceiver = new MessageReceiver();
 
     public void run() {
         try {
@@ -61,28 +64,16 @@ public class Client extends Thread {
     private void receiveMessage() {
         try {
             reader = new BufferedReader(new InputStreamReader(input));
-            String response;
             while ((response = reader.readLine()) != null) {
-                if(response.charAt(0) == 'J'){
-                    System.out.println("Error Here");
-                    System.out.println(response);
+                jsonResponse = MessageUtility.reciveJSON(response);
+
+                int error = messageReceiver.handleResponse();
+                if (error != SUCCESS) {
+                    System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);
+                    System.out.println(ANSI_RED + "Error Caused by response: " + response + ANSI_RESET);
                     return;
                 }
-                //System.out.println(response);
-//                System.out.println("Response from server: \n" + response);
-                jsonResponse = MessageUtility.reciveJSON(response);
-                if(getLobbiesInfo == 1 && jsonResponse.get("type").equals("lobbies")) {
-                    lobbies = MessageUtility.jsonDecodeLobbies(jsonResponse.toString());
-                    players = MessageUtility.jsonDecodePlayers(jsonResponse.toString());
-                    getLobbiesInfo = 0;
-                }
-                //System.out.println(jsonResponse);
-//                if(jsonResponse.get("type").equals("lobbies")){
-//                    List<String> lobbyInfoList = MessageUtility.jsonDecodeLobbies(response);
-//                    for (String lobbyInfo : lobbyInfoList) {
-//                        System.out.println(lobbyInfo);
-//                    }
-//                }
+
                 Thread.sleep(100);
                 jsonResponse = null;
             }
@@ -90,30 +81,18 @@ public class Client extends Thread {
             throw new RuntimeException(e);
         }
     }
+
     public void sendMessage() {
         try {
             Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
             while (true) {
-                //System.out.println("Sending request to Socket Server");
                 if (message != null) {
-                    //System.out.println(message);
+                    System.out.println(ANSI_GREEN + "Message written: " + message + ANSI_RESET);
                     writer.write(message);
                     Client.message = null;
                     writer.flush();
                 }
                 Thread.sleep(100);
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void sendMapRequest(){
-        try{
-            Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
-            while(true){
-                writer.write(mapRequest);
-                writer.flush();
-                Thread.sleep(250);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);

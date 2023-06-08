@@ -27,6 +27,8 @@ public class LobbyMainScreen extends ScreenAdapter {
     int tick;
     int lobbySelected;
 
+    public static String lobbyName;
+
     String username;
 
     Button buttonCreate;
@@ -69,19 +71,14 @@ public class LobbyMainScreen extends ScreenAdapter {
         if(lobbySelected == -1) return;
         int select = 4 - lobbySelected;
         int spaceIndex = Client.lobbies.get(select).indexOf(" ");
-        String lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
+        lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
         Client.message = MessageUtility.setNameJSON(username);
-        Thread.sleep(100);
+        Thread.sleep(200);
         LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
-        Thread.sleep(100);
+        Thread.sleep(200);
         Client.currentLobby = lobbyName;
         Boot.INSTANCE.setScreen(Boot.lobby);
-
-        refreshLobbiesList();
-
-        Thread.sleep(300);
-        System.out.println(Client.players);
     }
 
     public void update() throws InterruptedException {
@@ -114,7 +111,7 @@ public class LobbyMainScreen extends ScreenAdapter {
         selectLobby();
     }
 
-    private void refreshLobbiesList() {
+    public void refreshLobbiesList() {
         Client.getLobbiesInfo = 1;
         Client.message = MessageUtility.createLobbiesRequest();
         tick = 0;
@@ -155,7 +152,6 @@ public class LobbyMainScreen extends ScreenAdapter {
         if (Client.lobbies != null) {
             int ind = 0;
             for (String l : Client.lobbies) {
-                //System.out.println(l);
                 font.draw(batch, l, xOffset + 20, Boot.INSTANCE.getScreenHeight() - 315 - 100 * ind);
                 ind++;
             }

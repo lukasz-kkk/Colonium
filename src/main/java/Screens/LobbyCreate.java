@@ -46,7 +46,7 @@ public class LobbyCreate extends ScreenAdapter {
         this.blackTexture = new Texture(pixmap);
         pixmap.dispose();
 
-        this.lobbyName = "";
+        lobbyName = "";
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
@@ -66,7 +66,8 @@ public class LobbyCreate extends ScreenAdapter {
         }
         Client.message = MessageUtility.createLobbyJSON(lobbyName);
         Client.currentLobby = lobbyName;
-        Boot.INSTANCE.setScreen(new GameScreen(camera));
+        LobbyMainScreen.lobbyName = lobbyName;
+        Boot.INSTANCE.setScreen(Boot.lobby);
     }
 
     public void update() throws InterruptedException {

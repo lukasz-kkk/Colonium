@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import core.Client;
+import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
 
@@ -21,6 +23,7 @@ public class Lobby extends ScreenAdapter {
     private final BitmapFont font;
 
     private final Texture backgroundTexture;
+    private final Texture blackTexture;
 
     int tick;
 
@@ -37,11 +40,16 @@ public class Lobby extends ScreenAdapter {
 
         this.backgroundTexture = new Texture("UI_elements/menu_background.png");
 
-
         this.tick = 0;
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
+
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0.7f);
+        pixmap.fill();
+        this.blackTexture = new Texture(pixmap);
+        pixmap.dispose();
 
         this.buttonCreate = new Button("Create lobby", 660, 140, 600, 100, batch, font);
         this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
@@ -55,6 +63,9 @@ public class Lobby extends ScreenAdapter {
 
 
     public void update() throws InterruptedException {
+        if (tick++ >= 60)
+            refreshLobbiesList();
+
         buttonCreate.update();
         buttonReturn.update();
         buttonStart.update();
@@ -66,14 +77,14 @@ public class Lobby extends ScreenAdapter {
     }
 
     public void inputHandle() throws InterruptedException {
-        if (buttonReturn.isClicked()) {
-            Boot.INSTANCE.setScreen(Boot.menuScreen);
-        }
         if (buttonStart.isClicked()) {
             start();
         }
         if(buttonReturn.isClicked()){
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
+        }
+        if(buttonRefresh.isClicked()){
+            refreshLobbiesList();
         }
     }
 
@@ -93,8 +104,25 @@ public class Lobby extends ScreenAdapter {
         backgroundRender();
         buttonsRender();
         playerInfoRender();
+        playersInLobbyRender();
 
         batch.end();
+    }
+
+    private void playersInLobbyRender(){
+        float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
+        float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
+
+        batch.draw(blackTexture, xOffset, yOffset, 800, 585);
+        font.draw(batch, "Players in: " + LobbyMainScreen.lobbyName, xOffset + 20, yOffset + 565);
+
+        if (Client.players != null) {
+            int ind = 0;
+            for (String l : Client.players) {
+                font.draw(batch, l, xOffset + 20, Boot.INSTANCE.getScreenHeight() - 315 - 100 * ind);
+                ind++;
+            }
+        }
     }
 
     private void playerInfoRender() {
@@ -109,6 +137,12 @@ public class Lobby extends ScreenAdapter {
 
     public void backgroundRender() {
         batch.draw(backgroundTexture, 0, 0, Boot.INSTANCE.getScreenWidth(), Boot.INSTANCE.getScreenHeight());
+    }
+
+    public void refreshLobbiesList() {
+        Client.getLobbiesInfo = 1;
+        Client.message = MessageUtility.createLobbiesRequest();
+        tick = 0;
     }
 
 }
