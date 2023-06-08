@@ -1,5 +1,6 @@
 package Screens;
 
+import UI.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -17,6 +18,7 @@ import core.Client;
 import core.Launcher;
 import org.lwjgl.opengl.GL20;
 
+
 public class MenuScreen extends ScreenAdapter {
 
     Client client = Launcher.getClient();
@@ -26,17 +28,11 @@ public class MenuScreen extends ScreenAdapter {
     private Box2DDebugRenderer box2DDebugRenderer;
     private final BitmapFont font;
 
-    private Texture buttonStartTexture;
-    private Texture buttonQuitTexture;
-
-    private final Texture buttonTouchTexture;
-    private final Texture buttonIdleTexture;
     private final Texture backgroundTexture;
     private final Texture logoTexture;
 
-    private final int BUTTON_WIDTH = 600;
-    private final int BUTTON_HEIGHT = 100;
-
+    Button buttonStart;
+    Button buttonQuit;
 
     public MenuScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -45,24 +41,24 @@ public class MenuScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        this.buttonIdleTexture = new Texture("UI_elements/button_idle.png");
-        this.buttonTouchTexture = new Texture("UI_elements/button_touch.png");
         this.backgroundTexture = new Texture("UI_elements/menu_background.png");
         this.logoTexture = new Texture("UI_elements/logo.png");
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
+
+        this.buttonStart = new Button("Start game", 660, 550, 600, 100, batch, font);
+        this.buttonQuit = new Button("Quit game", 660, 700, 600, 100, batch, font);
     }
 
     public void update() {
-        buttonStartTexture = buttonIdleTexture;
-        buttonQuitTexture = buttonIdleTexture;
+        buttonStart.update();
+        buttonQuit.update();
+
+        inputHandle();
 
         world.step(1 / 60f, 6, 2);
         batch.setProjectionMatrix(camera.combined);
-
-        mouseHandle();
-
     }
 
     @Override
@@ -79,36 +75,23 @@ public class MenuScreen extends ScreenAdapter {
         batch.end();
     }
 
-    public void buttonsRender() {
-        batch.draw(buttonStartTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f, Boot.INSTANCE.getScreenHeight() / 2f, BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(buttonQuitTexture, Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f, Boot.INSTANCE.getScreenHeight() / 2f - 150, BUTTON_WIDTH, BUTTON_HEIGHT);
-        font.draw(batch, "Start game", Boot.INSTANCE.getScreenWidth() / 2f - 110, Boot.INSTANCE.getScreenHeight() / 2f + 70);
-        font.draw(batch, "Quit game", Boot.INSTANCE.getScreenWidth() / 2f - 90, Boot.INSTANCE.getScreenHeight() / 2f - 80);
+    public void inputHandle() {
+        if (buttonStart.isClicked()) {
+            Boot.INSTANCE.setScreen(Boot.lobbyUsername);
+        }
+        if (buttonQuit.isClicked()) {
+            Gdx.app.exit();
+        }
     }
 
-    public void mouseHandle() {
-        if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
-                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f) {
-            buttonStartTexture = buttonTouchTexture;
-            // start game
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
-                Boot.INSTANCE.setScreen(Boot.lobbyScreen);
-        }
-
-        if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
-                && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT + 150 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f + 150) {
-            buttonQuitTexture = buttonTouchTexture;
-            // quit game
-            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
-                Gdx.app.exit();
-        }
+    public void buttonsRender() {
+        buttonStart.render();
+        buttonQuit.render();
     }
 
     public void backgroundRender() {
         batch.draw(backgroundTexture, 0, 0, Boot.INSTANCE.getScreenWidth(), Boot.INSTANCE.getScreenHeight());
-
         // logo
-        batch.draw(logoTexture, Boot.INSTANCE.getScreenWidth() / 2f - 350, Boot.INSTANCE.getScreenHeight() / 2f + 300);
+        batch.draw(logoTexture, Boot.INSTANCE.getScreenWidth() / 2f - 360, Boot.INSTANCE.getScreenHeight() / 2f + 300);
     }
-
 }

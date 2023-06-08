@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.ShortArray;
+import core.Client;
 
 import java.util.Arrays;
 import java.lang.Math;
@@ -24,7 +25,7 @@ public class Arrow {
     TextureRegion textureRegion;
     Pixmap pix;
 
-    int provinceOwner;
+    String provinceOwner;
     float provinceX, provinceY;
     float localProvinceX, localProvinceY;
     float mouseX, mouseY;
@@ -39,7 +40,7 @@ public class Arrow {
         polygonRendererInit();
     }
 
-    public void activate(int provinceX, int provinceY, int mouseX, int mouseY, int provinceOwner) {
+    public void activate(int provinceX, int provinceY, int mouseX, int mouseY, String provinceOwner) {
         if (provinceX == mouseX && provinceY == mouseY) return;
         if (Math.abs(provinceX - mouseX) <= 10 && Math.abs(provinceY - mouseY) <= 10) return;
         this.provinceX = provinceX;
@@ -125,40 +126,8 @@ public class Arrow {
     }
 
     void setColor(){
-        if (provinceOwner == 0)
-            polySprite.setColor(new Color(Color.WHITE));
-        if (provinceOwner == 1)
-            polySprite.setColor(new Color(Color.BLUE));
-        if (provinceOwner == 2)
-            polySprite.setColor(new Color(Color.RED));
-        if (provinceOwner == 3)
-            polySprite.setColor(new Color(Color.GREEN));
-        if (provinceOwner == 4)
-            polySprite.setColor(new Color(Color.YELLOW));
+        polySprite.setColor(Client.playersColors.get(provinceOwner));
     }
-
-    void test() {
-        System.out.println("Province x: " + provinceX);
-        System.out.println("Province y: " + provinceY);
-        System.out.println("Mouse x: " + mouseX);
-        System.out.println("Mouse y: " + mouseY);
-        System.out.println("Local province x: " + localProvinceX);
-        System.out.println("Local province y: " + localProvinceY);
-        System.out.println("Local mouse x: " + localMouseX);
-        System.out.println("Local mouse y: " + localMouseY);
-        System.out.println();
-        System.out.println("Vertices: ");
-
-        for (int i = 0; i < 14; i = i + 2) {
-            System.out.println("{" + vertices[i] + ", " + vertices[i + 1] + "}");
-            if (i == 6) System.out.print("Mouse ");
-        }
-
-        System.out.println("Slope: " + slope);
-        System.out.println("Perp Slope: " + perpSlope);
-        System.out.println();
-    }
-
     public void polygonRendererInit() {
         polyBatch = new PolygonSpriteBatch();
         Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

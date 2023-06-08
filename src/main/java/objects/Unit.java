@@ -7,19 +7,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
+import core.Client;
 
 public class Unit {
     private TweenManager tweenManager;
     ShapeRenderer shapeRenderer;
     int ID;
-    int owner;
+    String owner;
     float Xpos, Ypos;
     final float targetX;
     final float targetY;
     float SPEED = 1f;
     public static int RADIUS = 5;
 
-    public Unit(int owner, int sourceX, int sourceY, int destinationX, int destinationY, ShapeRenderer shapeRenderer) {
+    public Unit(String owner, int sourceX, int sourceY, int destinationX, int destinationY, ShapeRenderer shapeRenderer) {
         this.shapeRenderer = shapeRenderer;
         this.owner = owner;
 
@@ -48,16 +49,7 @@ public class Unit {
     }
 
     public void setColor(){
-        if (owner == 0)
-            shapeRenderer.setColor(Color.WHITE);
-        if (owner == 1)
-            shapeRenderer.setColor(Color.BLUE);
-        if (owner == 2)
-            shapeRenderer.setColor(Color.RED);
-        if (owner == 3)
-            shapeRenderer.setColor(Color.GREEN);
-        if (owner == 4)
-            shapeRenderer.setColor(Color.YELLOW);
+            shapeRenderer.setColor(Client.playersColors.get(owner));
     }
 
     public void dispose() {

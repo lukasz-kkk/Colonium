@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.utils.ShortArray;
 import core.Boot;
 import Screens.GameScreen;
+import core.Client;
 import core.UserInput;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -51,7 +52,6 @@ public class Map {
 
         provincesInit();
         polygonRendererInit();
-        testInitValues();
     }
 
     private void provincesInit() {
@@ -79,7 +79,6 @@ public class Map {
             provinces[i].update();
         }
        user.sending_troops(provinces);
-//       user.messageReciver(provinces);
     }
 
 
@@ -97,32 +96,10 @@ public class Map {
     }
 
     public void polygonRender(int polygonID) {
-        if (provinces[polygonID].owner == 0)
-            polySprite[polygonID].setColor(Color.GRAY); // GRAY
-        if (provinces[polygonID].owner == 1)
-            polySprite[polygonID].setColor(Color.SKY); // BLUE
-        if (provinces[polygonID].owner == 2)
-            polySprite[polygonID].setColor(Color.SALMON); // RED
-        if (provinces[polygonID].owner == 3)
-            polySprite[polygonID].setColor(Color.OLIVE); // GREEN
-        if (provinces[polygonID].owner == 4)
-            polySprite[polygonID].setColor(Color.GOLD); // YELLOW
-
+        if(provinces[polygonID].owner == null || Client.playersColors == null) return;
+        System.out.println(provinces[polygonID].owner);
+        polySprite[polygonID].setColor((Client.playersColors.get(provinces[polygonID].owner)));
         polySprite[polygonID].draw(polyBatch);
-    }
-
-    public void testInitValues() {
-        provinces[0].owner = 1;
-        provinces[1].owner = 1;
-        provinces[2].owner = 1;
-
-        provinces[8].owner = 2;
-        provinces[7].owner = 2;
-        provinces[15].owner = 2;
-
-        provinces[17].owner = 3;
-
-        provinces[22].owner = 4;
     }
 
     public void polygonRendererInit() {
