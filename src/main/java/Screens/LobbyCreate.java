@@ -55,7 +55,7 @@ public class LobbyCreate extends ScreenAdapter {
         this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
     }
 
-    private void createContinue(){
+    private void createContinue() throws InterruptedException {
         System.out.println("createLobby()");
         Client.message = MessageUtility.setNameJSON(LobbyUsername.username);
         Client.clientName = LobbyUsername.username;
@@ -67,6 +67,8 @@ public class LobbyCreate extends ScreenAdapter {
         Client.message = MessageUtility.createLobbyJSON(lobbyName);
         Client.currentLobby = lobbyName;
         LobbyMainScreen.lobbyName = lobbyName;
+        Thread.sleep(100);
+        refreshLobbiesList();
         Boot.INSTANCE.setScreen(Boot.lobby);
     }
 
@@ -80,7 +82,7 @@ public class LobbyCreate extends ScreenAdapter {
         inputHandle();
     }
 
-    public void inputHandle() {
+    public void inputHandle() throws InterruptedException {
         if (buttonContinue.isClicked()) {
             createContinue();
         }
@@ -133,6 +135,10 @@ public class LobbyCreate extends ScreenAdapter {
 
     public void clearLobbyName(){
         lobbyName = "";
+    }
+    public void refreshLobbiesList() {
+        Client.getLobbiesInfo = 1;
+        Client.message = MessageUtility.createLobbiesRequest();
     }
 
 }

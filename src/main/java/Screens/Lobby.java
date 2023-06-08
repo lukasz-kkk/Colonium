@@ -1,18 +1,21 @@
 package Screens;
 
 import UI.Button;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import core.Client;
 import core.MessageUtility;
+import objects.Province;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static Screens.LobbyUsername.username;
 import static Screens.LobbyCreate.lobbyName;
@@ -26,6 +29,26 @@ public class Lobby extends ScreenAdapter {
     private final Texture blackTexture;
 
     int tick;
+
+    static Color[] colors = {
+            Color.GRAY,
+            Color.GREEN,
+            Color.BLUE,
+            Color.YELLOW,
+            Color.ORANGE,
+            Color.PURPLE,
+            Color.PINK,
+            Color.OLIVE,
+            Color.WHITE,
+            Color.BROWN,
+            Color.RED,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.LIME,
+            Color.GOLD,
+            Color.SALMON
+    };
+    public static List<Color> basicColors = new ArrayList<>(List.of(colors));
 
     Button buttonCreate;
     Button buttonReturn;
@@ -57,8 +80,12 @@ public class Lobby extends ScreenAdapter {
         this.buttonStart = new Button("Start", 990, 950, 300, 100, batch, font);
     }
 
-    private void start(){
-        Boot.INSTANCE.setScreen(new GameScreen(camera));
+    private void start() throws InterruptedException {
+        Client.message = MessageUtility.startMapJSON(Client.currentLobby);
+        GameScreen gameScreen = new GameScreen(camera);
+        Thread.sleep(500);
+        assignColors();
+        Boot.INSTANCE.setScreen(gameScreen);
     }
 
 
@@ -72,8 +99,17 @@ public class Lobby extends ScreenAdapter {
         buttonRefresh.update();
 
         batch.setProjectionMatrix(camera.combined);
-
+        if(Client.startMapFlag == 1){
+            start();
+        }
         inputHandle();
+    }
+
+    private void assignColors(){
+        Client.playersColors.put("unowned", basicColors.get(0));
+        for(String player : Client.players) {
+            Client.playersColors.put(player, basicColors.get(Client.players.indexOf(player) + 1));
+        }
     }
 
     public void inputHandle() throws InterruptedException {
@@ -144,5 +180,4 @@ public class Lobby extends ScreenAdapter {
         Client.message = MessageUtility.createLobbiesRequest();
         tick = 0;
     }
-
 }

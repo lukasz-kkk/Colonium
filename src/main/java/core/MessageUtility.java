@@ -49,6 +49,14 @@ public class MessageUtility {
 
         return obj.toString();
     }
+    public static String startMapJSON(String lobbyName){
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "start_map");
+        obj.put("lobby_name", lobbyName);
+
+        return obj.toString();
+    }
     public static String createAttackJSON(int src, int dst){
         JSONObject obj = new JSONObject();
         obj.put("type", "attack");
@@ -82,14 +90,13 @@ public class MessageUtility {
 
         for (Object provinceObj : provinces) {
             JSONObject province = (JSONObject) provinceObj;
-            long owner = (Long) province.get("owner");
+            String owner = (String) province.get("owner");
             long id = (Long) province.get("id");
             long income = (Long) province.get("income");
             long manpower = (Long) province.get("manpower");
             long army = (Long) province.get("army");
             if(Map.provinces[(int)id] == null) return;
-
-            Map.provinces[(int)id].owner = (int)owner;
+            Map.provinces[(int)id].owner = owner;
             Map.provinces[(int)id].setValue((int)army);
 
         }

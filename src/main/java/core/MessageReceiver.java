@@ -20,6 +20,9 @@ public class MessageReceiver {
                 return SUCCESS;
             case "success":
                 return SUCCESS;
+            case "start_map":
+                Client.startMapFlag = 1;
+                return SUCCESS;
             default:
                 return UNKNOWN_TYPE_ERROR;
         }
@@ -38,7 +41,6 @@ public class MessageReceiver {
     private void handleMap() {
         MessageUtility.jsonMapMessageDecoder(Client.jsonResponse);
     }
-
     private void handleLobbies(){
         if(Client.getLobbiesInfo == 1){
             Client.lobbies = MessageUtility.jsonDecodeLobbies(Client.jsonResponse.toString());

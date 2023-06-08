@@ -1,11 +1,14 @@
 package core;
 
+import com.badlogic.gdx.graphics.Color;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static Utils.Definitions.*;
@@ -22,9 +25,11 @@ public class Client extends Thread {
     private String response = null;
     public static List<String> lobbies;
     public static List<String> players;
+    public static HashMap<String, Color> playersColors = new HashMap<>();
     public static String currentLobby = null;
-
+    public static Color clientColor = Color.GRAY;
     public static int getLobbiesInfo = 0;
+    public static int startMapFlag = 0;
 
     static JSONObject jsonResponse = null;
 
@@ -66,7 +71,6 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
                 jsonResponse = MessageUtility.reciveJSON(response);
-
                 int error = messageReceiver.handleResponse();
                 if (error != SUCCESS) {
                     System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);
