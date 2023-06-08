@@ -1,5 +1,6 @@
 package core;
 
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import objects.Map;
 import objects.Province;
@@ -14,27 +15,21 @@ public class UserInput
     int first_province_selected =0;
     int second_province_selected =0;
     float startprovinceX=0,startprovinceY=0;
+    private SoundManager sm = new SoundManager();
+    private long lastPlayedSound = -1;
     public void send_move(int src, int dst)
     {
-        //GameScreen.unitHandler.sendUnits(src, dst);
         Client.message = MessageUtility.createAttackJSON(src, dst);
+        if(lastPlayedSound==-1)
+        {
+            lastPlayedSound = sm.movesound.play(0.2f);
+        }
+        else
+        {
+            sm.movesound.stop(lastPlayedSound);
+            lastPlayedSound = sm.movesound.play(0.2f);
+        }
     }
-//    public void messageReciver(Province[] provinces)
-//    {
-//        if (Client.jsonResponse!=null)
-//        {
-//            String type = Client.jsonResponse.get("type").toString();
-//            if(type.equals("attack"))
-//            {
-//                String srcs = Client.jsonResponse.get("src").toString();
-//                int src = Integer.parseInt(srcs);
-//                srcs = Client.jsonResponse.get("dsc").toString();
-//                int dsc = Integer.parseInt(srcs);
-//                provinces[dsc].setValue(provinces[dsc].getValue()+provinces[src].getValue());
-//                provinces[src].setValue(0);
-//            }
-//        }
-//    }
     public void sending_troops(Province[] provinces)
     {
         float endX=0;
