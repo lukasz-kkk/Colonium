@@ -1,5 +1,6 @@
 package core;
 
+import Utils.SoundManager;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
@@ -8,6 +9,8 @@ import java.io.IOException;
 
 public class Launcher {
     public static Client client;
+
+
 
     public static Client getClient(){
         return client;

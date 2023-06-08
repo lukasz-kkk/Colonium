@@ -1,6 +1,7 @@
 package objects;
 
 import UI.Arrow;
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -52,6 +53,9 @@ public class Map {
         provincesInit();
         polygonRendererInit();
         testInitValues();
+        SoundManager sm = new SoundManager();
+        long loop = sm.loopsound.play(0.05f);
+        sm.loopsound.setLooping(loop,true);
     }
 
     private void provincesInit() {

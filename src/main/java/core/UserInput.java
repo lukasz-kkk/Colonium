@@ -22,12 +22,12 @@ public class UserInput
         Client.message = MessageUtility.createAttackJSON(src, dst);
         if(lastPlayedSound==-1)
         {
-            lastPlayedSound = sm.movesound.play(0.2f);
+            lastPlayedSound = sm.movesound.play(0.1f);
         }
         else
         {
             sm.movesound.stop(lastPlayedSound);
-            lastPlayedSound = sm.movesound.play(0.2f);
+            lastPlayedSound = sm.movesound.play(0.1f);
         }
     }
     public void sending_troops(Province[] provinces)
