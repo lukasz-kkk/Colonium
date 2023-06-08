@@ -1,5 +1,6 @@
 package Screens;
 
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -134,25 +135,44 @@ public class LobbyScreen extends ScreenAdapter {
                 && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f) {
             buttonCreateLobbyTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
                 createLobby();
+            }
+
         }
         if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
                 && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT + 150 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f + 150) {
             buttonJoinLobbyTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
                 joinLobby();
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
+            }
+
         }
         if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
                 && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT + 300 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f + 300) {
             buttonDirectPlayTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
                 Boot.INSTANCE.setScreen(new GameScreen(camera));
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
+            }
+
         }
         if (Gdx.input.getX() >= 70 && Gdx.input.getX() <= 70 + BUTTON_WIDTH / 6f
                 && Gdx.input.getY() >= Boot.INSTANCE.getScreenHeight() / 2f - BUTTON_HEIGHT - 350 && Gdx.input.getY() <= Boot.INSTANCE.getScreenHeight() / 2f - 350) {
             buttonReturnTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
                 Boot.INSTANCE.setScreen(Boot.menuScreen);
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
+            }
         }
     }
 

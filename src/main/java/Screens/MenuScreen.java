@@ -1,5 +1,6 @@
 package Screens;
 
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -92,7 +93,12 @@ public class MenuScreen extends ScreenAdapter {
             buttonStartTexture = buttonTouchTexture;
             // start game
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
                 Boot.INSTANCE.setScreen(Boot.lobbyScreen);
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
+            }
+
         }
 
         if (Gdx.input.getX() >= Boot.INSTANCE.getScreenWidth() / 2f - BUTTON_WIDTH / 2f && Gdx.input.getX() <= Boot.INSTANCE.getScreenWidth() / 2f + BUTTON_WIDTH / 2f
@@ -100,7 +106,12 @@ public class MenuScreen extends ScreenAdapter {
             buttonQuitTexture = buttonTouchTexture;
             // quit game
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))
+            {
                 Gdx.app.exit();
+                SoundManager sm = new SoundManager();
+                sm.clickplayer();
+            }
+
         }
     }
 

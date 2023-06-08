@@ -53,9 +53,9 @@ public class Map {
         provincesInit();
         polygonRendererInit();
         testInitValues();
+
         SoundManager sm = new SoundManager();
-        long loop = sm.loopsound.play(0.05f);
-        sm.loopsound.setLooping(loop,true);
+        sm.loopplayer();
     }
 
     private void provincesInit() {

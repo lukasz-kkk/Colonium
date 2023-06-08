@@ -15,20 +15,11 @@ public class UserInput
     int first_province_selected =0;
     int second_province_selected =0;
     float startprovinceX=0,startprovinceY=0;
-    private SoundManager sm = new SoundManager();
-    private long lastPlayedSound = -1;
+    SoundManager sm = new SoundManager();
     public void send_move(int src, int dst)
     {
         Client.message = MessageUtility.createAttackJSON(src, dst);
-        if(lastPlayedSound==-1)
-        {
-            lastPlayedSound = sm.movesound.play(0.1f);
-        }
-        else
-        {
-            sm.movesound.stop(lastPlayedSound);
-            lastPlayedSound = sm.movesound.play(0.1f);
-        }
+        sm.moveplayer();
     }
     public void sending_troops(Province[] provinces)
     {
