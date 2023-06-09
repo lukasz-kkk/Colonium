@@ -54,7 +54,7 @@ public class Client extends Thread {
             senderThread.join();
             receiverThread.join();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(ANSI_RED + "Failed to connect to server" + ANSI_RESET);
         } finally {
             try {
                 if (output != null) output.close();
@@ -71,6 +71,7 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
                 jsonResponse = MessageUtility.reciveJSON(response);
+                //System.out.println(jsonResponse);
                 int error = messageReceiver.handleResponse();
                 if (error != SUCCESS) {
                     System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);

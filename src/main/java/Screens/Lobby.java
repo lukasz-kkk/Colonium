@@ -19,6 +19,7 @@ import java.util.List;
 
 import static Screens.LobbyUsername.username;
 import static Screens.LobbyCreate.lobbyName;
+import static Utils.Definitions.*;
 
 public class Lobby extends ScreenAdapter {
     private final OrthographicCamera camera;
@@ -30,24 +31,7 @@ public class Lobby extends ScreenAdapter {
 
     int tick;
 
-    static Color[] colors = {
-            Color.GRAY,
-            Color.GREEN,
-            Color.BLUE,
-            Color.YELLOW,
-            Color.ORANGE,
-            Color.PURPLE,
-            Color.PINK,
-            Color.OLIVE,
-            Color.WHITE,
-            Color.BROWN,
-            Color.RED,
-            Color.CYAN,
-            Color.MAGENTA,
-            Color.LIME,
-            Color.GOLD,
-            Color.SALMON
-    };
+
     public static List<Color> basicColors = new ArrayList<>(List.of(colors));
 
     Button buttonCreate;

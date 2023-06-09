@@ -16,6 +16,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
 
+import static Utils.Definitions.*;
+
 public class LobbyMainScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
@@ -70,7 +72,15 @@ public class LobbyMainScreen extends ScreenAdapter {
     private void joinLobby() throws InterruptedException {
         if(lobbySelected == -1) return;
         int select = 4 - lobbySelected;
-        int spaceIndex = Client.lobbies.get(select).indexOf(" ");
+
+        int spaceIndex;
+        try {
+            spaceIndex = Client.lobbies.get(select).indexOf(" ");
+        } catch (NullPointerException | IndexOutOfBoundsException e){
+            System.out.println(ANSI_RED + "Failed to find lobby" + ANSI_RESET);
+            return;
+        }
+
         lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
         LobbyCreate.lobbyName = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);

@@ -20,6 +20,8 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.util.Iterator;
 
+import static Utils.Definitions.*;
+
 public class Map {
     private final Texture texture;
     GameScreen gameScreen;
@@ -43,7 +45,7 @@ public class Map {
         this.batch = batch;
         try {
             jsonRead();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         this.texture = new Texture("white.png");
@@ -63,12 +65,13 @@ public class Map {
     }
 
     UserInput user = new UserInput();
+
     public void provincesRender() {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].render(batch);
         }
-        if(user.isProvinceSelected()){
-            arrow.activate((int)user.getStartprovinceX(), (int)user.getStartprovinceY(), Gdx.input.getX(), Boot.INSTANCE.getScreenHeight() - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
+        if (user.isProvinceSelected()) {
+            arrow.activate((int) user.getStartprovinceX(), (int) user.getStartprovinceY(), Gdx.input.getX(), Boot.INSTANCE.getScreenHeight() - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
             provinces[user.getFirst_provinceID()].render(batch);
         }
 
@@ -78,7 +81,7 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].update();
         }
-       user.sending_troops(provinces);
+        user.sending_troops(provinces);
     }
 
 
@@ -96,10 +99,24 @@ public class Map {
     }
 
     public void polygonRender(int polygonID) {
-        if(provinces[polygonID].owner == null || Client.playersColors == null) return;
-        System.out.println(provinces[polygonID].owner);
-        polySprite[polygonID].setColor((Client.playersColors.get(provinces[polygonID].owner)));
+        setColor(polygonID);
         polySprite[polygonID].draw(polyBatch);
+    }
+
+    private void setColor(int polygonID) {
+        if (provinces[polygonID].owner == null || Client.playersColors == null) return;
+
+        Color color = (Client.playersColors.get(provinces[polygonID].owner));
+        if (!provinces[polygonID].owner.equals("unowned")) {
+            float factor = 0.3f;
+            float r = Math.min(color.r + factor, 1.0f);
+            float g = Math.min(color.g + factor, 1.0f);
+            float b = Math.min(color.b + factor, 1.0f);
+            polySprite[polygonID].setColor(r, g, b, 1.0f);
+            return;
+        }
+
+        polySprite[polygonID].setColor(color);
     }
 
     public void polygonRendererInit() {
@@ -122,7 +139,7 @@ public class Map {
     }
 
 
-    private void jsonRead() throws Exception{
+    private void jsonRead() throws Exception {
         Object obj = new JSONParser().parse(new FileReader("src/main/resources/maps/map_1.json"));
         JSONObject jsonObject = (JSONObject) obj;
         pngPath = (String) jsonObject.get("maps/prov1_borders.png");
@@ -140,16 +157,16 @@ public class Map {
             JSONArray blobCoords = (JSONArray) province.get("blobCoords");
             float[] coordsArray = new float[coords.size()];
             int[] blobCoordsArray = new int[blobCoords.size()];
-            for (int i = 0; i < coords.size(); i++){
+            for (int i = 0; i < coords.size(); i++) {
                 coordsArray[i] = Float.parseFloat(coords.get(i).toString());
-                if(i % 2 == 1) {
+                if (i % 2 == 1) {
                     coordsArray[i] -= (1018 - Boot.INSTANCE.getScreenHeight()) * 0.55;
                 }
             }
 
             for (int i = 0; i < blobCoords.size(); i++) {
                 blobCoordsArray[i] = Integer.parseInt(blobCoords.get(i).toString());
-                if(i % 2 == 1) {
+                if (i % 2 == 1) {
                     blobCoordsArray[i] -= (1018 - Boot.INSTANCE.getScreenHeight()) * 0.55;
                 }
             }

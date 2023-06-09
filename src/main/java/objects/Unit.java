@@ -49,7 +49,8 @@ public class Unit {
     }
 
     public void setColor(){
-            shapeRenderer.setColor(Client.playersColors.get(owner));
+        if (owner == null) return;
+        shapeRenderer.setColor(Client.playersColors.get(owner));
     }
 
     public void dispose() {
