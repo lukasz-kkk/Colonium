@@ -6,6 +6,7 @@ import Screens.LobbyUsername;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -24,8 +25,8 @@ public class Province {
     public String owner;
     private final float xPosition, yPosition;
     private GameScreen gameScreen;
-    public static int RADIUS = 20;
-    private BitmapFont font;
+    public static int RADIUS = 22;
+    private final BitmapFont font;
     private int value=0;
     public int getValue() {
         return value;
@@ -46,8 +47,8 @@ public class Province {
         this.shapeRenderer = shapeRenderer;
         this.ID = ID;
         this.value = 20;
-        font = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"), Gdx.files.internal("fonts/font10.png"), false);
-        font.setColor(Color.BLACK);
+        font = new BitmapFont(Gdx.files.internal("fonts/Bebas26px.fnt"), Gdx.files.internal("fonts/Bebas26px.png"), false);
+
         font.getData().setScale(1);
     }
 
@@ -74,9 +75,10 @@ public class Province {
 
         int numOfDigits = (int) Math.floor(Math.log10(value)) + 1;
         if(value == 0) numOfDigits = 1;
-        int fontOffset = 1 + numOfDigits * 5;
+        int fontOffset = numOfDigits * 6;
+
         batch.begin();
-        font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 7);
+        font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 12);
         font.draw(batch, "Lobby name: " + LobbyCreate.lobbyName, 10, 1000);
         font.draw(batch, "User name: " + LobbyUsername.username, 10, 900);
         batch.end();

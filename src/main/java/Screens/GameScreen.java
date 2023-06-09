@@ -1,5 +1,6 @@
 package Screens;
 
+import UI.PlayerTile;
 import UI.UpgradeMenu;
 import Utils.UnitHandler;
 import com.badlogic.gdx.Gdx;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import core.Boot;
+import core.Client;
 import objects.Map;
 import objects.Province;
 import org.lwjgl.opengl.GL20;
@@ -27,6 +29,7 @@ public class GameScreen extends ScreenAdapter {
     private Map map;
     public static UnitHandler unitHandler;
     private UpgradeMenu upgradeMenu;
+    private PlayerTile playerTile;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -35,9 +38,11 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
+        unitHandler = new UnitHandler();
+
         this.map = new Map(27, this, batch);
-        this.unitHandler = new UnitHandler();
         this.upgradeMenu = new UpgradeMenu();
+        this.playerTile = new PlayerTile(Client.players);
     }
 
     public void update() {
@@ -65,5 +70,7 @@ public class GameScreen extends ScreenAdapter {
         map.provincesRender();
 
         upgradeMenu.show();
+
+        playerTile.render();
     }
 }
