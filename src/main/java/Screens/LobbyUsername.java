@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import core.Client;
+import core.Launcher;
 import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
@@ -48,6 +49,8 @@ public class LobbyUsername extends ScreenAdapter {
         pixmap.dispose();
 
         username = "";
+        if(Launcher.test)
+            username = "Test_player_" + Launcher.randomName;
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);

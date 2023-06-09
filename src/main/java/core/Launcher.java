@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Launcher {
     public static Client client;
@@ -13,8 +14,16 @@ public class Launcher {
         return client;
     }
 
+    public static boolean test = false;
+    public static String randomName;
+
     public static void main(String[] args) throws IOException, InterruptedException {
         //Connection
+        if(args.length > 0) {
+            test = true;
+            randomName = args[0];
+        }
+
         client = new Client();
         client.start();
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
