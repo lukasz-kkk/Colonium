@@ -79,8 +79,8 @@ public class Province {
 
         batch.begin();
         font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 12);
-        font.draw(batch, "Lobby name: " + LobbyCreate.lobbyName, 10, 1000);
-        font.draw(batch, "User name: " + LobbyUsername.username, 10, 900);
+        font.draw(batch, "Lobby name: " + Client.currentLobby, 10, 1000);
+        font.draw(batch, "User name: " + Client.clientName, 10, 900);
         batch.end();
     }
 

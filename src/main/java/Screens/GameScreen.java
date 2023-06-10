@@ -1,5 +1,6 @@
 package Screens;
 
+import UI.Button;
 import UI.PlayerTile;
 import UI.UpgradeMenu;
 import Utils.UnitHandler;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -24,8 +26,10 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
+    private final BitmapFont font;
 
     // game objects
+    private Button buttonQuit;
     private Map map;
     public static UnitHandler unitHandler;
     private UpgradeMenu upgradeMenu;
@@ -33,16 +37,23 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2, Boot.INSTANCE.getScreenHeight() / 2, 0));
+        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
+        font = new BitmapFont(Gdx.files.internal("fonts/Bebas26px.fnt"), Gdx.files.internal("fonts/Bebas26px.png"), false);
+        font.getData().setScale(1f);
 
         unitHandler = new UnitHandler();
 
         this.map = new Map(27, this, batch);
         this.upgradeMenu = new UpgradeMenu();
         this.playerTile = new PlayerTile(Client.players);
+
+        this.buttonQuit = new Button("X", 1800, 100, 50, 50, batch, font);
+        this.buttonQuit.setAdditionalYOffset(20);
+        this.buttonQuit.setAdditionalXOffset(3);
+
     }
 
     public void update() {
@@ -55,6 +66,12 @@ public class GameScreen extends ScreenAdapter {
         map.update();
         unitHandler.update();
         upgradeMenu.update();
+
+        buttonQuit.update();
+        if(buttonQuit.isClicked()) {
+            Gdx.app.exit();
+            System.exit(0);
+        }
     }
 
     @Override
@@ -72,5 +89,9 @@ public class GameScreen extends ScreenAdapter {
         upgradeMenu.show();
 
         playerTile.render();
+
+        batch.begin();
+        buttonQuit.render();
+        batch.end();
     }
 }

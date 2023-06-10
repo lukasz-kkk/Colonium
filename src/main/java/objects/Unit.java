@@ -44,6 +44,8 @@ public class Unit {
 
     public void render() {
         tweenManager.update(1f);
+        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.circle(Xpos, Ypos, RADIUS + 1);
         setColor();
         shapeRenderer.circle(Xpos, Ypos, RADIUS);
     }

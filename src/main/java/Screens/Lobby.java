@@ -17,8 +17,6 @@ import core.Boot;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Screens.LobbyUsername.username;
-import static Screens.LobbyCreate.lobbyName;
 import static Utils.Definitions.*;
 
 public class Lobby extends ScreenAdapter {
@@ -65,6 +63,7 @@ public class Lobby extends ScreenAdapter {
     }
 
     private void start() throws InterruptedException {
+        if(Client.players == null) return;
         Client.message = MessageUtility.startMapJSON(Client.currentLobby);
         GameScreen gameScreen = new GameScreen(camera);
         Thread.sleep(500);
@@ -134,7 +133,7 @@ public class Lobby extends ScreenAdapter {
         float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
 
         batch.draw(blackTexture, xOffset, yOffset, 800, 585);
-        font.draw(batch, "Players in: " + LobbyMainScreen.lobbyName, xOffset + 20, yOffset + 565);
+        font.draw(batch, "Players in: " + Client.currentLobby, xOffset + 20, yOffset + 565);
 
         if (Client.players != null) {
             int ind = 0;
@@ -146,7 +145,7 @@ public class Lobby extends ScreenAdapter {
     }
 
     private void playerInfoRender() {
-        font.draw(batch, "Username: " + username, 10, Gdx.graphics.getHeight() / 10.0f);
+        font.draw(batch, "Username: " + Client.clientName, 10, Gdx.graphics.getHeight() / 10.0f);
     }
 
     public void buttonsRender() {

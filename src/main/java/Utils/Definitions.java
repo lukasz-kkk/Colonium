@@ -6,6 +6,7 @@ public class Definitions {
     // ERROR CODES
     public static final int SUCCESS = 0;
     public static final int UNKNOWN_TYPE_ERROR = -1;
+    public static final int PACKET_LOSS = -2;
 
     // TERMINAL COLORS
     public static final String ANSI_RESET = "\u001B[0m";

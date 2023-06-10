@@ -26,7 +26,7 @@ public class LobbyCreate extends ScreenAdapter {
     private final Texture logoTexture;
     private final Texture blackTexture;
 
-    public static String lobbyName;
+    private static String lobbyName;
 
     Button buttonContinue;
     Button buttonReturn;
@@ -57,8 +57,7 @@ public class LobbyCreate extends ScreenAdapter {
 
     private void createContinue() throws InterruptedException {
         System.out.println("createLobby()");
-        Client.message = MessageUtility.setNameJSON(LobbyUsername.username);
-        Client.clientName = LobbyUsername.username;
+
         try {
             Thread.sleep(100);
         } catch (Exception e){
@@ -66,7 +65,6 @@ public class LobbyCreate extends ScreenAdapter {
         }
         Client.message = MessageUtility.createLobbyJSON(lobbyName);
         Client.currentLobby = lobbyName;
-        LobbyMainScreen.lobbyName = lobbyName;
         Thread.sleep(100);
         refreshLobbiesList();
         Boot.INSTANCE.setScreen(Boot.lobby);

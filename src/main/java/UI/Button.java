@@ -20,6 +20,9 @@ public class Button {
     private final int xPos;
     private final int yPos;
 
+    private int additionalXOffset = 0;
+    private int additionalYOffset = 0;
+
     public Button(String text, int xPos, int yPos, int width, int height, SpriteBatch batch, BitmapFont font){
         this.batch = batch;
         this.font = font;
@@ -42,7 +45,10 @@ public class Button {
     public void render(){
         batch.draw(buttonTexture, xPos, yPos, width, height);
         int fontOffset = 10 * text.length();
-        font.draw(batch, text, xPos + width / 2f - fontOffset, yPos + height - 30);
+
+        float xPosFont = xPos + (width / 2f) - fontOffset + additionalXOffset;
+        float yPosFont = yPos + height - 30 + additionalYOffset;
+        font.draw(batch, text, xPosFont, yPosFont);
     }
 
     public void mouseHandle() {
@@ -58,4 +64,13 @@ public class Button {
     public boolean isClicked(){
         return clicked;
     }
+
+    public void setAdditionalXOffset(int value) {
+        additionalXOffset = value;
+    }
+
+    public void setAdditionalYOffset(int value) {
+        additionalYOffset = value;
+    }
+
 }

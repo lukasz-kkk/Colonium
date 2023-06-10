@@ -29,10 +29,6 @@ public class LobbyMainScreen extends ScreenAdapter {
     int tick;
     int lobbySelected;
 
-    public static String lobbyName;
-
-    String username;
-
     Button buttonCreate;
     Button buttonReturn;
     Button buttonJoin;
@@ -53,7 +49,6 @@ public class LobbyMainScreen extends ScreenAdapter {
 
         this.tick = 0;
         this.lobbySelected = -1;
-        this.username = "";
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
@@ -81,11 +76,10 @@ public class LobbyMainScreen extends ScreenAdapter {
             return;
         }
 
-        lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
-        LobbyCreate.lobbyName = lobbyName;
+        String lobbyName = Client.lobbies.get(select).substring(0, spaceIndex);
+        Client.currentLobby = lobbyName;
         Client.message = MessageUtility.joinLobbyJSON(lobbyName);
         Thread.sleep(200);
-        Client.currentLobby = lobbyName;
 
         refreshLobbiesList();
         Boot.INSTANCE.setScreen(Boot.lobby);
@@ -149,7 +143,7 @@ public class LobbyMainScreen extends ScreenAdapter {
     }
 
     private void playerInfoRender() {
-        font.draw(batch, "Username: " + username, 10, Gdx.graphics.getHeight() / 10.0f);
+        font.draw(batch, "Username: " + Client.clientName, 10, Gdx.graphics.getHeight() / 10.0f);
     }
 
     private void lobbiesRender() {
@@ -169,12 +163,11 @@ public class LobbyMainScreen extends ScreenAdapter {
     }
 
     public void selectionFrameRender() {
+        if(lobbySelected == -1) return;
         float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
         float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
 
-        if (lobbySelected != -1) {
-            yOffset += 100 * lobbySelected;
-        }
+        yOffset += 100 * lobbySelected;
 
         batch.draw(blackTexture, xOffset, yOffset, 800, 100);
     }
@@ -205,10 +198,6 @@ public class LobbyMainScreen extends ScreenAdapter {
 
     public void backgroundRender() {
         batch.draw(backgroundTexture, 0, 0, Boot.INSTANCE.getScreenWidth(), Boot.INSTANCE.getScreenHeight());
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
 }

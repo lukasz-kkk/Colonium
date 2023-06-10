@@ -26,7 +26,7 @@ public class LobbyUsername extends ScreenAdapter {
     private final Texture logoTexture;
     private final Texture blackTexture;
 
-    public static String username;
+    private String username;
 
     TextTyper textTyper;
 
@@ -49,8 +49,10 @@ public class LobbyUsername extends ScreenAdapter {
         pixmap.dispose();
 
         username = "";
-        if(Launcher.test)
+        if(Launcher.test) {
             username = "Test_player_" + Launcher.randomName;
+            System.out.println(username);
+        }
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
@@ -60,15 +62,16 @@ public class LobbyUsername extends ScreenAdapter {
     }
 
     private void userContinue() {
-        Boot.lobbyMainScreen.setUsername(username);
-        Client.getLobbiesInfo = 1;
-        Client.message = MessageUtility.setNameJSON(username);
+        Client.clientName = username;
+        Client.message = MessageUtility.setNameJSON(Client.clientName);
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        Client.getLobbiesInfo = 1;
         Client.message = MessageUtility.createLobbiesRequest();
+
         Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
     }
 

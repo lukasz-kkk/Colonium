@@ -81,6 +81,7 @@ public class MenuScreen extends ScreenAdapter {
         }
         if (buttonQuit.isClicked()) {
             Gdx.app.exit();
+            System.exit(0);
         }
     }
 

@@ -6,7 +6,12 @@ import static Utils.Definitions.*;
 
 public class MessageReceiver {
     public int handleResponse() {
-        String type = Client.jsonResponse.get("type").toString();
+        String type;
+        try{
+            type = Client.jsonResponse.get("type").toString();
+        } catch (NullPointerException e){
+            return PACKET_LOSS;
+        }
 
         switch (type) {
             case "attack":
