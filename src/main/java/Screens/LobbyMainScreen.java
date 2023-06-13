@@ -1,6 +1,7 @@
 package Screens;
 
 import UI.Button;
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -15,6 +16,7 @@ import core.MessageUtility;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
+import org.lwjgl.system.CallbackI;
 
 import static Utils.Definitions.*;
 
@@ -22,7 +24,7 @@ public class LobbyMainScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final BitmapFont font;
-
+    private SoundManager sm = new SoundManager();
     private final Texture backgroundTexture;
     private final Texture blackTexture;
 
@@ -101,15 +103,19 @@ public class LobbyMainScreen extends ScreenAdapter {
 
     public void inputHandle() throws InterruptedException {
         if (buttonCreate.isClicked()) {
+            sm.clickplayer();
             createLobby();
         }
         if (buttonReturn.isClicked()) {
+            sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.menuScreen);
         }
         if (buttonRefresh.isClicked()) {
+            sm.clickplayer();
             refreshLobbiesList();
         }
         if (buttonJoin.isClicked()) {
+            sm.clickplayer();
             joinLobby();
         }
         selectLobby();

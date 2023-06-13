@@ -3,6 +3,7 @@ package Screens;
 import UI.Button;
 import UI.PlayerTile;
 import UI.UpgradeMenu;
+import Utils.SoundManager;
 import Utils.UnitHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -27,6 +28,8 @@ public class GameScreen extends ScreenAdapter {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
     private final BitmapFont font;
+
+    private SoundManager sm = new SoundManager();
 
     // game objects
     private Button buttonQuit;
@@ -61,6 +64,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            sm.clickplayer();
             Gdx.app.exit();
         }
         map.update();
@@ -69,6 +73,7 @@ public class GameScreen extends ScreenAdapter {
 
         buttonQuit.update();
         if(buttonQuit.isClicked()) {
+            sm.clickplayer();
             Gdx.app.exit();
             System.exit(0);
         }

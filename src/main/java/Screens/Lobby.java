@@ -1,6 +1,7 @@
 package Screens;
 
 import UI.Button;
+import Utils.SoundManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -13,6 +14,7 @@ import core.MessageUtility;
 import objects.Province;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
+import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Lobby extends ScreenAdapter {
 
     private final Texture backgroundTexture;
     private final Texture blackTexture;
+    private SoundManager sm = new SoundManager();
 
     int tick;
 
@@ -97,12 +100,15 @@ public class Lobby extends ScreenAdapter {
 
     public void inputHandle() throws InterruptedException {
         if (buttonStart.isClicked()) {
+            sm.clickplayer();
             start();
         }
         if(buttonReturn.isClicked()){
+            sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
         }
         if(buttonRefresh.isClicked()){
+            sm.clickplayer();
             refreshLobbiesList();
         }
     }

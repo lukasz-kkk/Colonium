@@ -1,6 +1,7 @@
 package Screens;
 
 import UI.Button;
+import Utils.SoundManager;
 import Utils.TextTyper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -25,7 +26,7 @@ public class LobbyUsername extends ScreenAdapter {
     private final Texture backgroundTexture;
     private final Texture logoTexture;
     private final Texture blackTexture;
-
+    private SoundManager sm = new SoundManager();
     private String username;
 
     TextTyper textTyper;
@@ -87,9 +88,11 @@ public class LobbyUsername extends ScreenAdapter {
 
     public void inputHandle() {
         if (buttonContinue.isClicked()) {
+            sm.clickplayer();
             userContinue();
         }
         if (buttonReturn.isClicked()) {
+            sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.menuScreen);
         }
     }

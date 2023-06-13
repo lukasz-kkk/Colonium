@@ -1,6 +1,7 @@
 package objects;
 
 import UI.Arrow;
+import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -33,7 +34,7 @@ public class Map {
     private final Texture backgroundTexture;
     public static int numberOfProvinces;
     public static Province[] provinces;
-
+    private SoundManager sm = new SoundManager();
     String pngPath;
     float[][] vertices;
     int[][] blobCoordinates;
@@ -51,7 +52,7 @@ public class Map {
         this.texture = new Texture("white.png");
         this.backgroundTexture = new Texture("maps/prov1_borders.png");
         shapeRenderer = new ShapeRenderer();
-
+        sm.loopplayer();
         provincesInit();
         polygonRendererInit();
     }
