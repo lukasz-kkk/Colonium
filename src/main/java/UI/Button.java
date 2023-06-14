@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import core.Boot;
+import core.UserInput;
 
 public class Button {
     private Texture buttonTexture;
@@ -52,8 +53,9 @@ public class Button {
     }
 
     public void mouseHandle() {
-        int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        int mouseX = UserInput.getMouseX();
+        int mouseY = UserInput.getMouseY();
+
         if (mouseX >= xPos && mouseX <= xPos + width && mouseY >= yPos && mouseY <= yPos + height) {
             buttonTexture = buttonTouchTexture;
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT))

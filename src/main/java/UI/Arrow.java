@@ -127,7 +127,9 @@ public class Arrow {
 
     void setColor(){
         if (provinceOwner == null) return;
-        polySprite.setColor(Client.playersColors.get(provinceOwner));
+        Color color = Client.playersColors.get(provinceOwner);
+        if(color == null) return;
+        polySprite.setColor(color);
     }
     public void polygonRendererInit() {
         polyBatch = new PolygonSpriteBatch();

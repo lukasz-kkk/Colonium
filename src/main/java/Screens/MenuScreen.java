@@ -37,7 +37,7 @@ public class MenuScreen extends ScreenAdapter {
 
     public MenuScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2, Boot.INSTANCE.getScreenHeight() / 2, 0));
+        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();

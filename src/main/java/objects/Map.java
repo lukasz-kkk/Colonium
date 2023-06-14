@@ -71,7 +71,7 @@ public class Map {
             provinces[i].render(batch);
         }
         if (user.isProvinceSelected()) {
-            arrow.activate((int) user.getStartprovinceX(), (int) user.getStartprovinceY(), Gdx.input.getX(), Boot.INSTANCE.getScreenHeight() - Gdx.input.getY(), provinces[user.getFirst_provinceID()].owner);
+            arrow.activate((int) user.getStartprovinceX(), (int) user.getStartprovinceY(), UserInput.getMouseX(), UserInput.getMouseY(), provinces[user.getFirst_provinceID()].owner);
             provinces[user.getFirst_provinceID()].render(batch);
         }
 
@@ -107,6 +107,7 @@ public class Map {
         if (provinces[polygonID].owner == null || Client.playersColors == null) return;
 
         Color color = (Client.playersColors.get(provinces[polygonID].owner));
+        if(color == null) return;
         if (!provinces[polygonID].owner.equals("unowned")) {
             float factor = 0.3f;
             float r = Math.min(color.r + factor, 1.0f);

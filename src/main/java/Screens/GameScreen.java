@@ -31,14 +31,17 @@ public class GameScreen extends ScreenAdapter {
 
     // game objects
     private Button buttonQuit;
-    private Map map;
+    private Map map_1;
+
+    private Map map_selected;
+
     public static UnitHandler unitHandler;
     private UpgradeMenu upgradeMenu;
     private PlayerTile playerTile;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
+        //this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
@@ -46,15 +49,20 @@ public class GameScreen extends ScreenAdapter {
         font.getData().setScale(1f);
 
         unitHandler = new UnitHandler();
-
-        this.map = new Map(27, this, batch);
         this.upgradeMenu = new UpgradeMenu();
-        this.playerTile = new PlayerTile(Client.players);
 
         this.buttonQuit = new Button("X", 1800, 100, 50, 50, batch, font);
         this.buttonQuit.setAdditionalYOffset(20);
         this.buttonQuit.setAdditionalXOffset(3);
 
+        initMaps();
+
+        map_selected = map_1;
+    }
+
+    public void initMaps(){
+        this.map_1 = new Map(27, this, batch);
+        this.playerTile = new PlayerTile(Client.players);
     }
 
     public void update() {
@@ -65,7 +73,7 @@ public class GameScreen extends ScreenAdapter {
             Boot.sm.clickplayer();
             Gdx.app.exit();
         }
-        map.update();
+        map_selected.update();
         unitHandler.update();
         upgradeMenu.update();
 
@@ -83,11 +91,11 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.6f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        map.render();
+        map_selected.render();
 
         unitHandler.render();
 
-        map.provincesRender();
+        map_selected.provincesRender();
 
         upgradeMenu.show();
 

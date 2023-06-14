@@ -67,10 +67,9 @@ public class Lobby extends ScreenAdapter {
     private void start() throws InterruptedException {
         if(Client.players == null) return;
         Client.message = MessageUtility.startMapJSON(Client.currentLobby);
-        GameScreen gameScreen = new GameScreen(camera);
         Thread.sleep(500);
         assignColors();
-        Boot.INSTANCE.setScreen(gameScreen);
+        Boot.INSTANCE.setScreen(Boot.gameScreen);
     }
 
 

@@ -87,6 +87,9 @@ public class LobbyMainScreen extends ScreenAdapter {
     }
 
     public void update() throws InterruptedException {
+        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
+        batch.setProjectionMatrix(camera.combined);
+
         buttonCreate.update();
         buttonReturn.update();
         buttonJoin.update();
@@ -95,7 +98,6 @@ public class LobbyMainScreen extends ScreenAdapter {
         //if (tick++ >= 300)
         //    refreshLobbiesList();
 
-        batch.setProjectionMatrix(camera.combined);
 
         inputHandle();
     }

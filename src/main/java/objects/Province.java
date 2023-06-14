@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import Screens.GameScreen;
+import core.Boot;
 import core.Client;
 
 import java.util.ArrayList;
@@ -73,12 +74,20 @@ public class Province {
 
         shapeRenderer.end();
 
+        fontRender(batch);
+    }
+
+    private void fontRender(SpriteBatch batch){
         int numOfDigits = (int) Math.floor(Math.log10(value)) + 1;
         if(value == 0) numOfDigits = 1;
         int fontOffset = numOfDigits * 6;
 
+        float fontXPosition = xPosition - fontOffset;
+        float fontYPosition = yPosition + 12;
+
+
         batch.begin();
-        font.draw(batch, String.valueOf(value), xPosition - fontOffset, yPosition + 12);
+        font.draw(batch, String.valueOf(value), fontXPosition, fontYPosition);
         font.draw(batch, "Lobby name: " + Client.currentLobby, 10, 1000);
         font.draw(batch, "User name: " + Client.clientName, 10, 900);
         batch.end();
@@ -86,7 +95,9 @@ public class Province {
 
     public void setColor() {
         if(owner == null) return;
-        shapeRenderer.setColor(Client.playersColors.get(owner));
+        Color color = Client.playersColors.get(owner);
+        if(color == null) return;
+        shapeRenderer.setColor(color);
 
     }
   

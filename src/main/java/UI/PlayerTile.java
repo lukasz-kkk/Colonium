@@ -26,7 +26,7 @@ public class PlayerTile {
 
 
     public void render(){
-
+        if(players == null) return;
         for(int i = 0; i < players.size(); i++){
             playerRender(i);
         }

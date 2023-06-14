@@ -29,8 +29,8 @@ public class UserInput
         {
             if(first_province_selected ==0)
             {
-                float startX = Gdx.input.getX();
-                float startY = Gdx.graphics.getHeight() - Gdx.input.getY();
+                float startX = getMouseX();
+                float startY = getMouseY();
                 for(first_provinceID=0; first_provinceID <Map.numberOfProvinces; first_provinceID++)
                 {
                     startprovinceX = provinces[first_provinceID].getXposition();
@@ -48,8 +48,8 @@ public class UserInput
         }
         else if(first_province_selected ==1 && !Gdx.input.isTouched())
         {
-            endX = Gdx.input.getX();
-            endY =Gdx.graphics.getHeight() - Gdx.input.getY();
+            endX = getMouseX();
+            endY = getMouseY();
             for(second_provinceID=0; second_provinceID <Map.numberOfProvinces; second_provinceID++)
             {
                 provinceX = provinces[second_provinceID].getXposition();
@@ -95,5 +95,22 @@ public class UserInput
 
     public int getFirst_provinceID() {
         return first_provinceID;
+    }
+
+    public static int getMouseX(){
+        int mouseX = Gdx.input.getX();
+        float windowWidth = Gdx.graphics.getWidth();
+        float originalWidth = 1920;
+        mouseX = (int)((mouseX / windowWidth) * originalWidth);
+        return mouseX;
+    }
+
+    public static int getMouseY(){
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        float windowHeight = Gdx.graphics.getHeight();
+        float originalHeight = 1020;
+
+        mouseY = (int)((mouseY / windowHeight) * originalHeight);
+        return mouseY;
     }
 }
