@@ -62,7 +62,6 @@ public class GameScreen extends ScreenAdapter {
 
     public void initMaps(){
         this.map_1 = new Map(27, this, batch);
-        this.playerTile = new PlayerTile(Client.players);
     }
 
     public void update() {
@@ -104,5 +103,9 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         buttonQuit.render();
         batch.end();
+    }
+
+    public void setPlayerTile() {
+        this.playerTile = new PlayerTile(Client.players);
     }
 }

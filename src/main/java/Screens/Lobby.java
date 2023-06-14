@@ -69,6 +69,7 @@ public class Lobby extends ScreenAdapter {
         Client.message = MessageUtility.startMapJSON(Client.currentLobby);
         Thread.sleep(500);
         assignColors();
+        Boot.gameScreen.setPlayerTile();
         Boot.INSTANCE.setScreen(Boot.gameScreen);
     }
 
