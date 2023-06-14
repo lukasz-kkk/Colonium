@@ -21,7 +21,6 @@ public class LobbyCreate extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final BitmapFont font;
-    private SoundManager sm = new SoundManager();
     TextTyper textTyper;
 
     private final Texture backgroundTexture;
@@ -84,11 +83,11 @@ public class LobbyCreate extends ScreenAdapter {
 
     public void inputHandle() throws InterruptedException {
         if (buttonContinue.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             createContinue();
         }
         if (buttonReturn.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.menuScreen);
         }
     }

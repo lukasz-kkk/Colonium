@@ -26,7 +26,7 @@ public class LobbyUsername extends ScreenAdapter {
     private final Texture backgroundTexture;
     private final Texture logoTexture;
     private final Texture blackTexture;
-    private SoundManager sm = new SoundManager();
+
     private String username;
 
     TextTyper textTyper;
@@ -88,11 +88,11 @@ public class LobbyUsername extends ScreenAdapter {
 
     public void inputHandle() {
         if (buttonContinue.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             userContinue();
         }
         if (buttonReturn.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.menuScreen);
         }
     }

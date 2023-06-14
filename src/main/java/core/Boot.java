@@ -1,12 +1,15 @@
 package core;
 
 import Screens.*;
+import Utils.SoundManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import org.lwjgl.system.CallbackI;
 
 public class Boot extends Game {
     public Game game;
+    public static SoundManager sm;
     public static Boot INSTANCE;
     private int screenWidth, screenHeight;
     private OrthographicCamera orthographicCamera;
@@ -26,7 +29,7 @@ public class Boot extends Game {
         this.screenWidth = Gdx.graphics.getWidth();
         this.orthographicCamera = new OrthographicCamera();
         this.orthographicCamera.setToOrtho(false, screenWidth, screenHeight);
-
+        sm = new SoundManager();
         menuScreen = new MenuScreen(orthographicCamera);
         lobbyMainScreen = new LobbyMainScreen(orthographicCamera);
         lobbyUsername = new LobbyUsername(orthographicCamera);

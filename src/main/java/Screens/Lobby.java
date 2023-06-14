@@ -28,7 +28,6 @@ public class Lobby extends ScreenAdapter {
 
     private final Texture backgroundTexture;
     private final Texture blackTexture;
-    private SoundManager sm = new SoundManager();
 
     int tick;
 
@@ -100,15 +99,15 @@ public class Lobby extends ScreenAdapter {
 
     public void inputHandle() throws InterruptedException {
         if (buttonStart.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             start();
         }
         if(buttonReturn.isClicked()){
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
         }
         if(buttonRefresh.isClicked()){
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             refreshLobbiesList();
         }
     }

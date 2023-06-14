@@ -14,12 +14,11 @@ public class UserInput
     int second_temp=-2;
     int first_province_selected =0;
     int second_province_selected =0;
-    private SoundManager sm = new SoundManager();
     float startprovinceX=0,startprovinceY=0;
     public void send_move(int src, int dst)
     {
         Client.message = MessageUtility.createAttackJSON(src, dst);
-        sm.moveplayer();
+        Boot.sm.moveplayer();
     }
     public void sending_troops(Province[] provinces)
     {

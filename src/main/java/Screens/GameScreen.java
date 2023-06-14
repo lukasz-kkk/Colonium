@@ -29,8 +29,6 @@ public class GameScreen extends ScreenAdapter {
     private Box2DDebugRenderer box2DDebugRenderer;
     private final BitmapFont font;
 
-    private SoundManager sm = new SoundManager();
-
     // game objects
     private Button buttonQuit;
     private Map map;
@@ -64,7 +62,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Gdx.app.exit();
         }
         map.update();
@@ -73,7 +71,7 @@ public class GameScreen extends ScreenAdapter {
 
         buttonQuit.update();
         if(buttonQuit.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Gdx.app.exit();
             System.exit(0);
         }

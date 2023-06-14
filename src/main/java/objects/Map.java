@@ -34,7 +34,6 @@ public class Map {
     private final Texture backgroundTexture;
     public static int numberOfProvinces;
     public static Province[] provinces;
-    private SoundManager sm = new SoundManager();
     String pngPath;
     float[][] vertices;
     int[][] blobCoordinates;
@@ -52,7 +51,7 @@ public class Map {
         this.texture = new Texture("white.png");
         this.backgroundTexture = new Texture("maps/prov1_borders.png");
         shapeRenderer = new ShapeRenderer();
-        sm.loopplayer();
+        Boot.sm.loopplayer();
         provincesInit();
         polygonRendererInit();
     }

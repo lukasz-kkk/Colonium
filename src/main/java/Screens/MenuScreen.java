@@ -28,7 +28,7 @@ public class MenuScreen extends ScreenAdapter {
     private final World world;
     private Box2DDebugRenderer box2DDebugRenderer;
     private final BitmapFont font;
-    private SoundManager sm = new SoundManager();
+
     private final Texture backgroundTexture;
     private final Texture logoTexture;
 
@@ -78,11 +78,11 @@ public class MenuScreen extends ScreenAdapter {
 
     public void inputHandle() {
         if (buttonStart.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.lobbyUsername);
         }
         if (buttonQuit.isClicked()) {
-            sm.clickplayer();
+            Boot.sm.clickplayer();
             Gdx.app.exit();
             System.exit(0);
         }
