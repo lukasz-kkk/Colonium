@@ -40,7 +40,7 @@ public class Launcher {
         config.setWindowedMode(1920, 1020);
         config.setWindowPosition(0, 30);
 
-        config.setInitialBackgroundColor(new Color(0.5f, 0.5f, 0.6f, 0));
+        config.setInitialBackgroundColor(new Color(0.3f, 0.3f, 0.3f, 0));
         Boot boot = new Boot();
         //config.setMaximized(true);
         new Lwjgl3Application(boot, config);

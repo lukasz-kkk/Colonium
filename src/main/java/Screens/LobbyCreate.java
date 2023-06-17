@@ -6,6 +6,7 @@ import Utils.TextTyper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,8 @@ import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
 
+import static Utils.Definitions.SCREEN_HEIGHT;
+
 public class LobbyCreate extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
@@ -26,6 +29,10 @@ public class LobbyCreate extends ScreenAdapter {
     private final Texture backgroundTexture;
     private final Texture logoTexture;
     private final Texture blackTexture;
+    private final Texture whiteTexture;
+    private String warning;
+
+    int tick;
 
     private static String lobbyName;
 
@@ -37,27 +44,31 @@ public class LobbyCreate extends ScreenAdapter {
         this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
         this.batch = new SpriteBatch();
         this.textTyper = new TextTyper();
+        this.warning = "";
 
         this.backgroundTexture = new Texture("UI_elements/menu_background.png");
         this.logoTexture = new Texture("UI_elements/logo.png");
+        this.tick = 0;
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 0.7f);
         pixmap.fill();
         this.blackTexture = new Texture(pixmap);
+        this.whiteTexture = new Texture("white.png");
         pixmap.dispose();
 
         lobbyName = "";
         //font
-        font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
         font.getData().setScale(1f);
 
-        this.buttonContinue = new Button("Continue", 660, 700, 600, 100, batch, font);
+        this.buttonContinue = new Button("Continue ", 660, 700, 600, 100, batch, font);
+        this.buttonContinue.setAdditionalYOffset(5);
         this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
     }
 
     private void createContinue() throws InterruptedException {
-        System.out.println("createLobby()");
+        if(lobbynameValidate() != 0) return;
 
         try {
             Thread.sleep(100);
@@ -72,6 +83,7 @@ public class LobbyCreate extends ScreenAdapter {
     }
 
     public void update() throws InterruptedException {
+        tick++;
         buttonContinue.update();
         buttonReturn.update();
 
@@ -103,11 +115,27 @@ public class LobbyCreate extends ScreenAdapter {
 
         batch.begin();
 
+        font.setColor(Color.WHITE);
         backgroundRender();
         buttonsRender();
         lobbyNameFieldRender();
+        cursorRender();
+        warningRender();
 
         batch.end();
+    }
+
+    private int lobbynameValidate(){
+        if(lobbyName.length() == 0){
+            warning = "Lobby name cannot be empty";
+            return -1;
+        }
+        return 0;
+    }
+    private void warningRender(){
+        if(warning.equals("")) return;
+        font.setColor(Color.RED);
+        font.draw(batch, warning, Boot.INSTANCE.getScreenWidth() / 2f - 270, Boot.INSTANCE.getScreenHeight() / 4f + 230);
     }
 
     private void enterUsername(){
@@ -118,7 +146,7 @@ public class LobbyCreate extends ScreenAdapter {
         font.draw(batch, "Enter lobby name", Boot.INSTANCE.getScreenWidth() / 2f - 270, Boot.INSTANCE.getScreenHeight() / 2f + 180);
         int yPos = Boot.INSTANCE.getScreenHeight() - 500;
         batch.draw(blackTexture, 650, yPos, 600, 100);
-        font.draw(batch, lobbyName, 700, yPos + 70);
+        font.draw(batch, lobbyName, 700, yPos + 75);
     }
 
     public void buttonsRender() {
@@ -140,6 +168,18 @@ public class LobbyCreate extends ScreenAdapter {
     public void refreshLobbiesList() {
         Client.getLobbiesInfo = 1;
         Client.message = MessageUtility.createLobbiesRequest();
+    }
+
+    private void cursorRender(){
+        if(tick < 30) return;
+        if(tick > 60) tick = 0;
+        int yPos = SCREEN_HEIGHT - 480;
+        int xOffset = 0;
+        for (char c : lobbyName.toCharArray()) {
+            xOffset += font.getData().getGlyph(c).width * 0.95;
+        }
+
+        batch.draw(whiteTexture, 703 + xOffset, yPos, 5, 60);
     }
 
 }

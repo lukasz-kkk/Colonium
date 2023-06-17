@@ -60,12 +60,12 @@ public class Lobby extends ScreenAdapter {
 
         this.buttonCreate = new Button("Create lobby", 660, 140, 600, 100, batch, font);
         this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
-        this.buttonRefresh = new Button("R", 650, 950, 100, 100, batch, font);
+        this.buttonRefresh = new Button("Refresh ", 610, 950, 300, 100, batch, font);
         this.buttonStart = new Button("Start", 990, 950, 300, 100, batch, font);
     }
 
     private void start() throws InterruptedException {
-        if(Client.players == null) return;
+        if (Client.players == null) return;
         Client.message = MessageUtility.startMapJSON(Client.currentLobby);
         Thread.sleep(500);
         assignColors();
@@ -84,15 +84,15 @@ public class Lobby extends ScreenAdapter {
         buttonRefresh.update();
 
         batch.setProjectionMatrix(camera.combined);
-        if(Client.startMapFlag == 1){
+        if (Client.startMapFlag == 1) {
             start();
         }
         inputHandle();
     }
 
-    private void assignColors(){
+    private void assignColors() {
         Client.playersColors.put("unowned", basicColors.get(0));
-        for(String player : Client.players) {
+        for (String player : Client.players) {
             Client.playersColors.put(player, basicColors.get(Client.players.indexOf(player) + 1));
         }
     }
@@ -102,11 +102,11 @@ public class Lobby extends ScreenAdapter {
             Boot.sm.clickplayer();
             start();
         }
-        if(buttonReturn.isClicked()){
+        if (buttonReturn.isClicked()) {
             Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
         }
-        if(buttonRefresh.isClicked()){
+        if (buttonRefresh.isClicked()) {
             Boot.sm.clickplayer();
             refreshLobbiesList();
         }
@@ -133,18 +133,24 @@ public class Lobby extends ScreenAdapter {
         batch.end();
     }
 
-    private void playersInLobbyRender(){
-        float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
-        float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
+    private void playersInLobbyRender() {
+        float xOffset = SCREEN_WIDTH / 3.5f;
+        float yOffset = SCREEN_HEIGHT - 800;
 
-        batch.draw(blackTexture, xOffset, yOffset, 800, 585);
-        font.draw(batch, "Players in: " + Client.currentLobby, xOffset + 20, yOffset + 565);
+        batch.draw(blackTexture, xOffset, yOffset, 800, 700);
+        font.draw(batch, "Players in: " + Client.currentLobby, xOffset + 20, yOffset + 680);
+
 
         if (Client.players != null) {
-            int ind = 0;
+            int indY = 0;
+            int indX = 0;
             for (String l : Client.players) {
-                font.draw(batch, l, xOffset + 20, Boot.INSTANCE.getScreenHeight() - 315 - 100 * ind);
-                ind++;
+                font.draw(batch, l, xOffset + 20 + indX, yOffset + 580 - 70 * indY);
+                indY++;
+                if(indY >= 8) {
+                    indX = 400;
+                    indY = 0;
+                }
             }
         }
     }

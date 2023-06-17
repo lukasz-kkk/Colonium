@@ -129,7 +129,13 @@ public class Arrow {
         if (provinceOwner == null) return;
         Color color = Client.playersColors.get(provinceOwner);
         if(color == null) return;
-        polySprite.setColor(color);
+        float factor = -0.3f;
+        float r = Math.max(color.r + factor, 0.0f);
+        float g = Math.max(color.g + factor, 0.0f);
+        float b = Math.max(color.b + factor, 0.0f);
+
+
+        polySprite.setColor(r, g, b, 1.0f);
     }
     public void polygonRendererInit() {
         polyBatch = new PolygonSpriteBatch();

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import core.Client;
 import core.MessageUtility;
+import core.UserInput;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL20;
 import core.Boot;
@@ -54,9 +55,10 @@ public class LobbyMainScreen extends ScreenAdapter {
         font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
 
+
         this.buttonCreate = new Button("Create lobby", 660, 140, 600, 100, batch, font);
         this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
-        this.buttonRefresh = new Button("R", 650, 950, 100, 100, batch, font);
+        this.buttonRefresh = new Button("Refresh ", 610, 950, 300, 100, batch, font);
         this.buttonJoin = new Button("join", 990, 950, 300, 100, batch, font);
     }
 
@@ -154,11 +156,14 @@ public class LobbyMainScreen extends ScreenAdapter {
     }
 
     private void lobbiesRender() {
-        float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
-        float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
+        float xOffset = SCREEN_WIDTH / 3.5f;
+        float yOffset = SCREEN_HEIGHT - 790;
         batch.draw(blackTexture, xOffset, yOffset, 800, 585);
+        batch.draw(blackTexture, xOffset, yOffset + 500, 800, 85);
+
         font.draw(batch, "Lobby name", xOffset + 20, yOffset + 565);
         font.draw(batch, "Players", xOffset + 570, yOffset + 565);
+
 
         if (Client.lobbies != null) {
             int ind = 0;
@@ -171,9 +176,8 @@ public class LobbyMainScreen extends ScreenAdapter {
 
     public void selectionFrameRender() {
         if(lobbySelected == -1) return;
-        float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
-        float yOffset = Boot.INSTANCE.getScreenHeight() - 790;
-
+        float xOffset = SCREEN_WIDTH / 3.5f;
+        float yOffset = SCREEN_HEIGHT - 790;
         yOffset += 100 * lobbySelected;
 
         batch.draw(blackTexture, xOffset, yOffset, 800, 100);
@@ -182,11 +186,10 @@ public class LobbyMainScreen extends ScreenAdapter {
     public void selectLobby() {
         if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) return;
 
-        float xOffset = Boot.INSTANCE.getScreenWidth() / 3.5f;
-        float yOffset = Boot.INSTANCE.getScreenHeight() - 300;
-        int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.input.getY();
-
+        float xOffset = SCREEN_WIDTH / 3.5f;
+        float yOffset = SCREEN_HEIGHT - 300;
+        int mouseX = UserInput.getMouseX();
+        int mouseY = SCREEN_HEIGHT - UserInput.getMouseY() + 40;
         for (int i = 0; i < 5; i++) {
             int lobbyOffset = 100 * i;
             if (mouseX >= xOffset && mouseX <= xOffset + 800 && mouseY >= yOffset - lobbyOffset && mouseY <= yOffset - lobbyOffset + 100) {

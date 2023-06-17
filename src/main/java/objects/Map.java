@@ -108,14 +108,14 @@ public class Map {
 
         Color color = (Client.playersColors.get(provinces[polygonID].owner));
         if(color == null) return;
-        if (!provinces[polygonID].owner.equals("unowned")) {
-            float factor = 0.3f;
-            float r = Math.min(color.r + factor, 1.0f);
-            float g = Math.min(color.g + factor, 1.0f);
-            float b = Math.min(color.b + factor, 1.0f);
-            polySprite[polygonID].setColor(r, g, b, 1.0f);
-            return;
-        }
+        //if (!provinces[polygonID].owner.equals("unowned")) {
+        //    float factor = 0.3f;
+        //    float r = Math.min(color.r + factor, 1.0f);
+        //    float g = Math.min(color.g + factor, 1.0f);
+        //    float b = Math.min(color.b + factor, 1.0f);
+        //    polySprite[polygonID].setColor(r, g, b, 1.0f);
+        //    return;
+        //}
 
         polySprite[polygonID].setColor(color);
     }

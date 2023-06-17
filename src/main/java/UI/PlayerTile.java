@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
 
+import static Utils.Definitions.SCREEN_HEIGHT;
+
 public class PlayerTile {
     private final ShapeRenderer shapeRenderer;
     private final List<String> players;
@@ -30,11 +32,10 @@ public class PlayerTile {
         for(int i = 0; i < players.size(); i++){
             playerRender(i);
         }
-
     }
 
     private void playerRender(int playerID){
-        int basicY = Gdx.graphics.getHeight() / 4;
+        int basicY = SCREEN_HEIGHT / 8;
         int height = 50;
         int width = 250;
 
