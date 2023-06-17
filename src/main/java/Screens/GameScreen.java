@@ -1,5 +1,6 @@
 package Screens;
 
+import UI.ArmyStrip;
 import UI.Button;
 import UI.PlayerTile;
 import UI.UpgradeMenu;
@@ -38,6 +39,7 @@ public class GameScreen extends ScreenAdapter {
     public static UnitHandler unitHandler;
     private UpgradeMenu upgradeMenu;
     private PlayerTile playerTile;
+    private ArmyStrip armyStrip;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -75,7 +77,6 @@ public class GameScreen extends ScreenAdapter {
         map_selected.update();
         unitHandler.update();
         upgradeMenu.update();
-
         buttonQuit.update();
         if(buttonQuit.isClicked()) {
             Boot.sm.clickplayer();
@@ -99,6 +100,7 @@ public class GameScreen extends ScreenAdapter {
         upgradeMenu.show();
 
         playerTile.render();
+        armyStrip.render();
 
         batch.begin();
         buttonQuit.render();
@@ -107,5 +109,6 @@ public class GameScreen extends ScreenAdapter {
 
     public void setPlayerTile() {
         this.playerTile = new PlayerTile(Client.players);
+        this.armyStrip = new ArmyStrip(Client.players);
     }
 }
