@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UnitHandler {
     ShapeRenderer shapeRenderer;
-    List<Unit> unitList = new ArrayList<>();
+    public static List<Unit> unitList = new ArrayList<>();
     int numberOfUnits;
 
     public UnitHandler() {

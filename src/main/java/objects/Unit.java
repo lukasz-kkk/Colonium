@@ -13,6 +13,11 @@ public class Unit {
     private TweenManager tweenManager;
     ShapeRenderer shapeRenderer;
     int ID;
+
+    public String getOwner() {
+        return owner;
+    }
+
     String owner;
     float Xpos, Ypos;
     final float targetX;
