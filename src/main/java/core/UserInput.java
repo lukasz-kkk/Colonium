@@ -68,7 +68,9 @@ public class UserInput
 
         if(second_province_selected ==1 && first_temp != second_temp)
         {
-            send_move(first_provinceID, second_provinceID);
+            if(provinces[first_provinceID].owner.equals(Client.clientName)){
+                send_move(first_provinceID, second_provinceID);
+            }
             second_province_selected =0;
             first_temp =-1;
             second_temp =-2;

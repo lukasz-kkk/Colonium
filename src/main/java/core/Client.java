@@ -31,6 +31,8 @@ public class Client extends Thread {
     public static int getLobbiesInfo = 0;
     public static int startMapFlag = 0;
 
+    public static Double gold;
+
     static JSONObject jsonResponse = null;
 
     public static String clientName;
@@ -71,7 +73,7 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
                 jsonResponse = MessageUtility.reciveJSON(response);
-                //System.out.println(jsonResponse);
+                System.out.println(jsonResponse);
                 int error = messageReceiver.handleResponse();
                 if (error != SUCCESS) {
                     System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);

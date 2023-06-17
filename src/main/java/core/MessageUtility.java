@@ -82,9 +82,22 @@ public class MessageUtility {
         return (JSONObject) parser.parse(recived);
     }
 
+    public static String createUpgradeRequest(String lobbyName, int provinceID, String upgrade, int cost){
+        JSONObject obj = new JSONObject();
+        obj.put("type", "upgrade");
+        obj.put("lobbyname", lobbyName);
+        obj.put("province_id", provinceID);
+        obj.put("upgrade", upgrade);
+        obj.put("cost", cost);
+        return obj.toString();
+    }
+
     public static void jsonMapMessageDecoder(JSONObject json){
         if(Map.provinces == null) return;
         long temp = (Long) json.get("temp");
+        JSONObject gold = (JSONObject) json.get("playersgold");
+        Client.gold = (Double) gold.get(Client.clientName);
+
         JSONArray provinces = (JSONArray) json.get("provinces");
         long tickRate = (Long) json.get("tickrate");
 
@@ -98,8 +111,8 @@ public class MessageUtility {
             if(Map.provinces[(int)id] == null) return;
             Map.provinces[(int)id].owner = owner;
             Map.provinces[(int)id].setValue((int)army);
-
         }
+        System.out.println(Client.gold);
     }
 
     public static List<String> jsonDecodeLobbies(String json) {

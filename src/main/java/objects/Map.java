@@ -70,7 +70,7 @@ public class Map {
         for (int i = 0; i < numberOfProvinces; i++) {
             provinces[i].render(batch);
         }
-        if (user.isProvinceSelected()) {
+        if (user.isProvinceSelected() && provinces[user.getFirst_provinceID()].owner.equals(Client.clientName)) {
             arrow.activate((int) user.getStartprovinceX(), (int) user.getStartprovinceY(), UserInput.getMouseX(), UserInput.getMouseY(), provinces[user.getFirst_provinceID()].owner);
             provinces[user.getFirst_provinceID()].render(batch);
         }

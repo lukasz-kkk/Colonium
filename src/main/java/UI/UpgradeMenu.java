@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import core.Client;
+import core.MessageUtility;
 import objects.Map;
 import objects.Province;
 
@@ -45,8 +47,9 @@ public class UpgradeMenu {
                 float provinceX = Map.provinces[i].getXposition();
                 float provinceY = Map.provinces[i].getYposition();
                 float distance = (float) Math.sqrt(Math.pow(mouseX - provinceX, 2) + Math.pow(mouseY - provinceY, 2));
-                if (distance <= 20) {
+                if (distance <= 20 && Map.provinces[i].owner.equals(Client.clientName)) {
                     targetProvince = Map.provinces[i];
+                    Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "man", 100);
                     show = 1;
                 }
             }
