@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import core.Client;
 import core.MessageUtility;
+import core.UserInput;
 import objects.Map;
 import objects.Province;
 
@@ -28,6 +29,7 @@ public class UpgradeMenu {
 
         batch.draw(menuTexture, targetProvince.getXposition() - 6, targetProvince.getYposition() - 6, 299, 242);
 
+
         batch.end();
     }
 
@@ -36,13 +38,9 @@ public class UpgradeMenu {
     }
 
     public void processInput() {
-        if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            show = 0;
-            targetProvince = null;
-        }
         if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            float mouseX = UserInput.getMouseX();
+            float mouseY = UserInput.getMouseY();
             for (int i = 0; i < Map.numberOfProvinces; i++) {
                 float provinceX = Map.provinces[i].getXposition();
                 float provinceY = Map.provinces[i].getYposition();
@@ -53,6 +51,33 @@ public class UpgradeMenu {
                     show = 1;
                 }
             }
+        }
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            if (targetProvince == null) return;
+            int mouseX = UserInput.getMouseX();
+            int mouseY = UserInput.getMouseY();
+
+            float update_x = targetProvince.getXposition() + 190;
+
+            float update_1y = targetProvince.getYposition() + 140;
+            float update_2y = targetProvince.getYposition() + 80;
+            float update_3y = targetProvince.getYposition() + 20;
+
+
+            if (mouseY >= update_1y && mouseY <= update_1y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
+                System.out.println("PRODUCE SPEED");
+
+            } else if (mouseY >= update_2y && mouseY <= update_2y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
+                System.out.println("CAPACITY");
+
+            } else if (mouseY >= update_3y && mouseY <= update_3y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
+                System.out.println("INCOME");
+
+            } else {
+                show = 0;
+                targetProvince = null;
+            }
+
         }
     }
 

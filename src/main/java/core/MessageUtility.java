@@ -112,7 +112,7 @@ public class MessageUtility {
             Map.provinces[(int)id].owner = owner;
             Map.provinces[(int)id].setValue((int)army);
         }
-        System.out.println(Client.gold);
+       // System.out.println(Client.gold);
     }
 
     public static List<String> jsonDecodeLobbies(String json) {

@@ -66,11 +66,12 @@ public class LobbyUsername extends ScreenAdapter {
         }
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
+        BitmapFont fontReturn = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
 
         this.buttonContinue = new Button("Continue ", 660, 700, 600, 100, batch, font);
         this.buttonContinue.setAdditionalYOffset(5);
-        this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
+        this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, fontReturn);
     }
 
     public void update(){

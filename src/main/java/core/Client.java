@@ -73,7 +73,7 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
                 jsonResponse = MessageUtility.reciveJSON(response);
-                System.out.println(jsonResponse);
+                //System.out.println(jsonResponse);
                 int error = messageReceiver.handleResponse();
                 if (error != SUCCESS) {
                     System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);

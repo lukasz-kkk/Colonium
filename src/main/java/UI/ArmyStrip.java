@@ -54,6 +54,7 @@ public class ArmyStrip {
 
         for (int i=0;i<players.size();i++) {
             for (int j = 0; j < Map.numberOfProvinces; j++) {
+                if(Map.provinces[j].owner == null) return;
                 if (Map.provinces[j].owner.equals(players.get(i))) {
                     renderArmy +=Map.provinces[j].getValue();
                 }

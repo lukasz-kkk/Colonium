@@ -60,11 +60,12 @@ public class LobbyCreate extends ScreenAdapter {
         lobbyName = "";
         //font
         font = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
+        BitmapFont fontReturn = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
         font.getData().setScale(1f);
 
         this.buttonContinue = new Button("Continue ", 660, 700, 600, 100, batch, font);
         this.buttonContinue.setAdditionalYOffset(5);
-        this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, font);
+        this.buttonReturn = new Button("<", 40, 140, 100, 100, batch, fontReturn);
     }
 
     private void createContinue() throws InterruptedException {
@@ -135,7 +136,7 @@ public class LobbyCreate extends ScreenAdapter {
     private void warningRender(){
         if(warning.equals("")) return;
         font.setColor(Color.RED);
-        font.draw(batch, warning, Boot.INSTANCE.getScreenWidth() / 2f - 270, Boot.INSTANCE.getScreenHeight() / 4f + 230);
+        font.draw(batch, warning, Boot.INSTANCE.getScreenWidth() / 2f - 300, Boot.INSTANCE.getScreenHeight() / 4f + 230);
     }
 
     private void enterUsername(){
