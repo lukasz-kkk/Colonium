@@ -1,5 +1,6 @@
 package Screens;
 
+import UI.ArmyStrip;
 import UI.Button;
 import Utils.SoundManager;
 import com.badlogic.gdx.Gdx;
@@ -20,6 +21,7 @@ import core.Launcher;
 import org.lwjgl.opengl.GL20;
 
 
+
 public class EndScreen extends ScreenAdapter {
 
     Client client = Launcher.getClient();
@@ -28,6 +30,7 @@ public class EndScreen extends ScreenAdapter {
     private final World world;
     private Box2DDebugRenderer box2DDebugRenderer;
     private final BitmapFont font;
+    private final BitmapFont fonttext;
 
     private final Texture backgroundTexture;
     private final Texture logoTexture;
@@ -44,7 +47,10 @@ public class EndScreen extends ScreenAdapter {
         this.backgroundTexture = new Texture("UI_elements/menu_background.png");
         this.logoTexture = new Texture("UI_elements/logo.png");
         //font
-        font = new BitmapFont(Gdx.files.internal("fonts/font20.fnt"), Gdx.files.internal("fonts/font20.png"), false);
+        fonttext = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
+        fonttext.getData().setScale(1f);
+
+        font = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
         font.getData().setScale(1f);
 
         this.buttonQuit = new Button("Quit game", 660, 700, 600, 100, batch, font);
@@ -66,9 +72,13 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-
         backgroundRender();
         buttonsRender();
+        if(Client.clientName.equals(ArmyStrip.winner))
+        {
+            fonttext.draw(batch,"You won!!", Boot.INSTANCE.getScreenWidth() / 2f - 100, Boot.INSTANCE.getScreenHeight() / 2f + 180);
+        }
+        else fonttext.draw(batch,"Player " + ArmyStrip.winner+" won!!", Boot.INSTANCE.getScreenWidth() / 2f - 270, Boot.INSTANCE.getScreenHeight() / 2f + 180);
 
         batch.end();
     }
