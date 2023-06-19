@@ -126,6 +126,7 @@ public class LobbyMainScreen extends ScreenAdapter {
 
     public void refreshLobbiesList() {
         Client.getLobbiesInfo = 1;
+        Client.lobbies.clear();
         Client.message = MessageUtility.createLobbiesRequest();
         tick = 0;
     }

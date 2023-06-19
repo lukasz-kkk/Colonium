@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import core.Boot;
 import core.Client;
 import core.Launcher;
+import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 
 
@@ -52,7 +53,7 @@ public class MenuScreen extends ScreenAdapter {
         this.buttonQuit = new Button("Quit game", 660, 700, 600, 100, batch, font);
     }
 
-    public void update() {
+    public void update() throws InterruptedException {
         buttonStart.update();
         buttonQuit.update();
 
@@ -64,7 +65,11 @@ public class MenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        update();
+        try {
+            update();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.6f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -76,12 +81,14 @@ public class MenuScreen extends ScreenAdapter {
         batch.end();
     }
 
-    public void inputHandle() {
+    public void inputHandle() throws InterruptedException {
         if (buttonStart.isClicked()) {
             Boot.sm.clickplayer();
             Boot.INSTANCE.setScreen(Boot.lobbyUsername);
         }
         if (buttonQuit.isClicked()) {
+            Client.message = MessageUtility.disconnectJSON();
+            Thread.sleep(100);
             Boot.sm.clickplayer();
             Gdx.app.exit();
             System.exit(0);

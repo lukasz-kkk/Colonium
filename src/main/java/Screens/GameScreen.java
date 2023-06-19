@@ -19,6 +19,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import core.Boot;
 import core.Client;
+import core.MessageReceiver;
+import core.MessageUtility;
 import objects.Map;
 import objects.Province;
 import org.lwjgl.opengl.GL20;
@@ -80,8 +82,12 @@ public class GameScreen extends ScreenAdapter {
         buttonQuit.update();
         if(buttonQuit.isClicked()) {
             Boot.sm.clickplayer();
-            Gdx.app.exit();
-            System.exit(0);
+            //Gdx.app.exit();
+            //System.exit(0);
+            Client.message = MessageUtility.leaveLobbyJSON();
+            Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
+            Client.currentLobby = null;
+            Client.players.clear();
         }
     }
 

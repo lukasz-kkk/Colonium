@@ -23,8 +23,8 @@ public class Client extends Thread {
 
     public static String message;
     private String response = null;
-    public static List<String> lobbies;
-    public static List<String> players;
+    public static List<String> lobbies = new ArrayList<>();
+    public static List<String> players = new ArrayList<>();
     public static HashMap<String, Color> playersColors = new HashMap<>();
     public static String currentLobby = null;
     public static Color clientColor = Color.GRAY;

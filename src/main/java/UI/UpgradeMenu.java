@@ -65,21 +65,30 @@ public class UpgradeMenu {
 
             if (mouseY >= update_1y && mouseY <= update_1y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("PRODUCE SPEED");
-                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "man", 100 * targetProvince.manLvl);
+                if(Client.gold >= 100L * targetProvince.manLvl)
+                {
+                    Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "man", 100 * targetProvince.manLvl);
+                    targetProvince.manLvl++;
+                }
 
             } else if (mouseY >= update_2y && mouseY <= update_2y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("CAPACITY");
-                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "cap", 10 * targetProvince.capLvl);
+                if(Client.gold >= 100L * targetProvince.capLvl) {
+                    Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "cap", 10 * targetProvince.capLvl);
+                    targetProvince.capLvl += 10;
+                }
 
             } else if (mouseY >= update_3y && mouseY <= update_3y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("INCOME");
-                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "inc", 100 * targetProvince.incLvl);
+                if(Client.gold >= 100L * targetProvince.incLvl) {
+                    Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "inc", 100 * targetProvince.incLvl);
+                    targetProvince.incLvl++;
+                }
 
             } else {
                 show = 0;
                 targetProvince = null;
             }
-
         }
     }
 

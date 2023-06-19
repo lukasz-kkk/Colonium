@@ -48,6 +48,7 @@ public class MessageReceiver {
     }
     private void handleLobbies(){
         if(Client.getLobbiesInfo == 1){
+            Client.lobbies.clear();
             Client.lobbies = MessageUtility.jsonDecodeLobbies(Client.jsonResponse.toString());
             if(Client.currentLobby != null)
                 Client.players = MessageUtility.jsonDecodePlayers(Client.jsonResponse.toString());

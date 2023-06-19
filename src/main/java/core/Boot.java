@@ -51,6 +51,17 @@ public class Boot extends Game {
 
         setScreen(menuScreen);
     }
+    @Override
+    public void dispose(){
+        Client.message = MessageUtility.disconnectJSON();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Gdx.app.exit();
+        System.exit(0);
+    }
 
     public int getScreenWidth() {
         return screenWidth;

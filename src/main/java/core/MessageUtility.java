@@ -41,11 +41,10 @@ public class MessageUtility {
 
         return obj.toString();
     }
-    public static String resetMapJSON(String name){
+    public static String disconnectJSON(){
         JSONObject obj = new JSONObject();
 
-        obj.put("type", "reset_map");
-        obj.put("lobby_name", name);
+        obj.put("type", "disconnect");
 
         return obj.toString();
     }
@@ -63,12 +62,6 @@ public class MessageUtility {
         obj.put("src", src);
         obj.put("dst", dst);
 
-        return obj.toString();
-    }
-
-    public static String createMapUpdateRequest(){
-        JSONObject obj = new JSONObject();
-        obj.put("type", "map");
         return obj.toString();
     }
     public static String createLobbiesRequest(){
