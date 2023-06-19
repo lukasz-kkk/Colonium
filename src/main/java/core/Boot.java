@@ -20,6 +20,7 @@ public class Boot extends Game {
     public static float scaleY = 0;
 
     public static MenuScreen menuScreen;
+    public static EndScreen endScreen;
     public static LobbyMainScreen lobbyMainScreen;
     public static LobbyUsername lobbyUsername;
     public static LobbyCreate lobbyCreate;
@@ -37,6 +38,7 @@ public class Boot extends Game {
         this.orthographicCamera.setToOrtho(false, screenWidth, screenHeight);
         sm = new SoundManager();
         menuScreen = new MenuScreen(orthographicCamera);
+        endScreen = new EndScreen(orthographicCamera);
         lobbyMainScreen = new LobbyMainScreen(orthographicCamera);
         lobbyUsername = new LobbyUsername(orthographicCamera);
         lobbyCreate = new LobbyCreate(orthographicCamera);
