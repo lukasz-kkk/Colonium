@@ -47,7 +47,6 @@ public class UpgradeMenu {
                 float distance = (float) Math.sqrt(Math.pow(mouseX - provinceX, 2) + Math.pow(mouseY - provinceY, 2));
                 if (distance <= 20 && Map.provinces[i].owner.equals(Client.clientName)) {
                     targetProvince = Map.provinces[i];
-                    Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "man", 100);
                     show = 1;
                 }
             }
@@ -66,12 +65,15 @@ public class UpgradeMenu {
 
             if (mouseY >= update_1y && mouseY <= update_1y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("PRODUCE SPEED");
+                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "man", 100 * targetProvince.manLvl);
 
             } else if (mouseY >= update_2y && mouseY <= update_2y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("CAPACITY");
+                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "cap", 10 * targetProvince.capLvl);
 
             } else if (mouseY >= update_3y && mouseY <= update_3y + 30 && mouseX >= update_x && mouseX <= update_x + 60) {
                 System.out.println("INCOME");
+                Client.message = MessageUtility.createUpgradeRequest(Client.currentLobby, targetProvince.ID, "inc", 100 * targetProvince.incLvl);
 
             } else {
                 show = 0;

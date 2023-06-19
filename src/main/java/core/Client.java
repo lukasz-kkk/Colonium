@@ -31,7 +31,7 @@ public class Client extends Thread {
     public static int getLobbiesInfo = 0;
     public static int startMapFlag = 0;
 
-    public static Double gold;
+    public static Long gold;
 
     static JSONObject jsonResponse = null;
 
@@ -85,7 +85,8 @@ public class Client extends Thread {
                 jsonResponse = null;
             }
         } catch (IOException | ParseException | InterruptedException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
+            System.err.println(jsonResponse);
         }
     }
 

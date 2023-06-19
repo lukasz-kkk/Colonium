@@ -36,6 +36,9 @@ public class Province {
     public void setValue(int value) {
         this.value = value;
     }
+    public int manLvl = 1;
+    public int capLvl = 1;
+    public int incLvl = 1;
     private int counter = 0;
     private final int timeout = MathUtils.random(60, 160);
     private final int unitsCap = MathUtils.random(30, 60);

@@ -94,23 +94,24 @@ public class MessageUtility {
 
     public static void jsonMapMessageDecoder(JSONObject json){
         if(Map.provinces == null) return;
-        long temp = (Long) json.get("temp");
         JSONObject gold = (JSONObject) json.get("playersgold");
-        Client.gold = (Double) gold.get(Client.clientName);
+        Client.gold = (Long) gold.get(Client.clientName);
 
         JSONArray provinces = (JSONArray) json.get("provinces");
-        long tickRate = (Long) json.get("tickrate");
-
         for (Object provinceObj : provinces) {
             JSONObject province = (JSONObject) provinceObj;
             String owner = (String) province.get("owner");
             long id = (Long) province.get("id");
             long income = (Long) province.get("income");
             long manpower = (Long) province.get("manpower");
+            long capacity = (Long) province.get("capacity");
             long army = (Long) province.get("army");
             if(Map.provinces[(int)id] == null) return;
             Map.provinces[(int)id].owner = owner;
             Map.provinces[(int)id].setValue((int)army);
+            Map.provinces[(int)id].manLvl = (int)manpower;
+            Map.provinces[(int)id].capLvl = (int)capacity;
+            Map.provinces[(int)id].incLvl = (int)income;
         }
        // System.out.println(Client.gold);
     }
