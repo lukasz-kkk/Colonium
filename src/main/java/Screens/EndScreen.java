@@ -74,11 +74,14 @@ public class EndScreen extends ScreenAdapter {
         batch.begin();
         backgroundRender();
         buttonsRender();
+
+        int fontOffset = ArmyStrip.winner.length() * 4;
+
         if(Client.clientName.equals(ArmyStrip.winner))
         {
             fonttext.draw(batch,"You won!!", Boot.INSTANCE.getScreenWidth() / 2f - 100, Boot.INSTANCE.getScreenHeight() / 2f + 180);
         }
-        else fonttext.draw(batch,"Player " + ArmyStrip.winner+" won!!", Boot.INSTANCE.getScreenWidth() / 2f - 270, Boot.INSTANCE.getScreenHeight() / 2f + 180);
+        else fonttext.draw(batch,"Player " + ArmyStrip.winner+" won!!", Boot.INSTANCE.getScreenWidth() / 2f - 270 - fontOffset, Boot.INSTANCE.getScreenHeight() / 2f + 180);
 
         batch.end();
     }

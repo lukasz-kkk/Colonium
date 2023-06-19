@@ -20,10 +20,10 @@ public class TextTyper {
                     if (text.length() > 0)
                         newText = newText.substring(0, text.length() - 1); // Backspace
                 }
-                else if(keyPressed == Input.Keys.SPACE){
+                else if(keyPressed == Input.Keys.SPACE && text.length() <= 15){
                     newText += " ";
                 }
-                else if((keyPressed >= 29 && keyPressed <= 54) || (keyPressed >= 7 && keyPressed <= 16)) {
+                else if(((keyPressed >= 29 && keyPressed <= 54) || (keyPressed >= 7 && keyPressed <= 16)) && text.length() <= 15) {
                     newText += Input.Keys.toString(keyPressed);
                 }
             }

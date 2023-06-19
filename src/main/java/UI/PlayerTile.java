@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import core.Client;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class PlayerTile {
     private void playerRender(int playerID){
         int basicY = SCREEN_HEIGHT / 8;
         int height = 50;
-        int width = 250;
+        int width = 300;
 
         int offsetY = 80 * playerID;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -54,8 +55,10 @@ public class PlayerTile {
 
     private void nameRender(int playerID, int x, int y){
         batch.begin();
-
-        font.draw(batch, players.get(playerID), x + 5, y + 40);
+        String youMark = " (you)";
+        if(!players.get(playerID).equals(Client.clientName))
+            youMark = "";
+        font.draw(batch, players.get(playerID) + youMark, x + 5, y + 40);
 
 
         batch.end();

@@ -92,8 +92,12 @@ public class Province {
         batch.begin();
         font.draw(batch, String.valueOf(value), fontXPosition, fontYPosition);
         font.draw(batch, "Lobby name: " + Client.currentLobby, 10, 1000);
-        if(Client.gold != null)
-            font.draw(batch, "User name: " + Client.clientName + " "  + Client.gold.toString(), 10, 900);
+        font.draw(batch, "User name: " + Client.clientName, 10, 950);
+
+        if(Client.gold != null) {
+            if(Client.gold < 0) Client.gold = 0L;
+            font.draw(batch, "Gold: " + Client.gold.toString(), 10, 900);
+        }
         batch.end();
     }
 
@@ -108,5 +112,17 @@ public class Province {
     public void update(){
 //        if (counter%timeout==0&&value<=unitsCap)value++;
 //        counter++;
+    }
+
+    public int getManLvl() {
+        return manLvl;
+    }
+
+    public int getCapLvl() {
+        return capLvl;
+    }
+
+    public int getIncLvl() {
+        return incLvl;
     }
 }

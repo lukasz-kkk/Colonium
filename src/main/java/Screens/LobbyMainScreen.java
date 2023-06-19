@@ -162,8 +162,7 @@ public class LobbyMainScreen extends ScreenAdapter {
         batch.draw(blackTexture, xOffset, yOffset, 800, 585);
         batch.draw(blackTexture, xOffset, yOffset + 500, 800, 85);
 
-        font.draw(batch, "Lobby name", xOffset + 20, yOffset + 565);
-        font.draw(batch, "Players", xOffset + 570, yOffset + 565);
+        font.draw(batch, "                  ===Lobbies list===", xOffset + 20, yOffset + 565);
 
 
         if (Client.lobbies != null) {

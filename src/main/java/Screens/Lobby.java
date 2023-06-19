@@ -137,7 +137,7 @@ public class Lobby extends ScreenAdapter {
         float xOffset = SCREEN_WIDTH / 3.5f;
         float yOffset = SCREEN_HEIGHT - 800;
 
-        batch.draw(blackTexture, xOffset, yOffset, 800, 700);
+        batch.draw(blackTexture, xOffset, yOffset, 820, 700);
         font.draw(batch, "Players in: " + Client.currentLobby, xOffset + 20, yOffset + 680);
 
 
