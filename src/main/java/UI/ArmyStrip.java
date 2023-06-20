@@ -73,7 +73,7 @@ public class ArmyStrip {
                     if(UnitHandler.unitList.get(j).getOwner().equals(players.get(i))) renderArmy++;
                 }
             }
-            if(renderArmy == 0 && players.size()!=i) losePlayerCounter++;
+            if(renderArmy == 0 && players.size()-1!=i) losePlayerCounter++;
             w = (1000*renderArmy)/totalArmy;
             width = Math.round(w);
             renderArmy=0;
