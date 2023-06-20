@@ -98,7 +98,7 @@ public class GameScreen extends ScreenAdapter {
 
         map_selected.provincesRender();
 
-        //armyStrip.render();
+        armyStrip.render();
 
         upgradeMenu.show();
 
