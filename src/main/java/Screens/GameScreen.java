@@ -79,8 +79,6 @@ public class GameScreen extends ScreenAdapter {
         buttonQuit.update();
         if(buttonQuit.isClicked()) {
             Boot.sm.clickplayer();
-            //Gdx.app.exit();
-            //System.exit(0);
             Client.message = MessageUtility.leaveLobbyJSON();
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
             Client.currentLobby = null;

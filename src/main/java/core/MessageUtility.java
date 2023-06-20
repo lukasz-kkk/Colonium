@@ -102,11 +102,16 @@ public class MessageUtility {
             if(Map.provinces[(int)id] == null) return;
             Map.provinces[(int)id].owner = owner;
             Map.provinces[(int)id].setValue((int)army);
-            Map.provinces[(int)id].manLvl = (int)manpower;
-            Map.provinces[(int)id].capLvl = (int)capacity;
-            Map.provinces[(int)id].incLvl = (int)income;
+            if((int)manpower >= Map.provinces[(int)id].manLvl){
+                Map.provinces[(int)id].manLvl = (int)manpower;
+            }
+            if((int)manpower >= Map.provinces[(int)id].manLvl){
+                Map.provinces[(int)id].capLvl = (int)capacity;
+            }
+            if((int)manpower >= Map.provinces[(int)id].manLvl){
+                Map.provinces[(int)id].incLvl = (int)income;
+            }
         }
-       // System.out.println(Client.gold);
     }
 
     public static List<String> jsonDecodeLobbies(String json) {

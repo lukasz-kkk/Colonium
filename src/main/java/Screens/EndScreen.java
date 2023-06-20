@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import core.Boot;
 import core.Client;
 import core.Launcher;
+import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 
 
@@ -53,7 +54,9 @@ public class EndScreen extends ScreenAdapter {
         font = new BitmapFont(Gdx.files.internal("fonts/Bebas62px.fnt"), Gdx.files.internal("fonts/Bebas62px.png"), false);
         font.getData().setScale(1f);
 
-        this.buttonQuit = new Button("Quit game", 660, 700, 600, 100, batch, font);
+        this.buttonQuit = new Button("Return", 660, 700, 600, 100, batch, font);
+        this.buttonQuit.setAdditionalYOffset(10);
+        this.buttonQuit.setAdditionalXOffset(-10);
     }
 
     public void update() {
@@ -89,8 +92,10 @@ public class EndScreen extends ScreenAdapter {
     public void inputHandle() {
         if (buttonQuit.isClicked()) {
             Boot.sm.clickplayer();
-            Gdx.app.exit();
-            System.exit(0);
+            Client.message = MessageUtility.leaveLobbyJSON();
+            Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
+            Client.currentLobby = null;
+            Client.players.clear();
         }
     }
 

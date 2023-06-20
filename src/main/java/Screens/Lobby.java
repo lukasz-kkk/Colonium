@@ -104,6 +104,7 @@ public class Lobby extends ScreenAdapter {
         }
         if (buttonReturn.isClicked()) {
             Boot.sm.clickplayer();
+            Client.message = MessageUtility.leaveLobbyJSON();
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
         }
         if (buttonRefresh.isClicked()) {
