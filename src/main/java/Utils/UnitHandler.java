@@ -77,7 +77,7 @@ public class UnitHandler {
         float localProvinceX = Map.provinces[destination].getXposition() - Map.provinces[source].getXposition();
         float localProvinceY = Map.provinces[destination].getYposition() - Map.provinces[source].getYposition();
         float OFFSET = 12;
-        float perpSlope = -(localProvinceX / localProvinceY);
+        float perpSlope = -(localProvinceX / (localProvinceY + 0.001f));
 
         float y_2 = (float) Math.pow(perpSlope, 2);
         float x_2 = y_2 + 1;

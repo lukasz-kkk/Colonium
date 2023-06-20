@@ -62,7 +62,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void initMaps(){
-        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_1.json");
+        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_2.json");
     }
 
     public void update() {
@@ -98,7 +98,7 @@ public class GameScreen extends ScreenAdapter {
 
         map_selected.provincesRender();
 
-        armyStrip.render();
+        //armyStrip.render();
 
         upgradeMenu.show();
 
