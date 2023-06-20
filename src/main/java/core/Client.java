@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +19,11 @@ public class Client extends Thread {
     private final static String SERVER_IP = "20.117.176.229";
     private Socket socket;
     private OutputStream output;
+    public static FileWriter fw;
+    public static FileWriter rw;
     private InputStream input;
     private BufferedReader reader;
+    String timeStamp;
 
     public static String message;
     private String response = null;
@@ -70,8 +74,11 @@ public class Client extends Thread {
 
     private void receiveMessage() {
         try {
+            fw = new FileWriter("log.txt",true);
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
+                timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                fw.write("[SERVER] "+timeStamp+ ' ' + response + '\n');
                 jsonResponse = MessageUtility.reciveJSON(response);
                 //System.out.println(jsonResponse);
                 int error = messageReceiver.handleResponse();
@@ -92,11 +99,14 @@ public class Client extends Thread {
 
     public void sendMessage() {
         try {
+            fw = new FileWriter("log.txt",true);
             Writer writer = new OutputStreamWriter(output, StandardCharsets.UTF_8);
             while (true) {
                 if (message != null) {
                     System.out.println(ANSI_GREEN + "Message written: " + message + ANSI_RESET);
                     writer.write(message);
+                    timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                    fw.write("[CLIENT] "+timeStamp+ ' ' + message + '\n');
                     Client.message = null;
                     writer.flush();
                 }

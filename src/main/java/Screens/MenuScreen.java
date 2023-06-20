@@ -20,6 +20,8 @@ import core.Launcher;
 import core.MessageUtility;
 import org.lwjgl.opengl.GL20;
 
+import java.io.IOException;
+
 
 public class MenuScreen extends ScreenAdapter {
 
@@ -90,6 +92,11 @@ public class MenuScreen extends ScreenAdapter {
             Client.message = MessageUtility.disconnectJSON();
             Thread.sleep(100);
             Boot.sm.clickplayer();
+            try {
+                Client.fw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             Gdx.app.exit();
             System.exit(0);
         }
