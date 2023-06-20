@@ -26,30 +26,27 @@ import objects.Province;
 import org.lwjgl.opengl.GL20;
 
 public class GameScreen extends ScreenAdapter {
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private World world;
-    private Box2DDebugRenderer box2DDebugRenderer;
-    private final BitmapFont font;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
+    private final World world;
 
     // game objects
-    private Button buttonQuit;
+    private final Button buttonQuit;
     private Map map_1;
 
-    private Map map_selected;
+    private final Map map_selected;
 
     public static UnitHandler unitHandler;
-    private UpgradeMenu upgradeMenu;
+    private final UpgradeMenu upgradeMenu;
     private PlayerTile playerTile;
     private ArmyStrip armyStrip;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
-        //this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
+        this.camera.position.set(new Vector3(Boot.INSTANCE.getScreenWidth() / 2f, Boot.INSTANCE.getScreenHeight() / 2f, 0));
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, 0), false);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
-        font = new BitmapFont(Gdx.files.internal("fonts/Bebas26px.fnt"), Gdx.files.internal("fonts/Bebas26px.png"), false);
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/Bebas26px.fnt"), Gdx.files.internal("fonts/Bebas26px.png"), false);
         font.getData().setScale(1f);
 
         unitHandler = new UnitHandler();
@@ -65,7 +62,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void initMaps(){
-        this.map_1 = new Map(27, this, batch);
+        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_1.json");
     }
 
     public void update() {
@@ -103,10 +100,12 @@ public class GameScreen extends ScreenAdapter {
 
         map_selected.provincesRender();
 
+        armyStrip.render();
+
         upgradeMenu.show();
 
         playerTile.render();
-        armyStrip.render();
+
 
         batch.begin();
         buttonQuit.render();

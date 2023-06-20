@@ -36,11 +36,11 @@ public class PlayerTile {
     }
 
     private void playerRender(int playerID){
-        int basicY = SCREEN_HEIGHT / 8;
-        int height = 50;
+        int basicY = 20;
+        int height = 40;
         int width = 300;
 
-        int offsetY = 80 * playerID;
+        int offsetY = 60 * playerID;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         shapeRenderer.setColor(Color.BLACK);
@@ -58,7 +58,7 @@ public class PlayerTile {
         String youMark = " (you)";
         if(!players.get(playerID).equals(Client.clientName))
             youMark = "";
-        font.draw(batch, players.get(playerID) + youMark, x + 5, y + 40);
+        font.draw(batch, players.get(playerID) + youMark, x + 5, y + 37);
 
 
         batch.end();

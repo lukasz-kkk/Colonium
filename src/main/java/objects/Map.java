@@ -39,17 +39,16 @@ public class Map {
     int[][] blobCoordinates;
     Arrow arrow = new Arrow();
 
-    public Map(int numberOfProvinces, GameScreen gameScreen, SpriteBatch batch) {
-        Map.numberOfProvinces = numberOfProvinces;
+    public Map(GameScreen gameScreen, SpriteBatch batch, String json) {
         this.gameScreen = gameScreen;
         this.batch = batch;
         try {
-            jsonRead();
+            jsonRead(json);
         } catch (Exception e) {
             System.out.println(e);
         }
         this.texture = new Texture("white.png");
-        this.backgroundTexture = new Texture("maps/prov1_borders.png");
+        this.backgroundTexture = new Texture(pngPath);
         shapeRenderer = new ShapeRenderer();
         Boot.sm.loopplayer();
         provincesInit();
@@ -108,14 +107,6 @@ public class Map {
 
         Color color = (Client.playersColors.get(provinces[polygonID].owner));
         if(color == null) return;
-        //if (!provinces[polygonID].owner.equals("unowned")) {
-        //    float factor = 0.3f;
-        //    float r = Math.min(color.r + factor, 1.0f);
-        //    float g = Math.min(color.g + factor, 1.0f);
-        //    float b = Math.min(color.b + factor, 1.0f);
-        //    polySprite[polygonID].setColor(r, g, b, 1.0f);
-        //    return;
-        //}
 
         polySprite[polygonID].setColor(color);
     }
@@ -140,13 +131,12 @@ public class Map {
     }
 
 
-    private void jsonRead() throws Exception {
-        Object obj = new JSONParser().parse(new FileReader("src/main/resources/maps/map_1.json"));
+    private void jsonRead(String json) throws Exception {
+        Object obj = new JSONParser().parse(new FileReader(json));
         JSONObject jsonObject = (JSONObject) obj;
-        pngPath = (String) jsonObject.get("maps/prov1_borders.png");
+        pngPath = (String) jsonObject.get("png_path");
         JSONArray provinces = (JSONArray) jsonObject.get("provinces");
         Iterator<?> iterator = provinces.iterator();
-
 
         vertices = new float[provinces.size()][];
         blobCoordinates = new int[provinces.size()][];
@@ -175,6 +165,7 @@ public class Map {
             blobCoordinates[ind] = blobCoordsArray;
             ind++;
         }
+        numberOfProvinces = ind;
     }
 }
 

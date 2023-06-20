@@ -1,6 +1,6 @@
 {
   "name": "map_1.png",
-  "png_path": "prov1_borders.png",
+  "png_path": "maps/prov1_borders.png",
   "provinces": [{
     "id": 0,
     "income": 1,
