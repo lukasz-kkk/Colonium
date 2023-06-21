@@ -26,7 +26,6 @@ public class Launcher {
             randomName = args[0];
         }
 
-
         client = new Client();
         client.start();
         config = new Lwjgl3ApplicationConfiguration();
@@ -35,6 +34,7 @@ public class Launcher {
         config.setForegroundFPS(60);
         config.useVsync(true);
         config.setTitle("Colonium");
+        config.setWindowIcon("icon.png");
 
         //config.setMaximized(true);
         config.setWindowedMode(1920, 1020);
