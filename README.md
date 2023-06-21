@@ -4,7 +4,7 @@
 
 
 
-#API
+## API
 Game Server API Documentation
 set_name
 Set the player's nickname.
