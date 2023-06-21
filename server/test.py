@@ -398,9 +398,3 @@ except KeyboardInterrupt:
     os._exit(os.EX_OK)
 
 
-##TODO winning condition
-##time for attack
-##gold/units better generation
-##delete empty lobbies
-##check player name for repetition DONE
-##select map custom json
