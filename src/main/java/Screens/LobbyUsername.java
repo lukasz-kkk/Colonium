@@ -116,17 +116,25 @@ public class LobbyUsername extends ScreenAdapter {
 
     private void userContinue() {
         if(usernameValidate() != 0) return;
-        Client.clientName = username;
-        Client.message = MessageUtility.setNameJSON(Client.clientName);
+        Client.message = MessageUtility.setNameJSON(username);
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Client.getLobbiesInfo = 1;
-        Client.message = MessageUtility.createLobbiesRequest();
+        if(Client.errorOccured == 1 && Client.errorMessage.equals("Nickname already exists")){
+            System.err.println("Nickname already exists");
+            Client.errorOccured = 0;
+            warning = "Nickname already exists";
+            username = "";
 
-        Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
+        }else{
+            Client.clientName = username;
+            Client.getLobbiesInfo = 1;
+            Client.message = MessageUtility.createLobbiesRequest();
+
+            Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
+        }
     }
 
     private int usernameValidate(){

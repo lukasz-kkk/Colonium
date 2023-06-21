@@ -1,6 +1,7 @@
 package core;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Interpolation;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -22,6 +23,8 @@ public class Client extends Thread {
     private BufferedReader reader;
 
     public static String message;
+    public static String errorMessage = "";
+    public static int errorOccured = 0;
     private String response = null;
     public static List<String> lobbies = new ArrayList<>();
     public static List<String> players = new ArrayList<>();
@@ -73,12 +76,14 @@ public class Client extends Thread {
             reader = new BufferedReader(new InputStreamReader(input));
             while ((response = reader.readLine()) != null) {
                 jsonResponse = MessageUtility.reciveJSON(response);
-                //System.out.println(jsonResponse);
+               //System.out.println(jsonResponse);
                 int error = messageReceiver.handleResponse();
                 if (error != SUCCESS) {
                     System.out.println(ANSI_RED + "Error code: " + error + ANSI_RESET);
                     System.out.println(ANSI_RED + "Error Caused by response: " + response + ANSI_RESET);
-                    return;
+                    errorMessage = jsonResponse.get("message").toString();
+                    System.out.println(errorOccured);
+                    System.out.println(errorMessage);
                 }
 
                 Thread.sleep(100);
