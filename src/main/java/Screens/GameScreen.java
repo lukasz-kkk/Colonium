@@ -62,7 +62,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void initMaps(){
-        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_1.json");
+        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_2.json");
     }
 
     public void update() {
@@ -83,6 +83,7 @@ public class GameScreen extends ScreenAdapter {
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
             Client.currentLobby = null;
             Client.players.clear();
+            Client.startMapFlag = 0;
         }
     }
 

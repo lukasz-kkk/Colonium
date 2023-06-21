@@ -96,6 +96,7 @@ public class EndScreen extends ScreenAdapter {
             Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
             Client.currentLobby = null;
             Client.players.clear();
+            Client.startMapFlag = 0;
         }
     }
 
