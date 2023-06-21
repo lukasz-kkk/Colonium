@@ -1,7 +1,7 @@
 # Colonium
 
 ## RULES
-#Objective
+# Objective
 The objective of Colonium is to achieve global domination by capturing and controlling as many territories as possible. Outsmart your opponents, employ tactical maneuvers, and claim victory by having the largest empire on the map.
 
 # GAMEPLAY
