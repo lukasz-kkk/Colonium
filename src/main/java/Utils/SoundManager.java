@@ -15,7 +15,7 @@ public class SoundManager
 
     public Sound[] moves = {Gdx.audio.newSound(Gdx.files.internal("sounds/1.mp3")),Gdx.audio.newSound(Gdx.files.internal("sounds/2.mp3")),Gdx.audio.newSound(Gdx.files.internal("sounds/3.mp3")),Gdx.audio.newSound(Gdx.files.internal("sounds/4.mp3")),Gdx.audio.newSound(Gdx.files.internal("sounds/5.mp3")),Gdx.audio.newSound(Gdx.files.internal("sounds/7.mp3"))};
     public Sound movesound = Gdx.audio.newSound(Gdx.files.internal("sounds/movesound.mp3"));
-    public Sound loopsound = Gdx.audio.newSound(Gdx.files.internal("sounds/ameno.mp3"));
+    public Sound loopsound = Gdx.audio.newSound(Gdx.files.internal("sounds/Conquest_of_Paradise.mp3"));
     public Sound clicksound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickv2.wav"));
     public Sound errorsound = Gdx.audio.newSound(Gdx.files.internal("sounds/error.wav"));
     public Sound upgradesound = Gdx.audio.newSound(Gdx.files.internal("sounds/upgrade.wav"));
@@ -25,24 +25,24 @@ public class SoundManager
         int i = rnd.nextInt(6);
         if(lastMoveSound==-1)
         {
-            lastMoveSound = moves[i].play(0.3f);
+            lastMoveSound = moves[i].play(0.15f);
         }
         else
         {
             movesound.stop(lastMoveSound);
-            lastMoveSound = moves[i].play(0.3f);
+            lastMoveSound = moves[i].play(0.15f);
         }
     }
     public void upgradeplayer()
     {
         if(lasUpgradeSound==-1)
         {
-            lasUpgradeSound = upgradesound.play(0.1f);
+            lasUpgradeSound = upgradesound.play(0.15f);
         }
         else
         {
             upgradesound.stop(lasUpgradeSound);
-            lasUpgradeSound = upgradesound.play(0.1f);
+            lasUpgradeSound = upgradesound.play(0.15f);
         }
     }
     public void clickplayer()

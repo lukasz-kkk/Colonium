@@ -36,6 +36,7 @@ public class Definitions {
             Color.MAGENTA,
             Color.LIME,
             Color.GOLD,
-            Color.SALMON
+            Color.SALMON,
+            Color.CORAL
     };
 }

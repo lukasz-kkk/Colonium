@@ -31,7 +31,6 @@ public class GameScreen extends ScreenAdapter {
     private final World world;
 
     // game objects
-    private final Button buttonQuit;
     private Map map_1;
 
     private final Map map_selected;
@@ -52,17 +51,13 @@ public class GameScreen extends ScreenAdapter {
         unitHandler = new UnitHandler();
         this.upgradeMenu = new UpgradeMenu();
 
-        this.buttonQuit = new Button("X", 1800, 100, 50, 50, batch, font);
-        this.buttonQuit.setAdditionalYOffset(20);
-        this.buttonQuit.setAdditionalXOffset(3);
-
         initMaps();
 
         map_selected = map_1;
     }
 
     public void initMaps(){
-        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_1.json");
+        this.map_1 = new Map(this, batch, "src/main/resources/maps/map_2.json");
     }
 
     public void update() {
@@ -76,14 +71,6 @@ public class GameScreen extends ScreenAdapter {
         map_selected.update();
         unitHandler.update();
         upgradeMenu.update();
-        buttonQuit.update();
-        if(buttonQuit.isClicked()) {
-            Boot.sm.clickplayer();
-            Client.message = MessageUtility.leaveLobbyJSON();
-            Boot.INSTANCE.setScreen(Boot.lobbyMainScreen);
-            Client.currentLobby = null;
-            Client.players.clear();
-        }
     }
 
     @Override
@@ -106,7 +93,6 @@ public class GameScreen extends ScreenAdapter {
 
 
         batch.begin();
-        buttonQuit.render();
         batch.end();
     }
 

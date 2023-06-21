@@ -96,7 +96,7 @@ public class Province {
 
         if(Client.gold != null) {
             if(Client.gold < 0) Client.gold = 0L;
-            font.draw(batch, "Gold: " + Client.gold.toString(), 10, 900);
+            font.draw(batch, "Gold: " + Client.gold.toString(), 1700, 1000);
         }
         batch.end();
     }
