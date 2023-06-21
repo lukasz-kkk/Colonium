@@ -9,19 +9,19 @@ Game Server API Documentation
 set_name
 Set the player's nickname.
 
-Request:
+### Request:
 
     type: "set_name"
     value: [string] The desired nickname for the player.
 
 
-Response:
+### Response:
 
     Success: The player's nickname is successfully set.
     Error: If the nickname already exists.
 
 
-Example:
+### Example:
 
 Request:
 {
@@ -39,22 +39,22 @@ Response (Error):
 attack
 Initiate an attack in the game.
 
-Request:
+### Request:
 
     type: "attack"
     src: [string] The source of the attack.
     dst: [string] The destination of the attack.
 
 
-Response:
+### Response:
 
     Success: The attack is initiated.
     Error: If the player or lobby does not exist.
 
 
-Example:
+### Example:
 
-Request:
+### Request:
 {
 "type": "attack",
 "src": "SourceLocation",
@@ -71,19 +71,19 @@ Response (Error):
 create_lobby
 Create a new lobby.
 
-Request:
+### Request:
 
     type: "create_lobby"
     lobby_name: [string] The name of the lobby to be created.
 
 
-Response:
+### Response:
 
     Success: The lobby is successfully created.
     Error: If the lobby name already exists or other errors occur.
 
 
-Example:
+### Example:
 Request:
 {
 "type": "create_lobby",
@@ -100,13 +100,13 @@ Response (Error):
 join_lobby
 Join an existing lobby.
 
-Request:
+### Request:
 
     type: "join_lobby"
     lobby_name: [string] The name of the lobby to join.
 
 
-Response:
+### Response:
 
     Success: The player successfully joins the lobby.
     Error: If the lobby does not exist or other errors occur.
