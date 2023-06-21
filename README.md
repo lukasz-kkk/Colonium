@@ -6,7 +6,7 @@ The objective of Colonium is to achieve global domination by capturing and contr
 
 # GAMEPLAY
 
-Map:Each territory is represented by a cell on the grid.
+Map: Each territory is represented by a cell on the grid.
 
 Territories: At the beginning of the game, each player is assigned a home territory. You can recognize your territories by their unique color.
 
