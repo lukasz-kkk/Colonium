@@ -127,3 +127,9 @@ Response (Error):
 {
 "error": "Failed to join lobby"
 }
+
+### Technologies
+- LibGDX
+- Java
+- Python
+
