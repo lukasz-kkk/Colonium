@@ -10,7 +10,7 @@ Map: Each territory is represented by a cell on the grid.
 
 Territories: At the beginning of the game, each player is assigned a home territory. You can recognize your territories by their unique color.
 
-Expansion: You can choose to expand your empire by capturing adjacent territories that are not controlled by any player. To capture a territory, grag your army from your territory. If successful, the territory will become a part of your empire.
+Expansion: You can choose to expand your empire by capturing adjacent territories that are not controlled by any player. To capture a territory, drag your army from your territory. If successful, the territory will become a part of your empire.
 
 Upgrades: Upgrades can enhance your territories manpower, increase your income, or upgrade your army speed production. Spend your money wisely to gain an advantage over your opponents.
 
