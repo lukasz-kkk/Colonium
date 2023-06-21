@@ -1,12 +1,18 @@
 import socket
 import threading
 import os
+from barka import *
 from utils import *
 import time
 from player import Player
 from map import *
 from signal import signal, SIGPIPE, SIG_DFL  
 import sys
+MAPNAME='map_1.json'
+INCOMESPEED=0.04
+
+
+NAMES=[]
 signal(SIGPIPE,SIG_DFL) 
 PLAYERS=[]
 LOBBIES=[]
@@ -24,7 +30,7 @@ class Lobby():
         self.started = 0
         self.ended=0
         self.winner=None
-        f=open('map_1.json','r')
+        f=open(MAPNAME,'r')
         x=json.loads(f.read())
         f.close()
         self.starting_positions=x["starting_positions"]
@@ -36,11 +42,23 @@ class Lobby():
         thread = threading.Thread(target=self.creator)
         thread.start()
     def creator(self):
-        self.game=Map('map_1.json') ##TODO starting positions
+        self.game=Map(MAPNAME) ##TODO starting positions
         while True:
             if self.started == 1:
                 self.game.updateMap()
                 #print(time.time()-st)
+                for pl in self.players:
+                    for prov in self.game.provinces:
+                        if prov.owner==pl.name:
+                            #if ##cheat code
+                            if pl.name=="ACZI":
+                                pl.goldprogress += INCOMESPEED*5*prov.income
+                            else:
+                                pl.goldprogress += INCOMESPEED*prov.income
+                            if pl.goldprogress>1:
+                                pl.gold+=int(pl.goldprogress)
+                                pl.goldprogress=0
+                            
                 time.sleep(1/self.game.tickrate)
     def start(self):
         if self.started==1:
@@ -54,7 +72,7 @@ class Lobby():
         t=self.game.temp
         while t==self.game.temp:
             #time.sleep(2)
-            self.game.reset("map_1.json")
+            self.game.reset(MAPNAME)
     def show_lobby(self):
         out=''
         for a in self.game.provinces:
@@ -67,6 +85,7 @@ class Player():
     def __init__(self,conn,addr) -> None:
         self.connection=conn
         self.address=addr
+        self.goldprogress=0
         self.connected=True
         self.name="None"
         self.gold=0
@@ -120,7 +139,16 @@ class Player():
                 error=None
                 
                 if order["type"]=="set_name": ##SETNAME
-                    
+                    if order["value"] not in NAMES:
+                        self.name=order["value"]
+                        NAMES.append(order["value"])
+                        log("NAME CHANGED TO : "+str(order["value"]),4)
+                        self.send_ok()
+                        return
+                    else:
+                        self.name=order["value"]
+                        self.send_error("Nickname already exists")
+                        return
                     for lbb in LOBBIES:
                         for pl in lbb.players:
                             if pl.name==order["value"]:
@@ -150,12 +178,15 @@ class Player():
                     return
                 if order["type"]=="join_lobby": ##JOINLOBBY
                     ok=False
-                    ok=self.join_lobby(order["lobby_name"])
-                    if ok:
-                        log(f"[{self.name} JOINED LOBBY {order['lobby_name']}]",4)
-                        self.send_ok()
-                    else:
-                        self.send_error("failed to join lobby")
+                    try:
+                        ok=self.join_lobby(order["lobby_name"])
+                        if ok:
+                            log(f"[{self.name} JOINED LOBBY {order['lobby_name']}]",4)
+                            self.send_ok()
+                        else:
+                            self.send_error("failed to join lobby")
+                    except:
+                        pass
                     return
                 if order["type"]=="show_lobby": ##SHOW LOBBY
                     for lbb in LOBBIES:
@@ -197,19 +228,32 @@ class Player():
                     for lbb in LOBBIES:
                         for pl in lbb.players:
                             if pl.name==self.name:
-                                self.send_response_to_lobby('{"type":"player_left","nickname":'+self.name+'}')
+                                #self.send_response_to_lobby('{"type":"player_left","nickname":'+self.name+'}')
                                 lbb.players.remove(pl)
                                 if len(lbb.players)==0:
                                     LOBBIES.remove(lbb)
                     
-                    log(f"[{self.name} LEFT LOBBY {order['lobby_name']}]",4) ##TODO optimalize
+                    
                     self.send_ok()
                     return
                 if order["type"]=="upgrade":
                     for lbb in LOBBIES:
-                        if order["lobby_name"] == lbb.name:
-                            pass
-                    return
+                        if order["lobbyname"] == lbb.name:
+                            for prov in lbb.game.provinces:
+                                if order["province_id"] == prov.id:
+                                    if order["upgrade"]=="man":
+                                        prov.manpower+=1
+                                    if order["upgrade"]=="inc":
+                                        prov.income+=1
+                                    if order["upgrade"]=="cap":
+                                        prov.capacity+=10 #TODO ADD GOLD
+                                    self.gold-= order["cost"]
+                                    print(order["lobbyname"],order["province_id"],order["upgrade"])
+                                    self.send_ok()
+
+                                   
+                        
+                    
                 if order["type"]=="disconnect":
                     for lbb in LOBBIES:
                         for pl in lbb.players:
@@ -220,18 +264,16 @@ class Player():
                                     LOBBIES.remove(lbb)
                     print(f"{self.name} DISCONNECTED")
                     
-                    #self.connected=False
-                    #self.connection.close()
+                    self.connected=False
+                    self.connection.close()
                     del self
-                    
-                    for lbb in LOBBIES:
-                        print(lbb.players)
                     return
 
 
                 else:
-                    log(f"[RECIVED MESSAGE]",3)
-                    self.send_error("no such endpoint"+'\n')
+                    log(f"[RECIVED ORDER]",3)
+                    #print(self.msg)
+                    #self.send_error("no such endpoint"+'\n')
                     return
                 
 
@@ -239,7 +281,8 @@ class Player():
         except Exception as p:
                 print("ERROR")
                 print(self.msg)
-                
+                print(p)
+                print("ERROR")
                 self.send_error(p)
                 
     def run(self):
@@ -264,8 +307,7 @@ class Player():
                     print(self.msg)
                     print(p)
                     self.send_error(p)
-                    continue
-                continue
+                    
     
 
         
@@ -273,9 +315,8 @@ class Player():
         try:
             self.connection.sendall(msg.encode('utf-8'))
         except BrokenPipeError: ##TODO
-            pass
-        except BrokenPipeError: ##TODO
-            pass
+            print("BROKENPIPE")
+
     def send_response_to_lobby(self, msg):
         global LOBBIES
         for lbb in LOBBIES:
@@ -288,21 +329,27 @@ class Player():
 def send_map():
     while True:
         global LOBBIES
-        for lbb in LOBBIES:
-            if lbb.started==0:
-                continue
-            gold={}
-            goldarr=[]
-            for pl in lbb.players:
-                goldarr.append({pl.name:pl.gold})
-                gold.update({"playersgold":goldarr})
-            for pl in lbb.players:
-                temp=extract_dict(lbb.game)
-                #print(temp)
-                out=str(temp).replace("'",'"').replace("None",'null')
-                pl.respond(out+"\n") ##TODO catch broken pipe
-                #print(f"sent map to {pl.name} {out[:200]}")
-        time.sleep(0.2)
+        try:
+            for lbb in LOBBIES:
+                if lbb.started==0:
+                    continue
+                gold={}
+                goldarr=[]
+                for pl in lbb.players:
+                    gold.update({pl.name:pl.gold})
+                    #gold.update({"playersgold":goldarr})
+                for pl in lbb.players:
+                    temp=extract_dict(lbb.game)
+                    temp.update({"playersgold":gold})
+                    #print(temp)
+                    out=str(temp).replace("'",'"').replace("None",'null')
+                    pl.respond(out+"\n") ##TODO catch broken pipe
+                    #print(f"sent map to {pl.name} {out[:200]}")
+            time.sleep(0.2)
+        except Exception as e:
+            print(e)
+            print("FAILED TO UDPDATE")
+            continue
 
 def handle_client(conn,addr):
     global player_count
@@ -351,9 +398,3 @@ except KeyboardInterrupt:
     os._exit(os.EX_OK)
 
 
-##TODO winning condition
-##time for attack
-##gold/units better generation
-##delete empty lobbies
-##check player name for repetition DONE
-##select map custom json

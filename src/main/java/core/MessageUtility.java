@@ -105,10 +105,10 @@ public class MessageUtility {
             if((int)manpower >= Map.provinces[(int)id].manLvl){
                 Map.provinces[(int)id].manLvl = (int)manpower;
             }
-            if((int)manpower >= Map.provinces[(int)id].manLvl){
+            if((int)capacity >= Map.provinces[(int)id].capLvl){
                 Map.provinces[(int)id].capLvl = (int)capacity;
             }
-            if((int)manpower >= Map.provinces[(int)id].manLvl){
+            if((int)income >= Map.provinces[(int)id].incLvl){
                 Map.provinces[(int)id].incLvl = (int)income;
             }
         }

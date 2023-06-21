@@ -2,6 +2,8 @@ package core;
 
 import Screens.GameScreen;
 
+import java.lang.ref.Cleaner;
+
 import static Utils.Definitions.*;
 
 public class MessageReceiver {
@@ -28,6 +30,9 @@ public class MessageReceiver {
             case "start_map":
                 Client.startMapFlag = 1;
                 return SUCCESS;
+            case "failed":
+                Client.errorOccured = 1;
+                return FAIL;
             default:
                 return UNKNOWN_TYPE_ERROR;
         }

@@ -71,16 +71,25 @@ public class LobbyCreate extends ScreenAdapter {
     private void createContinue() throws InterruptedException {
         if(lobbynameValidate() != 0) return;
 
+        Client.message = MessageUtility.createLobbyJSON(lobbyName);
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (Exception e){
             System.out.println(e);
         }
-        Client.message = MessageUtility.createLobbyJSON(lobbyName);
-        Client.currentLobby = lobbyName;
-        Thread.sleep(100);
-        refreshLobbiesList();
-        Boot.INSTANCE.setScreen(Boot.lobby);
+        if(Client.errorOccured == 1 && Client.errorMessage.equals("failed to create lobby"))
+        {
+            warning = "failed to create lobby";
+            lobbyName = "";
+            Client.errorOccured = 0;
+        }else{
+            System.out.println(Client.errorOccured);
+            System.out.println(Client.errorMessage);
+            Client.currentLobby = lobbyName;
+            Thread.sleep(100);
+            refreshLobbiesList();
+            Boot.INSTANCE.setScreen(Boot.lobby);
+        }
     }
 
     public void update() throws InterruptedException {
